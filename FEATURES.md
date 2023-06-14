@@ -6,7 +6,6 @@
 
 ## Section 2: Headlining Features
 
-
 ## Section 3: Power Ups
 
 
