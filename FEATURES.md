@@ -5,12 +5,10 @@
 - Persistence
 
 ## Section 2: Headlining Features
+- Task Queue
+- Menu Bar & Shortcuts
 
 ## Section 3: Power Ups
-
-
-## Section 3: Power Ups
-
 
 ## Section 4: Quality of Life
 
