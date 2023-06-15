@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class JournalModel {
   private Map<Day, List<Task>> taskMap = new HashMap<>();

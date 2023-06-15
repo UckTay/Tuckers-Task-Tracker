@@ -3,6 +3,7 @@ package cs3500.pa05.model.json;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import cs3500.pa05.model.Day;
+import cs3500.pa05.model.Event;
 import cs3500.pa05.model.TaskStatus;
 import java.time.Duration;
 import java.time.LocalTime;
@@ -15,5 +16,8 @@ public record EventJson(
     @JsonProperty("startTime") LocalTime startTime,
     @JsonProperty("duration") Duration duration
     ) {
+    public Event toEvent() {
+        return new Event(day, name, description, startTime, duration);
+    }
 
 }
