@@ -2,27 +2,22 @@ package cs3500.pa05.model;
 
 import static java.util.stream.Collectors.toList;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BujoReader {
   List<Entry> entryList = new ArrayList<>();
 
-  public List<Task> getTasks() {
-    List<Task> list = new ArrayList<>();
-    for (Entry entry : entryList) {
-      if (entry.isTask()) {
-        list.add((Task) entry);
-      }
-    }
-    return list;
+  public void readBujo(Path path) {
+
   }
 
-  public List<Event> getEvents() {
-    List<Event> list = new ArrayList<>();
+  public <T> List<T> getEntry(Class<T> entryType) {
+    List<T> list = new ArrayList<>();
     for (Entry entry : entryList) {
-      if (entry.isEvent()) {
-        list.add((Event) entry);
+      if (entryType.isInstance(entry)) {
+        list.add(entryType.cast(entry));
       }
     }
     return list;

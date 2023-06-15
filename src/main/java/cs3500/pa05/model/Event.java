@@ -1,7 +1,9 @@
 package cs3500.pa05.model;
 
+import cs3500.pa05.model.json.EventJson;
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class Event extends Entry {
 
@@ -22,8 +24,8 @@ public class Event extends Entry {
     return duration;
   }
 
-  @Override
-  public boolean isEvent() {
-    return true;
+  public EventJson toJson() {
+    return new EventJson(super.getDayOfTheWeek(), super.getName(), super.getDescription(), startTime, duration);
   }
+
 }

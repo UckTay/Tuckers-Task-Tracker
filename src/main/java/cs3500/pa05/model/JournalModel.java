@@ -1,5 +1,6 @@
 package cs3500.pa05.model;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,15 @@ public class JournalModel {
 
   }
 
-  public void readBujo {
+  public void loadBujo(Path path) {
+    new BujoReader();
+  }
+
+  public void saveBujo(Path path) {
+    new BujoWriter();
+  }
+
+  public void newBujo() {
 
   }
 
@@ -31,15 +40,11 @@ public class JournalModel {
     taskMap.keySet().forEach(day -> tasks.addAll(taskMap.get(day)));
     return tasks;
   }
-
   public void addTask(Task task) {
-    taskMap.get(task.dayOfTheWeek).add(task);
+    taskMap.get(task.getDayOfTheWeek()).add(task);
   }
   public void addEvent(Event event) {
-    eventMap.get(event.dayOfTheWeek).add(event);
+    eventMap.get(event.getDayOfTheWeek()).add(event);
   }
-
-
-
 
 }

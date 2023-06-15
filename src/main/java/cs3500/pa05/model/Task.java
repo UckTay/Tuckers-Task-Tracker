@@ -1,30 +1,22 @@
 package cs3500.pa05.model;
 
+import cs3500.pa05.model.json.EventJson;
+import cs3500.pa05.model.json.TaskJson;
+
 public class Task extends Entry {
-  private TaskStatus taskStatus = TaskStatus.INCOMPLETE;
-  private Long creationTime = creationTime = System.currentTimeMillis() / 1000L;
-
-  public Task(Day dayOfTheWeek, String name, String description) {
+  private TaskStatus taskStatus;
+  public Task(Day dayOfTheWeek, String name, String description, TaskStatus status) {
     super(dayOfTheWeek, name, description);
-  }
-
-  public Task(Day dayOfTheWeek, String name) {
-    super(dayOfTheWeek, name);
+    this.taskStatus = status;
   }
 
   public TaskStatus getTaskStatus() {
     return taskStatus;
   }
-
-  public Long getCreationTime() {
-    return creationTime;
-  }
-
   public void markTask(TaskStatus status) {
   }
 
-  @Override
-  public boolean isTask() {
-    return true;
+  public TaskJson toJson() {
+    return new TaskJson(super.getDayOfTheWeek(), super.getName(), super.getDescription(), taskStatus);
   }
 }

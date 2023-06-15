@@ -1,8 +1,7 @@
 package cs3500.pa05.controller;
 
 import cs3500.pa05.model.JournalModel;
-import cs3500.pa05.view.GUIView;
-import cs3500.pa05.view.View;
+import cs3500.pa05.view.GUIViewImpl;
 
 /**
  * Java Decks
@@ -10,12 +9,37 @@ import cs3500.pa05.view.View;
 public class JournalController implements Controller {
   JournalModel javaJournal;
 
-  View view;
+  GUIViewImpl GUIViewImpl;
+  JournalModel model;
 
+  public JournalController(GUIViewImpl GUIViewImpl, JournalModel model) {
+    this.GUIViewImpl = GUIViewImpl;
+    this.model = model;
 
+  }
 
-  public JournalController(View view) {
-    this.view = view;
+  public void setupButtons() {
+
+  }
+
+  public void newBujo() {
+
+  }
+
+  public void loadBujo() {
+
+  }
+
+  public void saveBujo() {
+
+  }
+
+  public void newTask() {
+
+  }
+
+  public void newEvent() {
+
   }
 
   @Override

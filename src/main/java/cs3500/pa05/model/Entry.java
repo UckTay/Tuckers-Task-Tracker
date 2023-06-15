@@ -2,9 +2,10 @@ package cs3500.pa05.model;
 
 public abstract class Entry {
 
-  protected Day dayOfTheWeek;
-  protected String name;
-  protected String description;
+  private Day dayOfTheWeek;
+  private String name;
+  private String description;
+  private int index;
 
 
   public Entry(Day dayOfTheWeek, String name, String description) {
@@ -29,12 +30,8 @@ public abstract class Entry {
     return description;
   }
 
-  public boolean isEvent() {
-    return false;
-  }
-
-  public boolean isTask() {
-    return false;
+  public int getIndex() {
+    return index;
   }
 
 }
