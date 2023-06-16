@@ -1,7 +1,11 @@
 package cs3500.pa05;
 
+import cs3500.pa05.controller.Controller;
 import cs3500.pa05.controller.JournalController;
 import cs3500.pa05.model.BujoWriter;
+import cs3500.pa05.model.JournalModel;
+import cs3500.pa05.view.GUIView;
+import cs3500.pa05.view.GUIViewImpl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,11 +34,11 @@ public class Driver extends Application {
    */
   @Override
   public void start(Stage primaryStage) throws Exception {
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(getClass().getClassLoader().getResource("test.fxml"));
-    Parent root = loader.load();
-    Scene scene = new Scene(root);
-    primaryStage.setScene(scene);
+    JournalModel model = new JournalModel();
+    GUIView view = new GUIViewImpl();
+    Controller controller = new JournalController(view, model);
+    primaryStage.setScene(view.load(controller));
+    controller.run();
     primaryStage.show();
   }
 }

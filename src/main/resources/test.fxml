@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Scene fx:id="scene" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <root>
+      <AnchorPane fx:id="mainPane" prefHeight="900.0" prefWidth="2000.0">
+         <children>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1500.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="431.0" prefWidth="1500.0">
+                     <children>
+                        <ScrollPane prefHeight="431.0" prefWidth="330.0">
+                           <content>
+                              <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="330.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="90.0" prefWidth="209.0" text="Sunday">
+                                       <font>
+                                          <Font size="46.0" />
+                                       </font>
+                                    </Label>
+                                    <VBox fx:id="sunday" prefHeight="200.0" prefWidth="100.0" />
+                                 </children>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="431.0" prefWidth="330.0" vbarPolicy="ALWAYS">
+                           <content>
+                              <AnchorPane fx:id="monday" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="91.0" prefWidth="333.0" text="Monday">
+                                       <font>
+                                          <Font size="46.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="431.0" prefWidth="330.0" vbarPolicy="ALWAYS">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="91.0" prefWidth="333.0" text="Tuesday">
+                                       <font>
+                                          <Font size="46.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="431.0" prefWidth="330.0" vbarPolicy="ALWAYS">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="91.0" prefWidth="333.0" text="Wednesday">
+                                       <font>
+                                          <Font size="46.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="431.0" prefWidth="1500.0">
+                     <children>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="431.0" prefWidth="330.0" vbarPolicy="ALWAYS">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="91.0" prefWidth="333.0" text="Thursday">
+                                       <font>
+                                          <Font size="46.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="431.0" prefWidth="330.0" vbarPolicy="ALWAYS">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="91.0" prefWidth="333.0" text="Friday">
+                                       <font>
+                                          <Font size="46.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane prefHeight="431.0" prefWidth="330.0" vbarPolicy="ALWAYS">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="91.0" prefWidth="333.0" text="Saturday">
+                                       <font>
+                                          <Font size="46.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="28.0" prefWidth="1500.0" useSystemMenuBar="true">
+               <menus>
+                  <Menu mnemonicParsing="false" text="File">
+                     <items>
+                        <Menu mnemonicParsing="false" text="Create">
+                           <items>
+                              <MenuItem fx:id="newEventButton" mnemonicParsing="false" text="Create New Event">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="E" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
+                              <MenuItem mnemonicParsing="false" text="New Task">
+                                 <accelerator>
+                                    <KeyCodeCombination alt="UP" code="T" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                                 </accelerator>
+                              </MenuItem>
+                           </items>
+                        </Menu>
+                        <MenuItem mnemonicParsing="false" text="Save">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="S" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" text="Open">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="O" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" text="New Week">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="N" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                           </accelerator>
+                        </MenuItem>
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="View">
+                     <items>
+                        <CheckMenuItem mnemonicParsing="false" text="Always Show Task Queue">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="F" control="UP" meta="DOWN" shift="DOWN" shortcut="UP" />
+                           </accelerator>
+                        </CheckMenuItem>
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+            <VBox layoutX="1500.0" prefHeight="900.0" prefWidth="500.0">
+               <children>
+                  <HBox prefHeight="900.0" prefWidth="500.0">
+                     <children>
+                        <AnchorPane prefHeight="900.0" prefWidth="500.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutY="20.0" prefHeight="75.0" prefWidth="502.0" text="Task Queue" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="61.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <ScrollPane prefHeight="1663.0" prefWidth="502.0" vbarPolicy="ALWAYS">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </root>
+</Scene>

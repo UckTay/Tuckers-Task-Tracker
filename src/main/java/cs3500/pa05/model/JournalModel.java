@@ -11,8 +11,12 @@ public class JournalModel {
   private Map<Day, List<Event>> eventMap = new HashMap<>();
 
   public JournalModel() {
-
+    for (Day day : Day.values()) {
+      taskMap.put(day, new ArrayList<>());
+      eventMap.put(day, new ArrayList<>());
+    }
   }
+
 
   public void loadBujo(Path path) {
     new BujoReader();
@@ -30,8 +34,8 @@ public class JournalModel {
     return taskMap.getOrDefault(day, null);
   }
 
-  public List<Task> getDaysEvent(Day day) {
-    return taskMap.getOrDefault(day, null);
+  public List<Event> getDaysEvent(Day day) {
+    return eventMap.getOrDefault(day, null);
   }
 
   public List<Task> getAllTasks() {
@@ -43,7 +47,7 @@ public class JournalModel {
     taskMap.get(task.getDayOfTheWeek()).add(task);
   }
   public void addEvent(Event event) {
-    eventMap.get(event.getDayOfTheWeek()).add(event);
+      eventMap.get(event.getDayOfTheWeek()).add(event);
   }
 
 }

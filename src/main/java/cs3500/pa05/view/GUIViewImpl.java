@@ -4,13 +4,14 @@ import cs3500.pa05.controller.Controller;
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Task;
+import java.io.IOException;
 import java.util.List;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 
 public class GUIViewImpl implements GUIView {
 
-  FXMLLoader loader;
-  public GUIViewImpl(Controller controller) {
+  public GUIViewImpl() {
   }
 
   @Override
@@ -39,7 +40,14 @@ public class GUIViewImpl implements GUIView {
   }
 
   @Override
-  public void load() {
-
+  public Scene load(Controller controller) {
+    try {
+      FXMLLoader loader = new FXMLLoader();
+      loader.setLocation(getClass().getClassLoader().getResource("test.fxml"));
+      loader.setController(controller);
+      return loader.load();
+    } catch (IOException exc) {
+      throw new IllegalStateException("Unable to load layout.");
+    }
   }
 }
