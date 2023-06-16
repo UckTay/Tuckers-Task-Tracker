@@ -15,9 +15,9 @@
 
 <Scene fx:id="scene" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <root>
-      <AnchorPane fx:id="mainPane" prefHeight="900.0" prefWidth="2000.0">
+      <AnchorPane fx:id="mainPane" prefHeight="900.0" prefWidth="1500.0">
          <children>
-            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1500.0">
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <HBox alignment="CENTER" prefHeight="431.0" prefWidth="1500.0">
                      <children>
@@ -172,28 +172,6 @@
                   </Menu>
                </menus>
             </MenuBar>
-            <VBox layoutX="1500.0" prefHeight="900.0" prefWidth="500.0">
-               <children>
-                  <HBox prefHeight="900.0" prefWidth="500.0">
-                     <children>
-                        <AnchorPane prefHeight="900.0" prefWidth="500.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutY="20.0" prefHeight="75.0" prefWidth="502.0" text="Task Queue" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="61.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </HBox>
-                  <ScrollPane prefHeight="1663.0" prefWidth="502.0" vbarPolicy="ALWAYS">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                    </content>
-                  </ScrollPane>
-               </children>
-            </VBox>
          </children>
       </AnchorPane>
    </root>

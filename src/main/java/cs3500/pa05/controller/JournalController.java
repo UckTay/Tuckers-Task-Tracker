@@ -126,10 +126,10 @@ public class JournalController implements Controller {
     Label minutesLbl = new Label("Minutes:");
 
     TextField hoursField = new TextField();
-    hoursField.setPrefWidth(30);
+    hoursField.setPrefWidth(35);
 
     TextField minutesField = new TextField();
-    minutesField.setPrefWidth(30);
+    minutesField.setPrefWidth(35);
 
     vBox.getChildren().add(durationLbl);
 
