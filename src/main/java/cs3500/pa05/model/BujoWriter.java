@@ -2,19 +2,59 @@ package cs3500.pa05.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cs3500.pa05.model.json.EventJson;
 import cs3500.pa05.model.json.TaskJson;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BujoWriter {
 
   private static final ObjectMapper MAPPER = new ObjectMapper();
+  private final List<JsonNode> jsonInFile;
 
-  public void writeBujo(List<Entry> entries, Path path) {
-    TaskJson json = new TaskJson(Day.MONDAY, "testName", "test description", TaskStatus.COMPLETE);
-    JsonNode node = MAPPER.convertValue(json, JsonNode.class);
-    Task task = MAPPER.convertValue(node, TaskJson.class).toTask();
-    node = MAPPER.convertValue(task.toJson(), JsonNode.class);
-    System.out.println(node);
+  public BujoWriter() {
+    jsonInFile = new ArrayList<>();
+  }
+
+  public void writeBujo(Config config, List<Entry> entries, Path path) {
+    jsonInFile.add(MAPPER.convertValue(config.toJson(), JsonNode.class));
+    for(Entry entry : entries) {
+      if(entry.getClass() == Task.class) {
+        generateTaskJson((Task) entry);
+      } else if (entry.getClass() == Event.class){
+        generateEventJson((Event) entry);
+      } else {
+        throw new IllegalArgumentException("invalid Entry");
+      }
+    }
+    try {
+      File newFile = new File(path.toUri());
+      if (!newFile.exists()) {
+        System.out.println("generating new file");
+        newFile.createNewFile();
+      }
+      MAPPER.writeValue(newFile, jsonInFile);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private void generateTaskJson(Task task) {
+    TaskJson input = task.toJson();
+    JsonNode node = MAPPER.convertValue(input, JsonNode.class);
+    jsonInFile.add(node);
+  }
+
+  private void generateEventJson(Event event) {
+    EventJson input = event.toJson();
+    JsonNode node = MAPPER.convertValue(input, JsonNode.class);
+    jsonInFile.add(node);
   }
 }

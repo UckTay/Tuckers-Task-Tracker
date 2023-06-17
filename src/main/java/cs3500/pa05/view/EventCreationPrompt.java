@@ -6,6 +6,7 @@ import cs3500.pa05.model.Event;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +21,15 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class EventCreationPrompt extends EntryCreationPrompt {
+
+  private ChoiceBox<String> minutesOptions;
+  private ChoiceBox<String> hoursOptions;
+  private TextField hoursField;
+  private TextField minutesField;
+  private int durationMinutes;
+  private int durationHours;
+  private int startMinutes;
+  private int startHours;
 
   public EventCreationPrompt(Consumer<Entry> addEntryToModel, Runnable updateGUI) {
     super(addEntryToModel, updateGUI);
@@ -50,9 +60,9 @@ public class EventCreationPrompt extends EntryCreationPrompt {
     for (int i = 0; i <= 60; i = i + 15) {
       minutes.add((i < 10) ? "0" + i : String.valueOf(i));
     }
-    ChoiceBox<String> hoursOptions = new ChoiceBox<>();
+    hoursOptions = new ChoiceBox<>();
     hoursOptions.setItems(FXCollections.observableArrayList(hours));
-    ChoiceBox<String> minutesOptions = new ChoiceBox<>();
+    minutesOptions = new ChoiceBox<>();
     minutesOptions.setItems(FXCollections.observableArrayList(minutes));
     startTimeBox.getChildren().addAll(hoursOptions, colon, minutesOptions);
     startTimeBox.setSpacing(10);
@@ -60,9 +70,9 @@ public class EventCreationPrompt extends EntryCreationPrompt {
     Label durationLbl = new Label("Duration:");
     Label hoursLbl = new Label("Hours:");
     Label minutesLbl = new Label("Minutes:");
-    TextField hoursField = new TextField();
+    hoursField = new TextField();
     hoursField.setPrefWidth(30);
-    TextField minutesField = new TextField();
+    minutesField = new TextField();
     minutesField.setPrefWidth(30);
     resultBox.getChildren().add(durationLbl);
     durationBox.getChildren().addAll(hoursLbl, hoursField, minutesLbl, minutesField);
@@ -76,11 +86,22 @@ public class EventCreationPrompt extends EntryCreationPrompt {
   protected void setDoneButton(Button doneButton, Consumer<Entry> addEntryToModel,
                                Runnable updateGUI) {
     doneButton.setOnAction(event -> {
+
+
+      try {
+        startHours = Integer.parseInt(hoursOptions.getValue());
+        startMinutes = Integer.parseInt(minutesOptions.getValue());
+        durationMinutes = Integer.parseInt(minutesField.getText());
+        durationHours = Integer.parseInt(hoursField.getText());
+      } catch (Exception e) {
+        return;
+      }
       if (!nameField.getText().equals("")
-          && Arrays.stream(Day.values()).toList().contains(Day.valueOf(dayOptions.getValue().toUpperCase()))) {
+          && Arrays.stream(Day.values()).toList()
+          .contains(Day.valueOf(dayOptions.getValue().toUpperCase())) && durationMinutes >= 0 &&
+          durationHours >= 0) {
         ((Stage) doneButton.getScene().getWindow()).close();
         addEntry(addEntryToModel, updateGUI);
-      } else {
       }
     });
   }
@@ -89,7 +110,8 @@ public class EventCreationPrompt extends EntryCreationPrompt {
   protected void addEntry(Consumer<Entry> addEntryToModel, Runnable updateGUI) {
     Event event = new Event(Day.valueOf(dayOptions.getValue().toUpperCase()), nameField.getText(),
         descriptionField.getText(),
-        LocalTime.of(0, 0), Duration.of(2, ChronoUnit.HOURS));
+        LocalTime.of(startHours, startMinutes), Duration.of(durationHours, ChronoUnit.HOURS)
+        .plus(Duration.of(durationMinutes, ChronoUnit.MINUTES)));
     addEntryToModel.accept(event);
     updateGUI.run();
   }

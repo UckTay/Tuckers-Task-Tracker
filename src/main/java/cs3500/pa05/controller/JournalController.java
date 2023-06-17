@@ -20,6 +20,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -67,9 +68,16 @@ public class JournalController implements Controller {
 
   @FXML
   AnchorPane mainPane;
+  Window fileWindow;
 
   @FXML
-  Window fileWindow;
+  MenuItem saveButton;
+
+  @FXML
+  MenuItem openButton;
+
+  @FXML
+  MenuItem newWeekButton;
 
   public JournalController(GUIView GUIViewImpl, JournalModel model) {
     this.view = GUIViewImpl;
@@ -81,6 +89,8 @@ public class JournalController implements Controller {
     newEventButton.setOnAction(event -> view.newEventPrompt(newEvent -> model.addEvent(
         (Event) newEvent)));
     newTaskButton.setOnAction(event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask)));
+    saveButton.setOnAction(event -> saveBujo());
+    openButton.setOnAction(event -> loadBujo());
   }
 
   private void createEvent() {
@@ -123,14 +133,18 @@ public class JournalController implements Controller {
   private void loadBujo() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
-    fileChooser.getExtensionFilters().addAll(
-        new FileChooser.ExtensionFilter("Bujo Files", "*.bujo"));
+
     File selectedFile = fileChooser.showOpenDialog(fileWindow);
     model.loadBujo(selectedFile.toPath());
   }
 
   private void saveBujo() {
-
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Resource File");
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("Bujo Files", "*.bujo"));
+    File selectedFile = fileChooser.showSaveDialog(fileWindow);
+    model.saveBujo(selectedFile.toPath());
   }
 
   private void newTask() {

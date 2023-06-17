@@ -1,38 +1,22 @@
 package cs3500.pa05.view;
 
 import cs3500.pa05.controller.Controller;
-import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Entry;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Task;
 import cs3500.pa05.model.TaskStatus;
 import java.io.IOException;
-import java.lang.reflect.Executable;
-import java.time.Duration;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 
 public class GUIViewImpl implements GUIView {
 
