@@ -3,10 +3,12 @@ package cs3500.pa05.controller;
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.JournalModel;
+import cs3500.pa05.model.Task;
 import cs3500.pa05.view.GUIView;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -23,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -39,130 +42,49 @@ public class JournalController implements Controller {
   MenuItem newEventButton;
 
   @FXML
-  VBox sunday;
+  MenuItem newTaskButton;
+
+  @FXML
+  VBox day0;
+
+  @FXML
+  VBox day1;
+
+  @FXML
+  VBox day2;
+
+  @FXML
+  VBox day3;
+
+  @FXML
+  VBox day4;
+
+  @FXML
+  VBox day5;
+
+  @FXML
+  VBox day6;
 
   @FXML
   AnchorPane mainPane;
 
+  @FXML
+  Window fileWindow;
+
   public JournalController(GUIView GUIViewImpl, JournalModel model) {
     this.view = GUIViewImpl;
     this.model = model;
+    view.setGUIUpdater(this::updateGUI);
   }
 
-  public void setupButtons() {
-    newEventButton.setOnAction(event -> newEventPrompt());
+  private void setupButtons() {
+    newEventButton.setOnAction(event -> view.newEventPrompt(newEvent -> model.addEvent(
+        (Event) newEvent)));
+    newTaskButton.setOnAction(event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask)));
   }
 
-  public void newEventPrompt2() {
-    Dialog<String> d = new Dialog<>();
-    TextField eventName = new TextField();
-    eventName.setPromptText("name");
-    d.getDialogPane().getChildren().add(eventName);
-    TextField description = new TextField();
-    description.setPromptText("description");
-    d.getDialogPane().getChildren().add(description);
-    d.setContentText("placeholder");
-    ButtonType gotIt = new ButtonType("Got it!", ButtonBar.ButtonData.CANCEL_CLOSE);
-    d.getDialogPane().getButtonTypes().add(gotIt);
-    Window window = d.getDialogPane().getScene().getWindow();
-    window.setOnCloseRequest(event -> d.close());
-    d.showAndWait();
-    sunday.getChildren().clear();
-    model.addEvent(
-        new Event(Day.MONDAY, eventName.getText(), description.getText(), LocalTime.of(1, 1),
-            Duration.of(2, ChronoUnit.HOURS)));
-    for (Event e : model.getDaysEvent(Day.MONDAY)) {
-      sunday.getChildren().addAll(new Label("name: " + e.getName()),
-          new Label("description: " + e.getDescription()));
-    }
-  }
+  private void createEvent() {
 
-  public void newEventPrompt() {
-    VBox vBox = new VBox();
-
-
-    Dialog<String> d = new Dialog<>();
-    d.setTitle("New Event");
-
-    Label nameLbl = new Label("Name:");
-    TextField nameField = new TextField();
-
-    vBox.getChildren().add(nameLbl);
-    vBox.getChildren().add(nameField);
-
-    Label descriptionLbl = new Label("Description:");
-    TextField descriptionField = new TextField();
-
-    vBox.getChildren().add(descriptionLbl);
-    vBox.getChildren().add(descriptionField);
-
-
-    ChoiceBox<String> dayOptions = new ChoiceBox<>();
-    dayOptions.setValue("");
-    List<String> optionsList = new ArrayList<>();
-    optionsList.add("");
-    for (Day day : Day.values()) {
-      optionsList.add(day.name());
-    }
-
-    dayOptions.setItems(FXCollections.observableArrayList(optionsList));
-
-    Label dayField = new Label("Day:");
-    HBox dayBox = new HBox();
-    dayBox.prefWidthProperty().bind(vBox.widthProperty());
-    dayBox.getChildren().addAll(dayField, dayOptions);
-    dayBox.setAlignment(Pos.CENTER_LEFT);
-    dayBox.setSpacing(10);
-
-
-    vBox.getChildren().add(dayBox);
-
-
-    HBox durationBox = new HBox();
-
-    Label durationLbl = new Label("Duration:");
-    Label hoursLbl = new Label("Hours:");
-
-    Label minutesLbl = new Label("Minutes:");
-
-    TextField hoursField = new TextField();
-    hoursField.setPrefWidth(35);
-
-    TextField minutesField = new TextField();
-    minutesField.setPrefWidth(35);
-
-    vBox.getChildren().add(durationLbl);
-
-    durationBox.getChildren().addAll(hoursLbl, hoursField, minutesLbl, minutesField);
-    durationBox.setAlignment(Pos.CENTER_LEFT);
-
-    durationBox.setSpacing(10);
-
-    vBox.getChildren().add(durationBox);
-
-    Button done = new Button("Done!");
-    done.prefWidthProperty().bind(vBox.widthProperty());
-
-    vBox.getChildren().add(done);
-    done.setOnAction(event -> {
-
-      ((Stage) done.getScene().getWindow()).close();
-    });
-
-    vBox.setSpacing(10);
-    d.getDialogPane().setContent(vBox);
-    d.showAndWait();
-
-  }
-
-  private boolean validateAndAddEvent(String name, String description, String day,
-                                      String duration) {
-    return true;
-    //TODO: Implement
-  }
-
-  private boolean validateEvent(String name, String description, Day day, Duration duration) {
-    return true;
   }
 
 
@@ -174,24 +96,48 @@ public class JournalController implements Controller {
     return null;
   }
 
+  private void updateGUI() {
+    for (Day day : Day.values()) {
+      view.showEvents(dayToVBox(day), model.getDaysEvent(day));
+      view.showTasks(dayToVBox(day), model.getDaysTasks(day));
+    }
+  }
 
-  public void newBujo() {
+  private VBox dayToVBox(Day day) {
+    return switch (day.ordinal()) {
+      case 0 -> day0;
+      case 1 -> day1;
+      case 2 -> day2;
+      case 3 -> day3;
+      case 4 -> day4;
+      case 5 -> day5;
+      case 6 -> day6;
+      default -> throw new IllegalStateException("Unexpected value: " + day.ordinal());
+    };
+  }
+
+  private void newBujo() {
 
   }
 
-  public void loadBujo() {
+  private void loadBujo() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Resource File");
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("Bujo Files", "*.bujo"));
+    File selectedFile = fileChooser.showOpenDialog(fileWindow);
+    model.loadBujo(selectedFile.toPath());
+  }
+
+  private void saveBujo() {
 
   }
 
-  public void saveBujo() {
+  private void newTask() {
 
   }
 
-  public void newTask() {
-
-  }
-
-  public void newEvent() {
+  private void newEvent() {
 
   }
 

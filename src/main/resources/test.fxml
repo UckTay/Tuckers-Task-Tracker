@@ -23,98 +23,111 @@
                      <children>
                         <ScrollPane prefHeight="431.0" prefWidth="330.0">
                            <content>
-                              <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="330.0">
+                              <VBox fx:id="day0" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="330.0">
                                  <children>
                                     <Label alignment="CENTER" prefHeight="90.0" prefWidth="209.0" text="Sunday">
                                        <font>
                                           <Font size="46.0" />
                                        </font>
                                     </Label>
-                                    <VBox fx:id="sunday" prefHeight="200.0" prefWidth="100.0" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
                                  </children>
                               </VBox>
                            </content>
                         </ScrollPane>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="431.0" prefWidth="330.0" vbarPolicy="ALWAYS">
+                        <ScrollPane prefHeight="431.0" prefWidth="330.0">
                            <content>
-                              <AnchorPane fx:id="monday" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                              <VBox fx:id="day1" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="330.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="91.0" prefWidth="333.0" text="Monday">
+                                    <Label alignment="CENTER" prefHeight="90.0" prefWidth="209.0" text="Monday">
                                        <font>
                                           <Font size="46.0" />
                                        </font>
                                     </Label>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
                                  </children>
-                              </AnchorPane>
+                              </VBox>
                            </content>
                         </ScrollPane>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="431.0" prefWidth="330.0" vbarPolicy="ALWAYS">
+                        <ScrollPane prefHeight="431.0" prefWidth="330.0">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                              <VBox fx:id="day2" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="330.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="91.0" prefWidth="333.0" text="Tuesday">
+                                    <Label alignment="CENTER" prefHeight="90.0" prefWidth="209.0" text="Tuesday">
                                        <font>
                                           <Font size="46.0" />
                                        </font>
                                     </Label>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
                                  </children>
-                              </AnchorPane>
+                              </VBox>
                            </content>
                         </ScrollPane>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="431.0" prefWidth="330.0" vbarPolicy="ALWAYS">
+                        <ScrollPane prefHeight="431.0" prefWidth="330.0">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                              <VBox fx:id="day3" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="330.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="91.0" prefWidth="333.0" text="Wednesday">
+                                    <Label alignment="CENTER" prefHeight="90.0" prefWidth="209.0" text="Wednesday">
                                        <font>
-                                          <Font size="46.0" />
+                                          <Font size="41.0" />
                                        </font>
                                     </Label>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
                                  </children>
-                              </AnchorPane>
+                              </VBox>
                            </content>
                         </ScrollPane>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="431.0" prefWidth="1500.0">
                      <children>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="431.0" prefWidth="330.0" vbarPolicy="ALWAYS">
+                        <ScrollPane prefHeight="431.0" prefWidth="330.0">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                              <VBox fx:id="day4" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="330.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="91.0" prefWidth="333.0" text="Thursday">
+                                    <Label alignment="CENTER" prefHeight="90.0" prefWidth="209.0" text="Wednesday">
                                        <font>
-                                          <Font size="46.0" />
+                                          <Font size="41.0" />
                                        </font>
                                     </Label>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
                                  </children>
-                              </AnchorPane>
+                              </VBox>
                            </content>
                         </ScrollPane>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="431.0" prefWidth="330.0" vbarPolicy="ALWAYS">
+                        <ScrollPane prefHeight="431.0" prefWidth="330.0">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                              <VBox fx:id="day5" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="330.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="91.0" prefWidth="333.0" text="Friday">
+                                    <Label alignment="CENTER" prefHeight="90.0" prefWidth="209.0" text="Wednesday">
                                        <font>
-                                          <Font size="46.0" />
+                                          <Font size="41.0" />
                                        </font>
                                     </Label>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
                                  </children>
-                              </AnchorPane>
+                              </VBox>
                            </content>
                         </ScrollPane>
-                        <ScrollPane prefHeight="431.0" prefWidth="330.0" vbarPolicy="ALWAYS">
+                        <ScrollPane prefHeight="431.0" prefWidth="330.0">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                              <VBox fx:id="day6" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="330.0">
                                  <children>
-                                    <Label alignment="CENTER" prefHeight="91.0" prefWidth="333.0" text="Saturday">
+                                    <Label alignment="CENTER" prefHeight="90.0" prefWidth="209.0" text="Wednesday">
                                        <font>
-                                          <Font size="46.0" />
+                                          <Font size="41.0" />
                                        </font>
                                     </Label>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
+                                    <VBox prefHeight="200.0" prefWidth="100.0" />
                                  </children>
-                              </AnchorPane>
+                              </VBox>
                            </content>
                         </ScrollPane>
                      </children>
@@ -132,7 +145,7 @@
                                     <KeyCodeCombination alt="UP" code="E" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                                  </accelerator>
                               </MenuItem>
-                              <MenuItem mnemonicParsing="false" text="New Task">
+                              <MenuItem fx:id="newTaskButton" mnemonicParsing="false" text="New Task">
                                  <accelerator>
                                     <KeyCodeCombination alt="UP" code="T" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                                  </accelerator>
