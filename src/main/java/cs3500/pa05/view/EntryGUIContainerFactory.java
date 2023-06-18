@@ -5,8 +5,10 @@ import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Task;
 import java.util.function.Consumer;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class EntryGUIContainerFactory {
 
@@ -26,6 +28,7 @@ public class EntryGUIContainerFactory {
     VBox resultBox = new VBox();
     resultBox.getChildren().add(createButtons(task));
     resultBox.getChildren().add(new EntryGUIElement(task).getVBox());
+    resultBox.setBorder(Border.stroke(Color.BLACK));
     return resultBox;
   }
 
@@ -33,6 +36,7 @@ public class EntryGUIContainerFactory {
     VBox resultBox = new VBox();
     resultBox.getChildren().add(createButtons(event));
     resultBox.getChildren().add(new EntryGUIElement(event).getVBox());
+    resultBox.setBorder(Border.stroke(Color.BLACK));
     return resultBox;
   }
 

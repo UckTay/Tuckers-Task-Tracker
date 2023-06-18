@@ -23,15 +23,18 @@ public class JournalModel {
     }
   }
 
-  public void loadBujo(Path path) {
-    BujoReader reader = new BujoReader();
-    config = reader.readBujo(path);
+  public void newWeek() {
     taskMap = new HashMap<>();
     eventMap = new HashMap<>();
     for (Day day : Day.values()) {
       taskMap.put(day, new ArrayList<>());
       eventMap.put(day, new ArrayList<>());
     }
+  }
+  public void loadBujo(Path path) {
+    BujoReader reader = new BujoReader();
+    config = reader.readBujo(path);
+    newWeek();
     List<Task> tasks = reader.getEntry(Task.class);
     for(Task task : tasks) {
       taskMap.get(task.getDayOfTheWeek()).add(task);
@@ -99,13 +102,27 @@ public class JournalModel {
   public void mindChange(Entry entry, Runnable updateGUI) {
     if (entry instanceof Event) {
       new EventCreationPrompt((Event) entry, (newEntry -> {
-        List<Event> list = eventMap.get(entry.getDayOfTheWeek());
-        list.set(list.indexOf(entry), (Event) newEntry);
+        Event newEvent = (Event) newEntry;
+        List<Event> list = eventMap.get(newEvent.getDayOfTheWeek());
+        int index = list.indexOf(newEvent);
+        if (!list.contains(newEntry)) {
+          addEvent(newEvent);
+          takesieBacksie(entry);
+        } else {
+          list.set(index, newEvent);
+        }
       }), updateGUI);
     } else if (entry instanceof Task){
       new TaskCreationPrompt((Task) entry, (newEntry -> {
-        List<Task> list = taskMap.get(entry.getDayOfTheWeek());
-        list.set(list.indexOf(entry), (Task) newEntry);
+        Task newTask = (Task) newEntry;
+        List<Task> list = taskMap.get(newTask.getDayOfTheWeek());
+        int index = list.indexOf(newTask);
+        if (!list.contains(newEntry)) {
+          addTask(newTask);
+          takesieBacksie(entry);
+        } else {
+          list.set(index, newTask);
+        }
       }), updateGUI);
     }
   }

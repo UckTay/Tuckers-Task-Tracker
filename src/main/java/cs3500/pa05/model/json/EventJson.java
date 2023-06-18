@@ -13,11 +13,11 @@ public record EventJson(
     @JsonProperty("day") Day day,
     @JsonProperty("name") String name,
     @JsonProperty("description") String description,
-    @JsonProperty("startTime") LocalTime startTime,
-    @JsonProperty("duration") Duration duration
+    @JsonProperty("startTime") String startTime,
+    @JsonProperty("duration") String duration
     ) {
     public Event toEvent() {
-        return new Event(day, name, description, startTime, duration);
+        return new Event(day, name, description, LocalTime.parse(startTime), Duration.parse(duration));
     }
 
 }

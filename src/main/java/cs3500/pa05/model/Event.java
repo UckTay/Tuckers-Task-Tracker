@@ -25,7 +25,8 @@ public class Event extends Entry {
   }
 
   public EventJson toJson() {
-    return new EventJson(super.getDayOfTheWeek(), super.getName(), super.getDescription(), startTime, duration);
+    return new EventJson(super.getDayOfTheWeek(), super.getName(), super.getDescription(), startTime.toString(),
+        duration.toString());
   }
 
 }

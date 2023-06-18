@@ -25,6 +25,7 @@ public class GUIViewImpl implements GUIView {
   @Override
   public void showTasks(VBox vBox, List<Task> tasks, EntryGUIContainerFactory factory) {
     VBox box = (VBox) vBox.getChildren().get(1);
+    box.prefWidthProperty().bind(vBox.widthProperty());
     box.getChildren().clear();
     for(Task task: tasks) {
       box.getChildren().add(factory.createContainer(task));
@@ -34,6 +35,7 @@ public class GUIViewImpl implements GUIView {
   @Override
   public void showEvents(VBox vBox, List<Event> events, EntryGUIContainerFactory factory) {
     VBox box = (VBox) vBox.getChildren().get(2);
+    box.prefWidthProperty().bind(vBox.widthProperty());
     box.getChildren().clear();
     for(Event event: events) {
       box.getChildren().add(factory.createContainer(event));

@@ -4,8 +4,11 @@ import cs3500.pa05.model.Entry;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Task;
 import cs3500.pa05.model.TaskStatus;
+import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class EntryGUIElement {
@@ -14,7 +17,12 @@ public class EntryGUIElement {
   private void addBasicInfo(Entry e) {
     resultBox.getChildren().add(new Label(e.getName()));
     if (e.getDescription() != null && !e.getDescription().equals("")) {
-      resultBox.getChildren().add(new Label(e.getDescription()));
+      Label description = new Label(e.getDescription());
+      description.setWrapText(true);
+      description.prefWidthProperty().bind(resultBox.widthProperty());
+      description.setPrefHeight(1000000000);
+      TextArea description2 = new TextArea(e.getDescription());
+      resultBox.getChildren().add(description2);
     }
   }
 
@@ -26,7 +34,10 @@ public class EntryGUIElement {
     status.setOnAction((event) -> task.markTask(
         status.isSelected() ? TaskStatus.COMPLETE : TaskStatus.INCOMPLETE));
     resultBox.getChildren().add(new Label("Status:"));
-    resultBox.getChildren().add(status);
+    HBox statusBox = new HBox();
+    statusBox.getChildren().add(status);
+    statusBox.setAlignment(Pos.CENTER_RIGHT);
+    resultBox.getChildren().add(statusBox);
   }
 
   public EntryGUIElement(Event event) {

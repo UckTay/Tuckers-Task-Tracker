@@ -14,6 +14,7 @@ public class Task extends Entry {
     return taskStatus;
   }
   public void markTask(TaskStatus status) {
+    taskStatus = status;
   }
 
   public TaskJson toJson() {

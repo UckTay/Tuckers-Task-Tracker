@@ -92,6 +92,7 @@ public class JournalController implements Controller {
     newTaskButton.setOnAction(event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask)));
     saveButton.setOnAction(event -> saveBujo());
     openButton.setOnAction(event -> loadBujo());
+    newWeekButton.setOnAction(event -> newBujo());
   }
 
   private void createEvent() {
@@ -144,7 +145,8 @@ public class JournalController implements Controller {
   }
 
   private void newBujo() {
-
+    model.newWeek();
+    updateGUI();
   }
 
   private void loadBujo() {
@@ -162,14 +164,6 @@ public class JournalController implements Controller {
         new FileChooser.ExtensionFilter("Bujo Files", "*.bujo"));
     File selectedFile = fileChooser.showSaveDialog(fileWindow);
     model.saveBujo(selectedFile.toPath());
-  }
-
-  private void newTask() {
-
-  }
-
-  private void newEvent() {
-
   }
 
   @Override

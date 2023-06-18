@@ -19,10 +19,10 @@ public class BujoReader {
     JsonNode fileContents;
     try {
       fileContents = MAPPER.readTree(path.toFile());
-      MAPPER.convertValue(fileContents, BujoJson.class);
     } catch (IOException e) {
       throw new IllegalArgumentException("Invalid file path");
     }
+    MAPPER.convertValue(fileContents, BujoJson.class);
     Config config = MAPPER.convertValue(fileContents.get("config"), ConfigJson.class).toConfig();
     BujoJson entryGetter = MAPPER.convertValue(fileContents, BujoJson.class);
     entryList.addAll(entryGetter.generateTasks());

@@ -80,7 +80,7 @@ public class EventCreationPrompt extends EntryCreationPrompt {
     Label minutesLbl = new Label("Minutes:");
     hoursField = event == null ? new TextField() : new TextField(String.valueOf(event.getDuration().toHours()));
     hoursField.setPrefWidth(30);
-    minutesField = event == null ? new TextField() : new TextField(String.valueOf(event.getDuration().toMinutes()));
+    minutesField = event == null ? new TextField() : new TextField(String.valueOf(event.getDuration().toMinutes() % 60));
     minutesField.setPrefWidth(30);
     resultBox.getChildren().add(durationLbl);
     durationBox.getChildren().addAll(hoursLbl, hoursField, minutesLbl, minutesField);
