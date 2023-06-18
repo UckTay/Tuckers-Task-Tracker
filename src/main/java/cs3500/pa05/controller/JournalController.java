@@ -4,6 +4,7 @@ import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.JournalModel;
 import cs3500.pa05.model.Task;
+import cs3500.pa05.view.EntryGUIContainerFactory;
 import cs3500.pa05.view.GUIView;
 import java.time.Duration;
 import java.time.LocalTime;
@@ -107,9 +108,25 @@ public class JournalController implements Controller {
   }
 
   private void updateGUI() {
+    EntryGUIContainerFactory factory = new EntryGUIContainerFactory(
+        this::updateGUI,
+        entry -> {
+          model.moveUp(entry);
+          updateGUI();
+        },
+        entry -> {
+          model.moveDown(entry);
+          updateGUI();
+        },
+        entry -> model.mindChange(entry, this::updateGUI),
+        entry -> {
+          model.takesieBacksie(entry);
+          updateGUI();
+        }
+        );
     for (Day day : Day.values()) {
-      view.showEvents(dayToVBox(day), model.getDaysEvent(day));
-      view.showTasks(dayToVBox(day), model.getDaysTasks(day));
+      view.showEvents(dayToVBox(day), model.getDaysEvent(day), factory);
+      view.showTasks(dayToVBox(day), model.getDaysTasks(day), factory);
     }
   }
 

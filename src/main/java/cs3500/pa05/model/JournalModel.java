@@ -1,12 +1,17 @@
 package cs3500.pa05.model;
 
+import cs3500.pa05.view.EventCreationPrompt;
+import cs3500.pa05.view.TaskCreationPrompt;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class JournalModel {
+
+  private final Map<Class<? extends Entry>, Map<Day, List<?>>> classMap = new HashMap<>();
   private Map<Day, List<Task>> taskMap = new HashMap<>();
   private Map<Day, List<Event>> eventMap = new HashMap<>();
   private Config config = new Config();
@@ -67,4 +72,51 @@ public class JournalModel {
       eventMap.get(event.getDayOfTheWeek()).add(event);
   }
 
+  public void moveUp(Entry entry) {
+    if (entry instanceof Task) {
+      moveElement((Task) entry, taskMap.get(entry.getDayOfTheWeek()), -1);
+    } else if (entry instanceof Event) {
+      moveElement((Event) entry, eventMap.get(entry.getDayOfTheWeek()), -1);
+    }
+  }
+
+  public void moveDown(Entry entry) {
+    if (entry instanceof Task) {
+      moveElement((Task) entry, taskMap.get(entry.getDayOfTheWeek()), 1);
+    } else if (entry instanceof Event) {
+      moveElement((Event) entry, eventMap.get(entry.getDayOfTheWeek()), 1);
+    }
+  }
+
+  public void takesieBacksie(Entry entry) {
+    if (entry instanceof Event) {
+      eventMap.get(entry.getDayOfTheWeek()).remove(entry);
+    } else if (entry instanceof Task) {
+      taskMap.get(entry.getDayOfTheWeek()).remove(entry);
+    }
+  }
+
+  public void mindChange(Entry entry, Runnable updateGUI) {
+    if (entry instanceof Event) {
+      new EventCreationPrompt((Event) entry, (newEntry -> {
+        List<Event> list = eventMap.get(entry.getDayOfTheWeek());
+        list.set(list.indexOf(entry), (Event) newEntry);
+      }), updateGUI);
+    } else if (entry instanceof Task){
+      new TaskCreationPrompt((Task) entry, (newEntry -> {
+        List<Task> list = taskMap.get(entry.getDayOfTheWeek());
+        list.set(list.indexOf(entry), (Task) newEntry);
+      }), updateGUI);
+    }
+  }
+
+  private <T> void moveElement(T entry, List<T> list, int offset) {
+    int index = list.indexOf(entry);
+    if (index == -1 || (index + offset) < 0 || (index + offset) > list.size() - 1)  {
+      return;
+    }
+    T temp = list.get(index + offset);
+    list.set(index + offset, entry);
+    list.set(index, temp);
+  }
 }

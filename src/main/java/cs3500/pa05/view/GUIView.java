@@ -13,8 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
 public interface GUIView {
-  void showTasks(VBox vbox, List<Task> tasks);
-  void showEvents(VBox vbox, List<Event> events);
+  void showTasks(VBox vbox, List<Task> tasks, EntryGUIContainerFactory factory);
+  void showEvents(VBox vbox, List<Event> events, EntryGUIContainerFactory factory);
   void newTaskPrompt(Consumer<Entry> taskAdder);
   void newEventPrompt(Consumer<Entry> eventAdder);
 

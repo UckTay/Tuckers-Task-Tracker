@@ -6,7 +6,6 @@ import cs3500.pa05.model.Event;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,17 +32,20 @@ public class EventCreationPrompt extends EntryCreationPrompt {
 
   public EventCreationPrompt(Consumer<Entry> addEntryToModel, Runnable updateGUI) {
     super(addEntryToModel, updateGUI);
+  }
 
+  public EventCreationPrompt(Event event, Consumer<Entry> addEntryToModel, Runnable updateGUI) {
+    super(event, addEntryToModel, updateGUI);
   }
 
   @Override
-  protected void createPrompt() {
+  protected void createPrompt(Entry event) {
     dialog.setTitle("New Event");
-    super.createPrompt();
-    addTimeElements();
+    super.createPrompt(event);
+    addTimeElements((Event) event);
   }
 
-  private void addTimeElements() {
+  private void addTimeElements(Event event) {
     HBox durationBox = new HBox();
 
     Label startTimeLbl = new Label("Start Time:");
@@ -62,17 +64,23 @@ public class EventCreationPrompt extends EntryCreationPrompt {
     }
     hoursOptions = new ChoiceBox<>();
     hoursOptions.setItems(FXCollections.observableArrayList(hours));
+    if (event != null) {
+      hoursOptions.setValue(String.valueOf(event.getStartTime().getHour()));
+    }
     minutesOptions = new ChoiceBox<>();
     minutesOptions.setItems(FXCollections.observableArrayList(minutes));
+    if (event != null) {
+      minutesOptions.setValue(String.valueOf(event.getStartTime().getMinute()));
+    }
     startTimeBox.getChildren().addAll(hoursOptions, colon, minutesOptions);
     startTimeBox.setSpacing(10);
     resultBox.getChildren().add(startTimeBox);
     Label durationLbl = new Label("Duration:");
     Label hoursLbl = new Label("Hours:");
     Label minutesLbl = new Label("Minutes:");
-    hoursField = new TextField();
+    hoursField = event == null ? new TextField() : new TextField(String.valueOf(event.getDuration().toHours()));
     hoursField.setPrefWidth(30);
-    minutesField = new TextField();
+    minutesField = event == null ? new TextField() : new TextField(String.valueOf(event.getDuration().toMinutes()));
     minutesField.setPrefWidth(30);
     resultBox.getChildren().add(durationLbl);
     durationBox.getChildren().addAll(hoursLbl, hoursField, minutesLbl, minutesField);

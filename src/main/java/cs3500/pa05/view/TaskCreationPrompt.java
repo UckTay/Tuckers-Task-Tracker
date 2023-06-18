@@ -7,8 +7,12 @@ import cs3500.pa05.model.TaskStatus;
 import java.util.function.Consumer;
 
 public class TaskCreationPrompt extends EntryCreationPrompt {
+  public TaskCreationPrompt(Entry entry, Consumer<Entry> addEntryToModel, Runnable updateGUI) {
+    super(entry, addEntryToModel, updateGUI);
+  }
+
   public TaskCreationPrompt(Consumer<Entry> addEntryToModel, Runnable updateGUI) {
-    super(addEntryToModel, updateGUI);
+    this(null, addEntryToModel, updateGUI);
   }
 
   @Override
@@ -19,10 +23,12 @@ public class TaskCreationPrompt extends EntryCreationPrompt {
     updateGUI.run();
   }
 
+
+
   @Override
-  protected void createPrompt() {
+  protected void createPrompt(Entry task) {
     dialog.setTitle("New Task");
-    super.createPrompt();
+    super.createPrompt(task);
   }
 
 }
