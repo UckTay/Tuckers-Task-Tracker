@@ -15,6 +15,8 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -23,9 +25,11 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -79,6 +83,15 @@ public class JournalController implements Controller {
 
   @FXML
   MenuItem newWeekButton;
+
+  @FXML
+  Label totalEvents;
+
+  @FXML
+  Label totalTasks;
+
+  @FXML
+  Label totalCompleted;
 
   public JournalController(GUIView GUIViewImpl, JournalModel model) {
     this.view = GUIViewImpl;
@@ -170,6 +183,8 @@ public class JournalController implements Controller {
   public void run() {
     setupButtons();
   }
+
+
 
 
 }

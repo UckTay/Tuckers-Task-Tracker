@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 
 public class EntryGUIElement {
   VBox resultBox = new VBox();
@@ -20,9 +21,7 @@ public class EntryGUIElement {
       Label description = new Label(e.getDescription());
       description.setWrapText(true);
       description.prefWidthProperty().bind(resultBox.widthProperty());
-      description.setPrefHeight(1000000000);
-      TextArea description2 = new TextArea(e.getDescription());
-      resultBox.getChildren().add(description2);
+      resultBox.getChildren().add(description);
     }
   }
 
