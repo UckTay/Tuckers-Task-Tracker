@@ -1,22 +1,33 @@
 package cs3500.pa05.model;
 
-import static java.util.stream.Collectors.toList;
-
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import cs3500.pa05.model.json.BujoJson;
+import cs3500.pa05.model.json.ConfigJson;
+import cs3500.pa05.model.json.TaskJson;
 import java.io.IOException;
-import java.util.Scanner;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BujoReader {
   List<Entry> entryList = new ArrayList<>();
+  private static final ObjectMapper MAPPER = new ObjectMapper();
 
-  public void readBujo(Path path) {
+
+  public Config readBujo(Path path) {
+    JsonNode fileContents;
     try {
-      Scanner s = new Scanner(path);
+      fileContents = MAPPER.readTree(path.toFile());
+      MAPPER.convertValue(fileContents, BujoJson.class);
     } catch (IOException e) {
       throw new IllegalArgumentException("Invalid file path");
     }
+    Config config = MAPPER.convertValue(fileContents.get("config"), ConfigJson.class).toConfig();
+    BujoJson entryGetter = MAPPER.convertValue(fileContents, BujoJson.class);
+    entryList.addAll(entryGetter.generateTasks());
+    entryList.addAll(entryGetter.generateEvents());
+    return config;
   }
 
   public <T> List<T> getEntry(Class<T> entryType) {
@@ -28,5 +39,4 @@ public class BujoReader {
     }
     return list;
   }
-
 }

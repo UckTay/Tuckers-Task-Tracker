@@ -13,6 +13,7 @@ public record TaskJson(
     @JsonProperty("description") String description,
     @JsonProperty("taskStatus")TaskStatus status
     ) {
+
     public Task toTask() {
         return new Task(day, name, description, status);
     }

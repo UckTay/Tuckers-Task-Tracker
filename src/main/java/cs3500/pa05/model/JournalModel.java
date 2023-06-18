@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 public class JournalModel {
-  private final Map<Day, List<Task>> taskMap = new HashMap<>();
-  private final Map<Day, List<Event>> eventMap = new HashMap<>();
-  private final Config config = new Config();
+  private Map<Day, List<Task>> taskMap = new HashMap<>();
+  private Map<Day, List<Event>> eventMap = new HashMap<>();
+  private Config config = new Config();
 
   public JournalModel() {
     for (Day day : Day.values()) {
@@ -20,7 +20,21 @@ public class JournalModel {
 
   public void loadBujo(Path path) {
     BujoReader reader = new BujoReader();
-    reader.readBujo(path);
+    config = reader.readBujo(path);
+    taskMap = new HashMap<>();
+    eventMap = new HashMap<>();
+    for (Day day : Day.values()) {
+      taskMap.put(day, new ArrayList<>());
+      eventMap.put(day, new ArrayList<>());
+    }
+    List<Task> tasks = reader.getEntry(Task.class);
+    for(Task task : tasks) {
+      taskMap.get(task.getDayOfTheWeek()).add(task);
+    }
+    List<Event> events = reader.getEntry(Event.class);
+    for(Event event : events) {
+      eventMap.get(event.getDayOfTheWeek()).add(event);
+    }
   }
 
   public void saveBujo(Path path) {

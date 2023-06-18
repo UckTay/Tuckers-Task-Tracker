@@ -2,6 +2,7 @@ package cs3500.pa05.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cs3500.pa05.model.json.BujoJson;
 import cs3500.pa05.model.json.EventJson;
 import cs3500.pa05.model.json.TaskJson;
 import java.io.File;
@@ -17,19 +18,14 @@ import java.util.List;
 public class BujoWriter {
 
   private static final ObjectMapper MAPPER = new ObjectMapper();
-  private final List<JsonNode> jsonInFile;
-
-  public BujoWriter() {
-    jsonInFile = new ArrayList<>();
-  }
-
   public void writeBujo(Config config, List<Entry> entries, Path path) {
-    jsonInFile.add(MAPPER.convertValue(config.toJson(), JsonNode.class));
+    List<TaskJson> tasks = new ArrayList<>();
+    List<EventJson> events = new ArrayList<>();
     for(Entry entry : entries) {
       if(entry.getClass() == Task.class) {
-        generateTaskJson((Task) entry);
+        tasks.add(((Task) entry).toJson());
       } else if (entry.getClass() == Event.class){
-        generateEventJson((Event) entry);
+        events.add(((Event) entry).toJson());
       } else {
         throw new IllegalArgumentException("invalid Entry");
       }
@@ -40,21 +36,10 @@ public class BujoWriter {
         System.out.println("generating new file");
         newFile.createNewFile();
       }
-      MAPPER.writeValue(newFile, jsonInFile);
+      BujoJson output = new BujoJson(config.toJson(), tasks, events);
+      MAPPER.writeValue(newFile, MAPPER.convertValue(output, JsonNode.class));
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  private void generateTaskJson(Task task) {
-    TaskJson input = task.toJson();
-    JsonNode node = MAPPER.convertValue(input, JsonNode.class);
-    jsonInFile.add(node);
-  }
-
-  private void generateEventJson(Event event) {
-    EventJson input = event.toJson();
-    JsonNode node = MAPPER.convertValue(input, JsonNode.class);
-    jsonInFile.add(node);
   }
 }

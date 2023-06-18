@@ -133,9 +133,9 @@ public class JournalController implements Controller {
   private void loadBujo() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
-
     File selectedFile = fileChooser.showOpenDialog(fileWindow);
     model.loadBujo(selectedFile.toPath());
+    updateGUI();
   }
 
   private void saveBujo() {
