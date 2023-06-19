@@ -9,7 +9,10 @@
 - Menu Bar & Shortcuts
 
 ## Section 3: Power Ups
-
+- Taksies backsies
+- Custom Ordering
+- Weekly overview
+  
 ## Section 4: Quality of Life
 
 
