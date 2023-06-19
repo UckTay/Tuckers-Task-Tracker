@@ -65,6 +65,7 @@ public class EntryGUIContainerFactory {
       updateGUI.run();
     }));
     resultBox.getChildren().addAll(up, edit, trash, down);
+    resultBox.setSpacing(10);
     return resultBox;
   }
 
