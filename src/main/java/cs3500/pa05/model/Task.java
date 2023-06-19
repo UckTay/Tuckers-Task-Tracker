@@ -15,6 +15,7 @@ public class Task extends Entry {
   }
   public void markTask(TaskStatus status) {
     taskStatus = status;
+    //TODO: add an observable for updating in weekly overview.
   }
 
   public TaskJson toJson() {

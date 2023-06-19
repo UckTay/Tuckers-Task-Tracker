@@ -4,6 +4,7 @@ import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.JournalModel;
 import cs3500.pa05.model.Task;
+import cs3500.pa05.model.TaskStatus;
 import cs3500.pa05.view.EntryGUIContainerFactory;
 import cs3500.pa05.view.GUIView;
 import java.time.Duration;
@@ -45,53 +46,62 @@ public class JournalController implements Controller {
   JournalModel model;
 
   @FXML
-  MenuItem newEventButton;
+  private MenuItem newEventButton;
 
   @FXML
-  MenuItem newTaskButton;
+  private MenuItem newTaskButton;
 
   @FXML
-  VBox day0;
+  private VBox day0;
 
   @FXML
-  VBox day1;
+  private VBox day1;
 
   @FXML
-  VBox day2;
+  private VBox day2;
 
   @FXML
-  VBox day3;
+  private VBox day3;
 
   @FXML
-  VBox day4;
+  private VBox day4;
 
   @FXML
-  VBox day5;
+  private VBox day5;
 
   @FXML
-  VBox day6;
+  private VBox day6;
 
   @FXML
-  AnchorPane mainPane;
-  Window fileWindow;
+  private AnchorPane mainPane;
+  private Window fileWindow;
 
   @FXML
-  MenuItem saveButton;
+  private MenuItem saveButton;
 
   @FXML
-  MenuItem openButton;
+  private MenuItem openButton;
 
   @FXML
-  MenuItem newWeekButton;
+  private   MenuItem newWeekButton;
 
   @FXML
-  Label totalEvents;
+  private Label totalEvents;
 
   @FXML
-  Label totalTasks;
+  private Label totalTasks;
 
   @FXML
-  Label totalCompleted;
+  private Label totalComplete;
+
+  @FXML
+  private Label weekName;
+
+  @FXML
+  private Button newEventView;
+
+  @FXML
+  private Button newTaskView;
 
   public JournalController(GUIView GUIViewImpl, JournalModel model) {
     this.view = GUIViewImpl;
@@ -102,11 +112,18 @@ public class JournalController implements Controller {
   private void setupButtons() {
     newEventButton.setOnAction(event -> view.newEventPrompt(newEvent -> model.addEvent(
         (Event) newEvent)));
-    newTaskButton.setOnAction(event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask)));
+    newTaskButton.setOnAction(
+        event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask)));
     saveButton.setOnAction(event -> saveBujo());
     openButton.setOnAction(event -> loadBujo());
     newWeekButton.setOnAction(event -> newBujo());
+    newEventView.setOnAction(event -> view.newEventPrompt(newEvent -> model.addEvent(
+        (Event) newEvent)));
+    newTaskView.setOnAction(
+        event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask)));
+
   }
+
 
   private Day constructDayFromString(String d) throws IllegalArgumentException {
     return Day.valueOf(d);
@@ -132,11 +149,12 @@ public class JournalController implements Controller {
           model.takesieBacksie(entry);
           updateGUI();
         }
-        );
+    );
     for (Day day : Day.values()) {
       view.showEvents(dayToVBox(day), model.getDaysEvent(day), factory);
       view.showTasks(dayToVBox(day), model.getDaysTasks(day), factory);
     }
+    weeklyOverview();
   }
 
   private VBox dayToVBox(Day day) {
@@ -174,12 +192,27 @@ public class JournalController implements Controller {
     model.saveBujo(selectedFile.toPath());
   }
 
+  private void weeklyOverview() {
+    List<Event> events = model.getAllEvents();
+    List<Task> tasks = model.getAllTasks();
+    int totalEventsInt = events.size();
+    int totalTasksInt = tasks.size();
+    double count = 0;
+    for (Task task : tasks) {
+      if (task.getTaskStatus() == TaskStatus.COMPLETE) {
+        count++;
+      }
+    }
+    double percentTasksDouble = 100 * ((tasks.size() == 0) ? 1 : count / tasks.size());
+    totalEvents.setText(String.valueOf(totalEventsInt));
+    totalTasks.setText(String.valueOf(totalTasksInt));
+    totalComplete.setText(percentTasksDouble + "%");
+  }
+
   @Override
   public void run() {
     setupButtons();
   }
-
-
 
 
 }

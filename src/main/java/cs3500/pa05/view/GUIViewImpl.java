@@ -56,8 +56,8 @@ public class GUIViewImpl implements GUIView {
   @Override
   public void showTaskPanel() {
 
-
   }
+
 
   @Override
   public void setGUIUpdater(Runnable updater) {

@@ -68,6 +68,12 @@ public class JournalModel {
     taskMap.keySet().forEach(day -> tasks.addAll(taskMap.get(day)));
     return tasks;
   }
+
+  public List<Event> getAllEvents() {
+    List<Event> events = new ArrayList<>();
+    eventMap.keySet().forEach(day-> events.addAll(eventMap.get(day)));
+    return events;
+  }
   public void addTask(Task task) {
     taskMap.get(task.getDayOfTheWeek()).add(task);
   }
@@ -136,4 +142,5 @@ public class JournalModel {
     list.set(index + offset, entry);
     list.set(index, temp);
   }
+
 }

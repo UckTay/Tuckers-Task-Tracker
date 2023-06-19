@@ -16,7 +16,9 @@ public class EntryGUIContainerFactory {
 
   Runnable updateGUI;
 
-  public EntryGUIContainerFactory(Runnable updateGUI, Consumer<Entry> moveUp, Consumer<Entry> moveDown, Consumer<Entry> editElement, Consumer<Entry> takesieBacksie) {
+  public EntryGUIContainerFactory(Runnable updateGUI, Consumer<Entry> moveUp,
+                                  Consumer<Entry> moveDown, Consumer<Entry> editElement,
+                                  Consumer<Entry> takesieBacksie) {
     this.moveUp = moveUp;
     this.moveDown = moveDown;
     this.editElement = editElement;
@@ -65,8 +67,6 @@ public class EntryGUIContainerFactory {
     resultBox.getChildren().addAll(up, edit, trash, down);
     return resultBox;
   }
-
-
 
 
 }
