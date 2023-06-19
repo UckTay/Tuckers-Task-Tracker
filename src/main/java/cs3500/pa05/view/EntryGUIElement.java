@@ -32,10 +32,11 @@ public class EntryGUIElement {
     status.setSelected(isComplete);
     status.setOnAction((event) -> task.markTask(
         status.isSelected() ? TaskStatus.COMPLETE : TaskStatus.INCOMPLETE));
-    resultBox.getChildren().add(new Label("Status:"));
     HBox statusBox = new HBox();
+    statusBox.getChildren().add(new Label("Status:"));
     statusBox.getChildren().add(status);
-    statusBox.setAlignment(Pos.CENTER_RIGHT);
+    statusBox.setAlignment(Pos.CENTER_LEFT);
+    statusBox.setSpacing(10);
     resultBox.getChildren().add(statusBox);
   }
 
