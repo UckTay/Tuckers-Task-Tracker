@@ -53,8 +53,6 @@ public class GUIViewImpl implements GUIView {
     new EventCreationPrompt(eventAdder, updateGUI);
   }
 
-
-
   @Override
   public void showTaskPanel() {
 

@@ -24,7 +24,7 @@
                <children>
                   <HBox prefHeight="152.0" prefWidth="1500.0">
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="450.0" />
+                        <VBox prefHeight="152.0" prefWidth="450.0" />
                         <VBox alignment="CENTER" prefHeight="152.0" prefWidth="600.0">
                            <children>
                               <Label text="Week Name">
@@ -34,14 +34,14 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="450.0">
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="152.0" prefWidth="450.0">
                            <children>
-                              <Label text="Weekly Overview">
+                              <Label prefHeight="10.0" text="Weekly Overview">
                                  <font>
                                     <Font size="36.0" />
                                  </font>
                               </Label>
-                              <GridPane>
+                              <GridPane prefHeight="80.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
@@ -88,7 +88,7 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="360.0" prefWidth="1500.0">
+                  <HBox alignment="CENTER" prefHeight="350.0" prefWidth="1500.0">
                      <children>
                         <ScrollPane prefHeight="431.0" prefWidth="330.0">
                            <content>
@@ -152,7 +152,7 @@
                         </ScrollPane>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="360.0" prefWidth="1500.0">
+                  <HBox alignment="CENTER" prefHeight="350.0" prefWidth="1500.0">
                      <children>
                         <ScrollPane prefHeight="431.0" prefWidth="330.0">
                            <content>

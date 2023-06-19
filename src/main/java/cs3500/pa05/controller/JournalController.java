@@ -108,11 +108,6 @@ public class JournalController implements Controller {
     newWeekButton.setOnAction(event -> newBujo());
   }
 
-  private void createEvent() {
-
-  }
-
-
   private Day constructDayFromString(String d) throws IllegalArgumentException {
     return Day.valueOf(d);
   }
