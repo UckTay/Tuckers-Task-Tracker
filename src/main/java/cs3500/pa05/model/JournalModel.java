@@ -1,5 +1,6 @@
 package cs3500.pa05.model;
 
+import cs3500.pa05.view.EntryCreationPrompt;
 import cs3500.pa05.view.EventCreationPrompt;
 import cs3500.pa05.view.TaskCreationPrompt;
 import java.nio.file.Path;
@@ -118,7 +119,7 @@ public class JournalModel {
           list.set(index, newEvent);
         }
       }), updateGUI);
-    } else if (entry instanceof Task){
+    } else if (entry instanceof Task) {
       new TaskCreationPrompt((Task) entry, (newEntry -> {
         Task newTask = (Task) newEntry;
         List<Task> list = taskMap.get(newTask.getDayOfTheWeek());

@@ -3,6 +3,9 @@ package cs3500.pa05.view;
 import cs3500.pa05.model.Entry;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Task;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Border;
@@ -27,17 +30,34 @@ public class EntryGUIContainerFactory {
   }
 
   public VBox createContainer(Task task) {
-    VBox resultBox = new VBox();
-    resultBox.getChildren().add(createButtons(task));
-    resultBox.getChildren().add(new EntryGUIElement(task).getVBox());
-    resultBox.setBorder(Border.stroke(Color.BLACK));
-    return resultBox;
+    return createContainerHelper(task);
   }
 
   public VBox createContainer(Event event) {
+    return createContainerHelper(event);
+  }
+
+  private <T extends Entry> VBox createContainerHelper(T entry) {
     VBox resultBox = new VBox();
-    resultBox.getChildren().add(createButtons(event));
-    resultBox.getChildren().add(new EntryGUIElement(event).getVBox());
+    HBox buttonBox = createButtons(entry);
+    buttonBox.setVisible(false);
+    buttonBox.setManaged(false);
+    resultBox.setOnMouseEntered((event -> {
+      buttonBox.setVisible(true);
+      buttonBox.setManaged(true);
+    }));
+    resultBox.setOnMouseExited((event -> {
+      buttonBox.setVisible(false);
+      buttonBox.setManaged(false);
+    }));
+    resultBox.getChildren().add(buttonBox);
+    if (entry instanceof Task) {
+      resultBox.getChildren().add(new EntryGUIElement((Task) entry).getVBox());
+    } else if(entry instanceof Event) {
+      resultBox.getChildren().add(new EntryGUIElement((Event) entry).getVBox());
+    } else {
+      throw new IllegalStateException();
+    }
     resultBox.setBorder(Border.stroke(Color.BLACK));
     return resultBox;
   }

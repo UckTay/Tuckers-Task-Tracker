@@ -24,8 +24,6 @@ public abstract class EntryCreationPrompt {
 
   protected Dialog<String> dialog = new Dialog<>();
 
-  private Button doneButton = new Button("Done!");
-
   protected TextField nameField = new TextField();
   protected TextField descriptionField = new TextField();
   protected ChoiceBox<String> dayOptions = new ChoiceBox<>();
@@ -33,6 +31,7 @@ public abstract class EntryCreationPrompt {
 
   public EntryCreationPrompt(Entry entry, Consumer<Entry> addEntryToModel, Runnable updateGUI) {
     createPrompt(entry);
+    Button doneButton = new Button("Done!");
     doneButton.prefWidthProperty().bind(resultBox.widthProperty());
     resultBox.getChildren().add(doneButton);
     resultBox.setSpacing(10);

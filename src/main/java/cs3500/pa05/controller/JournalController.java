@@ -8,32 +8,17 @@ import cs3500.pa05.model.TaskStatus;
 import cs3500.pa05.view.EntryGUIContainerFactory;
 import cs3500.pa05.view.GUIView;
 import java.time.Duration;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 
 /**
@@ -110,10 +95,11 @@ public class JournalController implements Controller {
   }
 
   private void setupButtons() {
-    newEventButton.setOnAction(event -> view.newEventPrompt(newEvent -> model.addEvent(
-        (Event) newEvent)));
-    newTaskButton.setOnAction(
-        event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask)));
+    EventHandler<ActionEvent> handleNewEvent = event -> view.newEventPrompt(newEvent -> model.addEvent(
+        (Event) newEvent));
+    EventHandler<ActionEvent> handleNewTask = event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask));
+    newEventButton.setOnAction(handleNewEvent);
+    newTaskButton.setOnAction(handleNewTask);
     saveButton.setOnAction(event -> saveBujo());
     openButton.setOnAction(event -> loadBujo());
     newWeekButton.setOnAction(event -> newBujo());
@@ -154,7 +140,7 @@ public class JournalController implements Controller {
       view.showEvents(dayToVBox(day), model.getDaysEvent(day), factory);
       view.showTasks(dayToVBox(day), model.getDaysTasks(day), factory);
     }
-    weeklyOverview();
+    updateWeeklyOverview();
   }
 
   private VBox dayToVBox(Day day) {
@@ -192,7 +178,7 @@ public class JournalController implements Controller {
     model.saveBujo(selectedFile.toPath());
   }
 
-  private void weeklyOverview() {
+  private void updateWeeklyOverview() {
     List<Event> events = model.getAllEvents();
     List<Task> tasks = model.getAllTasks();
     int totalEventsInt = events.size();
