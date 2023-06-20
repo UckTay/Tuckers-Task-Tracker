@@ -9,6 +9,7 @@ import cs3500.pa05.view.EntryGUIContainerFactory;
 import cs3500.pa05.view.GUIView;
 import java.time.Duration;
 import java.io.File;
+import java.util.EventListener;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,7 +25,7 @@ import javafx.stage.Window;
 /**
  * Java Decks
  */
-public class JournalController implements Controller {
+public class JournalController implements Controller{
   JournalModel javaJournal;
 
   GUIView view;
@@ -88,6 +89,10 @@ public class JournalController implements Controller {
   @FXML
   private Button newTaskView;
 
+  private final EventHandler<CustomGUIEvent> updateGUIHandler = updateEvent -> {
+    updateGUI();
+  };
+
   public JournalController(GUIView GUIViewImpl, JournalModel model) {
     this.view = GUIViewImpl;
     this.model = model;
@@ -124,16 +129,15 @@ public class JournalController implements Controller {
         this::updateGUI,
         entry -> {
           model.moveUp(entry);
-          updateGUI();
         },
         entry -> {
           model.moveDown(entry);
-          updateGUI();
         },
-        entry -> model.mindChange(entry, this::updateGUI),
+        (oldEntry, newEntry) -> {
+          model.mindChange(oldEntry, newEntry);
+        },
         entry -> {
           model.takesieBacksie(entry);
-          updateGUI();
         }
     );
     for (Day day : Day.values()) {
@@ -198,6 +202,7 @@ public class JournalController implements Controller {
   @Override
   public void run() {
     setupButtons();
+    mainPane.addEventHandler(CustomGUIEvent.UPDATE_GUI_EVENT, updateGUIHandler);
   }
 
 

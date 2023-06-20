@@ -106,32 +106,62 @@ public class JournalModel {
     }
   }
 
-  public void mindChange(Entry entry, Runnable updateGUI) {
-    if (entry instanceof Event) {
-      new EventCreationPrompt((Event) entry, (newEntry -> {
-        Event newEvent = (Event) newEntry;
-        List<Event> list = eventMap.get(newEvent.getDayOfTheWeek());
-        int index = list.indexOf(newEvent);
-        if (!list.contains(newEntry)) {
+  public void mindChange(Entry oldEntry, Entry newEntry) {
+    if (newEntry instanceof Event newEvent) {
+      List<Event> list = eventMap.get(newEvent.getDayOfTheWeek());
+      int index = list.indexOf(newEvent);
+      if (!list.contains(newEntry)) {
           addEvent(newEvent);
-          takesieBacksie(entry);
+          takesieBacksie(oldEntry);
         } else {
           list.set(index, newEvent);
         }
-      }), updateGUI);
-    } else if (entry instanceof Task) {
-      new TaskCreationPrompt((Task) entry, (newEntry -> {
-        Task newTask = (Task) newEntry;
-        List<Task> list = taskMap.get(newTask.getDayOfTheWeek());
-        int index = list.indexOf(newTask);
-        if (!list.contains(newEntry)) {
-          addTask(newTask);
-          takesieBacksie(entry);
-        } else {
-          list.set(index, newTask);
-        }
-      }), updateGUI);
+    } else if (newEntry instanceof Task newTask) {
+      List<Task> list = taskMap.get(newTask.getDayOfTheWeek());
+            int index = list.indexOf(newTask);
+      if (!list.contains(newEntry)) {
+        addTask(newTask);
+        takesieBacksie(oldEntry);
+      } else {
+        list.set(index, newTask);
+      }
     }
+//      new TaskCreationPrompt((Task) entry, (newEntry -> {
+//        Task newTask = (Task) newEntry;
+//        List<Task> list = taskMap.get(newTask.getDayOfTheWeek());
+//        int index = list.indexOf(newTask);
+//        if (!list.contains(newEntry)) {
+//          addTask(newTask);
+//          takesieBacksie(entry);
+//        } else {
+//          list.set(index, newTask);
+//        }
+    //    if (entry instanceof Event) {
+//      new EventCreationPrompt((Event) entry, (newEntry -> {
+//        Event newEvent = (Event) newEntry;
+//        List<Event> list = eventMap.get(newEvent.getDayOfTheWeek());
+//        int index = list.indexOf(newEvent);
+//        if (!list.contains(newEntry)) {
+//          addEvent(newEvent);
+//          takesieBacksie(entry);
+//        } else {
+//          list.set(index, newEvent);
+//        }
+//      }), updateGUI);
+//    } else if (entry instanceof Task) {
+//      new TaskCreationPrompt((Task) entry, (newEntry -> {
+//        Task newTask = (Task) newEntry;
+//        List<Task> list = taskMap.get(newTask.getDayOfTheWeek());
+//        int index = list.indexOf(newTask);
+//        if (!list.contains(newEntry)) {
+//          addTask(newTask);
+//          takesieBacksie(entry);
+//        } else {
+//          list.set(index, newTask);
+//        }
+//      }), updateGUI);
+//    }
+
   }
 
   private <T> void moveElement(T entry, List<T> list, int offset) {
