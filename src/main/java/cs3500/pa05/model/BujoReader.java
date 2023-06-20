@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BujoReader {
-  List<Entry> entryList = new ArrayList<>();
+  private final List<Entry> entryList = new ArrayList<>();
   private static final ObjectMapper MAPPER = new ObjectMapper();
 
 

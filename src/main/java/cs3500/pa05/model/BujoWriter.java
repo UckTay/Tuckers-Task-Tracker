@@ -18,6 +18,7 @@ import java.util.List;
 public class BujoWriter {
 
   private static final ObjectMapper MAPPER = new ObjectMapper();
+
   public void writeBujo(Config config, List<Entry> entries, Path path) {
     List<TaskJson> tasks = new ArrayList<>();
     List<EventJson> events = new ArrayList<>();

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class Event extends Entry {
 
-  LocalTime startTime;
-  Duration duration;
+  private final LocalTime startTime;
+  private final Duration duration;
 
   public Event(Day dayOfTheWeek, String name, String description, LocalTime startTime, Duration duration) {
     super(dayOfTheWeek, name, description);

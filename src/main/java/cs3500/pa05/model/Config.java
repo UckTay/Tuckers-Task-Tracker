@@ -6,8 +6,6 @@ public class Config {
   private String name;
   private int maxEvents = -1;
   private int maxTasks = -1;
-
-
   private Day startingDay = Day.SUNDAY;
 
   public Day getStartingDay() {
