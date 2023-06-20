@@ -201,7 +201,7 @@ public class JournalModel {
   public void mindChange(Entry oldEntry, Entry newEntry) {
     if (newEntry instanceof Event newEvent) {
       List<Event> list = eventMap.get(newEvent.getDayOfTheWeek());
-      int index = list.indexOf(oldEntry);
+      int index = list.indexOf((Event) oldEntry);
       if (!list.contains(oldEntry)) {
           addEvent(newEvent);
           takesieBacksie(oldEntry);
@@ -210,7 +210,7 @@ public class JournalModel {
         }
     } else if (newEntry instanceof Task newTask) {
       List<Task> list = taskMap.get(newTask.getDayOfTheWeek());
-            int index = list.indexOf(oldEntry);
+            int index = list.indexOf((Task) oldEntry);
       if (!list.contains(oldEntry)) {
         addTask(newTask);
         takesieBacksie(oldEntry);

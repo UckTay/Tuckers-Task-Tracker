@@ -115,7 +115,7 @@ public class JournalController implements Controller {
    * Construsts and instance of the controller.
    *
    * @param GUIViewImpl the GUI
-   * @param model the model
+   * @param model       the model
    */
   public JournalController(GUIView GUIViewImpl, JournalModel model) {
     this.view = GUIViewImpl;
@@ -148,6 +148,7 @@ public class JournalController implements Controller {
     });
 
   }
+
   /**
    * Constructs a day from a string.
    *
@@ -175,9 +176,12 @@ public class JournalController implements Controller {
   private void updateGUI() {
     EntryGUIContainerFactory factory = new EntryGUIContainerFactory(
         this::updateGUI,
-        event -> view.newEventPrompt(event, newEvent -> model.addEvent(
+        event -> view.newEventPrompt(event, newEvent -> model.mindChange(event,
             (Event) newEvent), day -> model.isBelowTaskLimit(day)),
-        task -> view.newTaskPrompt(task, newTask -> model.addTask((Task) newTask), day -> model.isBelowTaskLimit(day)),
+        task -> {
+          view.newTaskPrompt(task, newTask -> model.mindChange(task, (Task) newTask),
+              day -> model.isBelowTaskLimit(day));
+        },
         entry -> {
           model.moveUp(entry);
         },
@@ -280,5 +284,5 @@ public class JournalController implements Controller {
     updateGUI();
   }
 
-  }
+}
 
