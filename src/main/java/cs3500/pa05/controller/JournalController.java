@@ -8,18 +8,14 @@ import cs3500.pa05.model.Task;
 import cs3500.pa05.model.TaskStatus;
 import cs3500.pa05.view.EntryGUIContainerFactory;
 import cs3500.pa05.view.GUIView;
-import java.time.DayOfWeek;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.EnumMap;
-import java.util.EventListener;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Timer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,7 +23,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
@@ -106,6 +107,12 @@ public class JournalController implements Controller {
 
   @FXML
   private Button settingsButton;
+
+  @FXML
+  private MediaView intro;
+
+  @FXML
+  private Pane pane;
 
   private final EventHandler<CustomGUIEvent> updateGUIHandler = updateEvent -> {
     updateGUI();
@@ -279,9 +286,32 @@ public class JournalController implements Controller {
 
   @Override
   public void run() {
+    playSplashScene();
+  }
+
+  private void runAfterSplashScene() {
     setupButtons();
     mainPane.addEventHandler(CustomGUIEvent.UPDATE_GUI_EVENT, updateGUIHandler);
     updateGUI();
+  }
+
+  private void playSplashScene() {
+    intro.setVisible(true);
+//    intro.setFitHeight(Double.MAX_VALUE);
+//    intro.setFitWidth(Double.MAX_VALUE);
+    Media media = new Media(Path.of("src/main/resources/JournalAnimation3.mp4").toUri().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(media);
+    intro.setMediaPlayer(mediaPlayer);
+    mediaPlayer.setAutoPlay(true);
+//    mediaPlayer.play();
+    mediaPlayer.setOnEndOfMedia(() -> {
+      intro.setVisible(false);
+      runAfterSplashScene();
+      pane.setVisible(false);
+
+    });
+
+
   }
 
 }

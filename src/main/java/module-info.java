@@ -5,6 +5,7 @@ module cs3500.pa05 {
     requires org.controlsfx.controls;
     requires com.fasterxml.jackson.annotation;
     requires com.fasterxml.jackson.databind;
+    requires javafx.media;
     exports cs3500.pa05.model.json to com.fasterxml.jackson.databind;
 
     opens cs3500.pa05 to javafx.fxml;

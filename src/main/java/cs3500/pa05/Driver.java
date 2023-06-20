@@ -7,8 +7,6 @@ import cs3500.pa05.model.JournalModel;
 import cs3500.pa05.view.GUIView;
 import cs3500.pa05.view.GUIViewImpl;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -37,8 +35,12 @@ public class Driver extends Application {
     JournalModel model = new JournalModel();
     GUIView view = new GUIViewImpl();
     Controller controller = new JournalController(view, model);
-    primaryStage.setScene(view.load(controller));
-    controller.run();
+    Scene scene = view.load(controller);
+
+    primaryStage.setScene(scene);
     primaryStage.show();
+    controller.run();
+
+
   }
 }
