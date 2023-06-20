@@ -1,22 +1,19 @@
 package cs3500.pa05.view;
 
 import cs3500.pa05.controller.Controller;
+import cs3500.pa05.model.Config;
 import cs3500.pa05.model.Entry;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Task;
-import cs3500.pa05.model.TaskStatus;
+import cs3500.pa05.view.prompts.EventCreationPrompt;
+import cs3500.pa05.view.prompts.SettingsPrompt;
+import cs3500.pa05.view.prompts.TaskCreationPrompt;
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class GUIViewImpl implements GUIView {
 
@@ -51,6 +48,11 @@ public class GUIViewImpl implements GUIView {
   @Override
   public void newEventPrompt(Consumer<Entry> eventAdder) {
     new EventCreationPrompt(eventAdder, updateGUI);
+  }
+
+  @Override
+  public void showSettingsPrompt(Config config) {
+    new SettingsPrompt(config);
   }
 
   @Override

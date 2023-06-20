@@ -1,4 +1,4 @@
-package cs3500.pa05.view;
+package cs3500.pa05.view.prompts;
 
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Entry;

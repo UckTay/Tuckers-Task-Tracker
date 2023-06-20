@@ -1,5 +1,6 @@
 package cs3500.pa05.controller;
 
+import cs3500.pa05.model.Config;
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.JournalModel;
@@ -9,8 +10,12 @@ import cs3500.pa05.view.EntryGUIContainerFactory;
 import cs3500.pa05.view.GUIView;
 import java.time.Duration;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.EventListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -22,6 +27,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
+//TODO: rename days in gui when order is changed
+//TODO: limit creation according to the limit
+//TODO: Add task queue
 /**
  * Java Decks
  */
@@ -30,6 +38,8 @@ public class JournalController implements Controller{
 
   GUIView view;
   JournalModel model;
+
+  Config config;
 
   @FXML
   private MenuItem newEventButton;
@@ -69,7 +79,7 @@ public class JournalController implements Controller{
   private MenuItem openButton;
 
   @FXML
-  private   MenuItem newWeekButton;
+  private MenuItem newWeekButton;
 
   @FXML
   private Label totalEvents;
@@ -89,6 +99,9 @@ public class JournalController implements Controller{
   @FXML
   private Button newTaskView;
 
+  @FXML
+  private Button settingsButton;
+
   private final EventHandler<CustomGUIEvent> updateGUIHandler = updateEvent -> {
     updateGUI();
   };
@@ -96,6 +109,7 @@ public class JournalController implements Controller{
   public JournalController(GUIView GUIViewImpl, JournalModel model) {
     this.view = GUIViewImpl;
     this.model = model;
+    this.config = model.getConfig();
     view.setGUIUpdater(this::updateGUI);
   }
 
@@ -112,7 +126,10 @@ public class JournalController implements Controller{
         (Event) newEvent)));
     newTaskView.setOnAction(
         event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask)));
-
+    settingsButton.setOnAction(event -> {
+      view.showSettingsPrompt(config);
+      updateGUI();
+    });
   }
 
 
@@ -148,16 +165,14 @@ public class JournalController implements Controller{
   }
 
   private VBox dayToVBox(Day day) {
-    return switch (day.ordinal()) {
-      case 0 -> day0;
-      case 1 -> day1;
-      case 2 -> day2;
-      case 3 -> day3;
-      case 4 -> day4;
-      case 5 -> day5;
-      case 6 -> day6;
-      default -> throw new IllegalStateException("Unexpected value: " + day.ordinal());
-    };
+    List<Day> unorderedList = List.of(Day.values());
+    List<Day> orderedList = new ArrayList<>();
+    int startingIndex = unorderedList.indexOf(config.getStartingDay());
+    for (int i = 0; i < unorderedList.size(); i++) {
+      orderedList.add(unorderedList.get((startingIndex + i) % 7));
+    }
+    List<VBox> boxes = List.of(day0, day1, day2, day3, day4, day5, day6);
+    return boxes.get(orderedList.indexOf(day));
   }
 
   private void newBujo() {

@@ -1,14 +1,10 @@
 package cs3500.pa05.model;
 
-import cs3500.pa05.view.EntryCreationPrompt;
-import cs3500.pa05.view.EventCreationPrompt;
-import cs3500.pa05.view.TaskCreationPrompt;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class JournalModel {
 
@@ -106,11 +102,15 @@ public class JournalModel {
     }
   }
 
+  public Config getConfig() {
+    return config;
+  }
+
   public void mindChange(Entry oldEntry, Entry newEntry) {
     if (newEntry instanceof Event newEvent) {
       List<Event> list = eventMap.get(newEvent.getDayOfTheWeek());
-      int index = list.indexOf(newEvent);
-      if (!list.contains(newEntry)) {
+      int index = list.indexOf(oldEntry);
+      if (!list.contains(oldEntry)) {
           addEvent(newEvent);
           takesieBacksie(oldEntry);
         } else {
@@ -118,49 +118,14 @@ public class JournalModel {
         }
     } else if (newEntry instanceof Task newTask) {
       List<Task> list = taskMap.get(newTask.getDayOfTheWeek());
-            int index = list.indexOf(newTask);
-      if (!list.contains(newEntry)) {
+            int index = list.indexOf(oldEntry);
+      if (!list.contains(oldEntry)) {
         addTask(newTask);
         takesieBacksie(oldEntry);
       } else {
         list.set(index, newTask);
       }
     }
-//      new TaskCreationPrompt((Task) entry, (newEntry -> {
-//        Task newTask = (Task) newEntry;
-//        List<Task> list = taskMap.get(newTask.getDayOfTheWeek());
-//        int index = list.indexOf(newTask);
-//        if (!list.contains(newEntry)) {
-//          addTask(newTask);
-//          takesieBacksie(entry);
-//        } else {
-//          list.set(index, newTask);
-//        }
-    //    if (entry instanceof Event) {
-//      new EventCreationPrompt((Event) entry, (newEntry -> {
-//        Event newEvent = (Event) newEntry;
-//        List<Event> list = eventMap.get(newEvent.getDayOfTheWeek());
-//        int index = list.indexOf(newEvent);
-//        if (!list.contains(newEntry)) {
-//          addEvent(newEvent);
-//          takesieBacksie(entry);
-//        } else {
-//          list.set(index, newEvent);
-//        }
-//      }), updateGUI);
-//    } else if (entry instanceof Task) {
-//      new TaskCreationPrompt((Task) entry, (newEntry -> {
-//        Task newTask = (Task) newEntry;
-//        List<Task> list = taskMap.get(newTask.getDayOfTheWeek());
-//        int index = list.indexOf(newTask);
-//        if (!list.contains(newEntry)) {
-//          addTask(newTask);
-//          takesieBacksie(entry);
-//        } else {
-//          list.set(index, newTask);
-//        }
-//      }), updateGUI);
-//    }
 
   }
 

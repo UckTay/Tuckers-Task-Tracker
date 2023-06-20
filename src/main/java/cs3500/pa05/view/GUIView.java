@@ -1,6 +1,7 @@
 package cs3500.pa05.view;
 
 import cs3500.pa05.controller.Controller;
+import cs3500.pa05.model.Config;
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Entry;
 import cs3500.pa05.model.Event;
@@ -17,6 +18,8 @@ public interface GUIView {
   void showEvents(VBox vbox, List<Event> events, EntryGUIContainerFactory factory);
   void newTaskPrompt(Consumer<Entry> taskAdder);
   void newEventPrompt(Consumer<Entry> eventAdder);
+
+  void showSettingsPrompt(Config config);
 
   void showTaskPanel();
 

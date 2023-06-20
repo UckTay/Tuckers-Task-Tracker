@@ -4,8 +4,19 @@ import cs3500.pa05.model.json.ConfigJson;
 
 public class Config {
   private String name;
-  private int maxEvents;
-  private int maxTasks;
+  private int maxEvents = -1;
+  private int maxTasks = -1;
+
+
+  private Day startingDay = Day.SUNDAY;
+
+  public Day getStartingDay() {
+    return startingDay;
+  }
+
+  public void setStartingDay(Day startingDay) {
+    this.startingDay = startingDay;
+  }
 
   public String getName() {
     return name;
