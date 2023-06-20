@@ -16,8 +16,12 @@ import javafx.scene.layout.VBox;
 public interface GUIView {
   void showTasks(VBox vbox, List<Task> tasks, EntryGUIContainerFactory factory);
   void showEvents(VBox vbox, List<Event> events, EntryGUIContainerFactory factory);
-  void newTaskPrompt(Consumer<Entry> taskAdder);
-  void newEventPrompt(Consumer<Entry> eventAdder);
+  void newTaskPrompt(Consumer<Entry> taskAdder, Function<Day, Boolean> limitChecker);
+  void newTaskPrompt(Task task, Consumer<Entry> taskAdder, Function<Day, Boolean> limitChecker);
+
+  void newEventPrompt(Event event, Consumer<Entry> eventAdder, Function<Day, Boolean> limitChecker);
+
+  void newEventPrompt(Consumer<Entry> eventAdder, Function<Day, Boolean> limitChecker);
 
   void showSettingsPrompt(Config config);
 

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -30,12 +31,12 @@ public class EventCreationPrompt extends EntryCreationPrompt {
   private int startMinutes;
   private int startHours;
 
-  public EventCreationPrompt(Consumer<Entry> addEntryToModel, Runnable updateGUI) {
-    super(addEntryToModel, updateGUI);
+  public EventCreationPrompt(Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
+    super(addEntryToModel, isUnderLimit, updateGUI);
   }
 
-  public EventCreationPrompt(Event event, Consumer<Entry> addEntryToModel, Runnable updateGUI) {
-    super(event, addEntryToModel, updateGUI);
+  public EventCreationPrompt(Event event, Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
+    super(event, addEntryToModel, isUnderLimit, updateGUI);
   }
 
   @Override
@@ -92,10 +93,10 @@ public class EventCreationPrompt extends EntryCreationPrompt {
 
   @Override
   protected void setDoneButton(Button doneButton, Consumer<Entry> addEntryToModel,
-                               Runnable updateGUI) {
+                               Runnable updateGUI, Function<Day, Boolean> isUnderLimit) {
     doneButton.setOnAction(event -> {
 
-
+      Day day = Day.valueOf(dayOptions.getValue().toUpperCase());
       try {
         startHours = Integer.parseInt(hoursOptions.getValue());
         startMinutes = Integer.parseInt(minutesOptions.getValue());
@@ -106,8 +107,8 @@ public class EventCreationPrompt extends EntryCreationPrompt {
       }
       if (!nameField.getText().equals("")
           && Arrays.stream(Day.values()).toList()
-          .contains(Day.valueOf(dayOptions.getValue().toUpperCase())) && durationMinutes >= 0 &&
-          durationHours >= 0) {
+          .contains(day) && durationMinutes >= 0 &&
+          durationHours >= 0 && isUnderLimit.apply(day)) {
         ((Stage) doneButton.getScene().getWindow()).close();
         addEntry(addEntryToModel, updateGUI);
       }

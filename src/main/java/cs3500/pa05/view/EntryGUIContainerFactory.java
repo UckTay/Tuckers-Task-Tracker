@@ -17,17 +17,22 @@ public class EntryGUIContainerFactory {
 
   Consumer<Entry> moveUp, moveDown, takesieBacksie;
 
+  Consumer<Event> createEventPrompt;
+
+  Consumer<Task> createTaskPrompt;
   BiConsumer<Entry, Entry> editElement;
 
   Runnable updateGUI;
 
-  public EntryGUIContainerFactory(Runnable updateGUI, Consumer<Entry> moveUp,
+  public EntryGUIContainerFactory(Runnable updateGUI, Consumer<Event> createEventPrompt, Consumer<Task> createTaskPrompt, Consumer<Entry> moveUp,
                                   Consumer<Entry> moveDown, BiConsumer<Entry, Entry> editElement,
                                   Consumer<Entry> takesieBacksie) {
     this.moveUp = moveUp;
     this.moveDown = moveDown;
     this.editElement = editElement;
     this.takesieBacksie = takesieBacksie;
+    this.createEventPrompt = createEventPrompt;
+    this.createTaskPrompt = createTaskPrompt;
     this.updateGUI = updateGUI;
   }
 
@@ -74,11 +79,9 @@ public class EntryGUIContainerFactory {
     Button edit = new Button("✏\uFE0F");
     edit.setOnAction((event) -> {
       if (entry instanceof Event) {
-        new EventCreationPrompt((Event) entry, newEntry -> editElement.accept(entry, newEntry),
-            updateGUI);
+        createEventPrompt.accept((Event) entry);
       } else if (entry instanceof Task) {
-        new TaskCreationPrompt((Task) entry, newEntry -> editElement.accept(entry, newEntry),
-            updateGUI);
+        createTaskPrompt.accept((Task) entry);
       }
     });
     Button trash = new Button("\uD83D\uDDD1\uFE0F");

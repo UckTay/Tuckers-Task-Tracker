@@ -2,6 +2,7 @@ package cs3500.pa05.view;
 
 import cs3500.pa05.controller.Controller;
 import cs3500.pa05.model.Config;
+import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Entry;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Task;
@@ -11,6 +12,7 @@ import cs3500.pa05.view.prompts.TaskCreationPrompt;
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
@@ -41,13 +43,25 @@ public class GUIViewImpl implements GUIView {
 
 
   @Override
-  public void newTaskPrompt(Consumer<Entry> taskAdder) {
-    new TaskCreationPrompt(taskAdder, updateGUI);
+  public void newTaskPrompt(Consumer<Entry> taskAdder, Function<Day, Boolean> taskLimitChecker) {
+    new TaskCreationPrompt(taskAdder, taskLimitChecker, updateGUI);
   }
 
   @Override
-  public void newEventPrompt(Consumer<Entry> eventAdder) {
-    new EventCreationPrompt(eventAdder, updateGUI);
+  public void newTaskPrompt(Task task, Consumer<Entry> taskAdder, Function<Day, Boolean> taskLimitChecker) {
+    new TaskCreationPrompt(task, taskAdder, taskLimitChecker,  updateGUI);
+
+  }
+
+  @Override
+  public void newEventPrompt(Event event, Consumer<Entry> eventAdder,
+                             Function<Day, Boolean> limitChecker) {
+    new EventCreationPrompt(event, eventAdder, limitChecker, updateGUI);
+  }
+
+  @Override
+  public void newEventPrompt(Consumer<Entry> eventAdder, Function<Day, Boolean> eventLimitChecker) {
+    new EventCreationPrompt(eventAdder, eventLimitChecker, updateGUI);
   }
 
   @Override

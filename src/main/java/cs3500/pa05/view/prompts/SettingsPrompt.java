@@ -49,11 +49,11 @@ public class SettingsPrompt {
     dayBox.setAlignment(Pos.CENTER_LEFT);
     dayBox.setSpacing(10);
     resultBox.getChildren().add(dayBox);
-    Label maxEventsLbl = new Label("Maximum number of Tasks per day:");
+    Label maxEventsLbl = new Label("Maximum number of Events per day:");
     maxEventsField = config.getMaxEvents() == -1 ? new TextField() : new TextField(String.valueOf(config.getMaxEvents()));
     maxEventsField.setPrefWidth(30);
-    Label maxTasksLbl = new Label("Maximum number of Events per day:");
-    maxTasksField = config.getMaxEvents() == -1 ? new TextField() : new TextField(String.valueOf(config.getMaxTasks()));
+    Label maxTasksLbl = new Label("Maximum number of Tasks per day:");
+    maxTasksField = config.getMaxTasks() == -1 ? new TextField() : new TextField(String.valueOf(config.getMaxTasks()));
     maxTasksField.setPrefWidth(30);
     resultBox.getChildren().addAll(maxEventsLbl, maxEventsField, maxTasksLbl, maxTasksField);
     Window window = dialog.getDialogPane().getScene().getWindow();
@@ -84,6 +84,10 @@ public class SettingsPrompt {
         //Intentionally ignored
       }
       ((Stage) doneButton.getScene().getWindow()).close();
+      System.out.println("tasks:" + config.getMaxTasks());
+      System.out.println("events:" + config.getMaxEvents());
     });
+
+
   }
 }

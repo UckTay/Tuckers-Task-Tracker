@@ -8,9 +8,13 @@ import cs3500.pa05.model.Task;
 import cs3500.pa05.model.TaskStatus;
 import cs3500.pa05.view.EntryGUIContainerFactory;
 import cs3500.pa05.view.GUIView;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.io.File;
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.EnumMap;
 import java.util.EventListener;
 import java.util.HashMap;
@@ -30,10 +34,11 @@ import javafx.stage.Window;
 //TODO: rename days in gui when order is changed
 //TODO: limit creation according to the limit
 //TODO: Add task queue
+
 /**
  * Represents the controller for the java journal.
  */
-public class JournalController implements Controller{
+public class JournalController implements Controller {
   JournalModel javaJournal;
 
   GUIView view;
@@ -123,24 +128,26 @@ public class JournalController implements Controller{
    * Sets up the buttons for use.
    */
   private void setupButtons() {
-    EventHandler<ActionEvent> handleNewEvent = event -> view.newEventPrompt(newEvent -> model.addEvent(
-        (Event) newEvent));
-    EventHandler<ActionEvent> handleNewTask = event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask));
+    EventHandler<ActionEvent> handleNewEvent = event -> {
+      view.newEventPrompt(newEvent -> model.addEvent(
+          (Event) newEvent), day -> model.isBelowEventLimit(day));
+    };
+    EventHandler<ActionEvent> handleNewTask =
+        event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask),
+            day -> model.isBelowTaskLimit(day));
     newEventButton.setOnAction(handleNewEvent);
     newTaskButton.setOnAction(handleNewTask);
     saveButton.setOnAction(event -> saveBujo());
     openButton.setOnAction(event -> loadBujo());
     newWeekButton.setOnAction(event -> newBujo());
-    newEventView.setOnAction(event -> view.newEventPrompt(newEvent -> model.addEvent(
-        (Event) newEvent)));
-    newTaskView.setOnAction(
-        event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask)));
+    newEventView.setOnAction(handleNewEvent);
+    newTaskView.setOnAction(handleNewTask);
     settingsButton.setOnAction(event -> {
       view.showSettingsPrompt(config);
       updateGUI();
     });
-  }
 
+  }
   /**
    * Constructs a day from a string.
    *
@@ -168,6 +175,9 @@ public class JournalController implements Controller{
   private void updateGUI() {
     EntryGUIContainerFactory factory = new EntryGUIContainerFactory(
         this::updateGUI,
+        event -> view.newEventPrompt(event, newEvent -> model.addEvent(
+            (Event) newEvent), day -> model.isBelowTaskLimit(day)),
+        task -> view.newTaskPrompt(task, newTask -> model.addTask((Task) newTask), day -> model.isBelowTaskLimit(day)),
         entry -> {
           model.moveUp(entry);
         },
@@ -182,6 +192,13 @@ public class JournalController implements Controller{
         }
     );
     for (Day day : Day.values()) {
+      Label label = ((Label) dayToVBox(day).getChildren().get(0));
+      label.setText(day.toString());
+      if (LocalDate.now().get(ChronoField.DAY_OF_WEEK) == day.ordinal()) {
+        label.setUnderline(true);
+      } else {
+        label.setUnderline(false);
+      }
       view.showEvents(dayToVBox(day), model.getDaysEvent(day), factory);
       view.showTasks(dayToVBox(day), model.getDaysTasks(day), factory);
     }
@@ -260,7 +277,8 @@ public class JournalController implements Controller{
   public void run() {
     setupButtons();
     mainPane.addEventHandler(CustomGUIEvent.UPDATE_GUI_EVENT, updateGUIHandler);
+    updateGUI();
   }
 
+  }
 
-}

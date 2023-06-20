@@ -3,9 +3,9 @@ package cs3500.pa05.view.prompts;
 import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Entry;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,7 +15,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public abstract class EntryCreationPrompt {
@@ -28,20 +27,19 @@ public abstract class EntryCreationPrompt {
   protected TextField descriptionField = new TextField();
   protected ChoiceBox<String> dayOptions = new ChoiceBox<>();
 
-
-  public EntryCreationPrompt(Entry entry, Consumer<Entry> addEntryToModel, Runnable updateGUI) {
+  public EntryCreationPrompt(Entry entry, Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
     createPrompt(entry);
     Button doneButton = new Button("Done!");
     doneButton.prefWidthProperty().bind(resultBox.widthProperty());
     resultBox.getChildren().add(doneButton);
     resultBox.setSpacing(10);
-    setDoneButton(doneButton, addEntryToModel, updateGUI);
+    setDoneButton(doneButton, addEntryToModel, updateGUI, isUnderLimit);
     dialog.getDialogPane().setContent(resultBox);
     dialog.showAndWait();
   }
 
-  public EntryCreationPrompt(Consumer<Entry> addEntryToModel, Runnable updateGUI) {
-    this(null, addEntryToModel, updateGUI);
+  public EntryCreationPrompt(Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
+    this(null, addEntryToModel, isUnderLimit, updateGUI);
   }
 
   protected void createPrompt(Entry entry) {
@@ -78,16 +76,8 @@ public abstract class EntryCreationPrompt {
     window.setOnCloseRequest(event -> dialog.close());
   }
 
-  protected void setDoneButton(Button doneButton, Consumer<Entry> addEntryToModel,
-                               Runnable updateGUI) {
-    doneButton.setOnAction(event -> {
-      if (!nameField.getText().equals("") && Arrays.stream(Day.values()).toList()
-          .contains(Day.valueOf(dayOptions.getValue().toUpperCase()))) {
-        ((Stage) doneButton.getScene().getWindow()).close();
-        addEntry(addEntryToModel, updateGUI);
-      }
-    });
-  }
+  protected abstract void setDoneButton(Button doneButton, Consumer<Entry> addEntryToModel,
+                                        Runnable updateGUI, Function<Day, Boolean> isUnderLimit);
 
   protected abstract void addEntry(Consumer<Entry> addEntryToModel, Runnable updateGUI);
 

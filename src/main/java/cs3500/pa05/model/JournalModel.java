@@ -132,6 +132,18 @@ public class JournalModel {
       eventMap.get(event.getDayOfTheWeek()).add(event);
   }
 
+  public boolean isBelowTaskLimit(Day day) {
+    return genericIsUnderLimit(config.getMaxTasks(), taskMap.get(day));
+  }
+
+  public boolean isBelowEventLimit(Day day) {
+    return genericIsUnderLimit(config.getMaxEvents(), eventMap.get(day));
+  }
+
+  private <T> boolean genericIsUnderLimit(int limit, List<T> list) {
+    return limit < 0 || list.size() < limit;
+  }
+
   /**
    * Moves an entry up on a given day.
    *
