@@ -31,7 +31,7 @@ import javafx.stage.Window;
 //TODO: limit creation according to the limit
 //TODO: Add task queue
 /**
- * Java Decks
+ * Represents the controller for the java journal.
  */
 public class JournalController implements Controller{
   JournalModel javaJournal;
@@ -106,6 +106,12 @@ public class JournalController implements Controller{
     updateGUI();
   };
 
+  /**
+   * Construsts and instance of the controller.
+   *
+   * @param GUIViewImpl the GUI
+   * @param model the model
+   */
   public JournalController(GUIView GUIViewImpl, JournalModel model) {
     this.view = GUIViewImpl;
     this.model = model;
@@ -113,6 +119,9 @@ public class JournalController implements Controller{
     view.setGUIUpdater(this::updateGUI);
   }
 
+  /**
+   * Sets up the buttons for use.
+   */
   private void setupButtons() {
     EventHandler<ActionEvent> handleNewEvent = event -> view.newEventPrompt(newEvent -> model.addEvent(
         (Event) newEvent));
@@ -132,15 +141,30 @@ public class JournalController implements Controller{
     });
   }
 
-
+  /**
+   * Constructs a day from a string.
+   *
+   * @param d the string
+   * @return the new day
+   * @throws IllegalArgumentException the string isn't a day
+   */
   private Day constructDayFromString(String d) throws IllegalArgumentException {
     return Day.valueOf(d);
   }
 
+  /**
+   * Constructs a duration from a string.
+   *
+   * @param d the duration as a string
+   * @return the new duration
+   */
   private Duration constructDurationFromString(String d) {
     return null;
   }
 
+  /**
+   * Updates the GUI.
+   */
   private void updateGUI() {
     EntryGUIContainerFactory factory = new EntryGUIContainerFactory(
         this::updateGUI,
@@ -164,6 +188,12 @@ public class JournalController implements Controller{
     updateWeeklyOverview();
   }
 
+  /**
+   * Gets the vbox of a given day.
+   *
+   * @param day the given day
+   * @return the VBox
+   */
   private VBox dayToVBox(Day day) {
     List<Day> unorderedList = List.of(Day.values());
     List<Day> orderedList = new ArrayList<>();
@@ -175,11 +205,17 @@ public class JournalController implements Controller{
     return boxes.get(orderedList.indexOf(day));
   }
 
+  /**
+   * Creates a new week.
+   */
   private void newBujo() {
     model.newWeek();
     updateGUI();
   }
 
+  /**
+   * Loads a given week from a Bujo file
+   */
   private void loadBujo() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
@@ -188,6 +224,9 @@ public class JournalController implements Controller{
     updateGUI();
   }
 
+  /**
+   * Saves the week to a bujo file.
+   */
   private void saveBujo() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
@@ -197,6 +236,9 @@ public class JournalController implements Controller{
     model.saveBujo(selectedFile.toPath());
   }
 
+  /**
+   * Updates the weekly overview.
+   */
   private void updateWeeklyOverview() {
     List<Event> events = model.getAllEvents();
     List<Task> tasks = model.getAllTasks();
