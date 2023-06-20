@@ -15,10 +15,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents a BujoWriter
+ */
 public class BujoWriter {
 
   private static final ObjectMapper MAPPER = new ObjectMapper();
 
+  /**
+   * Writes to a bujo file
+   *
+   * @param config the configurations of the week
+   * @param entries the entries in a week
+   * @param path the path to the file
+   */
   public void writeBujo(Config config, List<Entry> entries, Path path) {
     List<TaskJson> tasks = new ArrayList<>();
     List<EventJson> events = new ArrayList<>();

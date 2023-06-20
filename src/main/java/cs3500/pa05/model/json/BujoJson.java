@@ -7,6 +7,13 @@ import cs3500.pa05.model.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a BujoJson.
+ *
+ * @param name the configuration of the week
+ * @param taskList the tasks of the week
+ * @param eventList the events of the week
+ */
 @JsonPropertyOrder({"config", "taskList", "eventList"})
 
 public record BujoJson(
@@ -15,6 +22,11 @@ public record BujoJson(
     @JsonProperty("eventList") List<EventJson> eventList
 ) {
 
+  /**
+   * Generates tasks from the TaskJson.
+   *
+   * @return a list of Task
+   */
   public List<Task> generateTasks() {
     List<Task> tasks = new ArrayList<>();
     for (TaskJson task : taskList) {
@@ -23,6 +35,11 @@ public record BujoJson(
     return tasks;
   }
 
+  /**
+   * Generates events from the EventJson.
+   *
+   * @return a list of events
+   */
   public List<Event> generateEvents() {
     List<Event> events = new ArrayList<>();
     for (EventJson event : eventList) {

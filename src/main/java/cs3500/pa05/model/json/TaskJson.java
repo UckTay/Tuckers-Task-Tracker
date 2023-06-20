@@ -6,6 +6,14 @@ import cs3500.pa05.model.Day;
 import cs3500.pa05.model.Task;
 import cs3500.pa05.model.TaskStatus;
 
+/**
+ * Represents a TaskJson.
+ *
+ * @param day the day of the task
+ * @param name the name of the task
+ * @param description the description of the task
+ * @param status the status of the task
+ */
 @JsonPropertyOrder({"day", "name", "description", "taskStatus"})
 public record TaskJson(
     @JsonProperty("day") Day day,
@@ -14,6 +22,11 @@ public record TaskJson(
     @JsonProperty("taskStatus")TaskStatus status
     ) {
 
+    /**
+     * Converts the JsonTask to a Task
+     *
+     * @return the new task
+     */
     public Task toTask() {
         return new Task(day, name, description, status);
     }

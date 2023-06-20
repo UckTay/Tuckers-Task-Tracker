@@ -10,11 +10,19 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a BujoReader
+ */
 public class BujoReader {
   private final List<Entry> entryList = new ArrayList<>();
   private static final ObjectMapper MAPPER = new ObjectMapper();
 
-
+  /**
+   * reads a given bujo file
+   *
+   * @param path the path to the bujo file
+   * @return the configurations of the week
+   */
   public Config readBujo(Path path) {
     JsonNode fileContents;
     try {
@@ -30,6 +38,13 @@ public class BujoReader {
     return config;
   }
 
+  /**
+   * Gets the entries in a given bujo file.
+   *
+   * @param entryType the kind of entry
+   * @return a list of that entry type
+   * @param <T> the type of entry
+   */
   public <T> List<T> getEntry(Class<T> entryType) {
     List<T> list = new ArrayList<>();
     for (Entry entry : entryList) {

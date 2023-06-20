@@ -8,6 +8,15 @@ import cs3500.pa05.model.TaskStatus;
 import java.time.Duration;
 import java.time.LocalTime;
 
+/**
+ * Represents a EventJson.
+ *
+ * @param day the day of the event
+ * @param name the name of the event
+ * @param description the description of the event
+ * @param startTime the start time of the event
+ * @param duration the duration of the event
+ */
 @JsonPropertyOrder({"day", "name", "description", "startTime", "duration"})
 public record EventJson(
     @JsonProperty("day") Day day,
@@ -16,6 +25,12 @@ public record EventJson(
     @JsonProperty("startTime") String startTime,
     @JsonProperty("duration") String duration
     ) {
+
+    /**
+     * Converts the EventJson to an event.
+     *
+     * @return the new event
+     */
     public Event toEvent() {
         return new Event(day, name, description, LocalTime.parse(startTime), Duration.parse(duration));
     }
