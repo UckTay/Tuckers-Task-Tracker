@@ -108,7 +108,7 @@ public class GUIViewImpl implements GUIView {
       Scene scene = loader.load();
       return scene;
     } catch (IOException exc) {
-      throw new IllegalStateException("Unable to load layout.");
+      throw new IllegalStateException("Unable to load layout.", exc);
     }
   }
 

@@ -20,3 +20,5 @@
 ## Section 5: Extra Credit
 - Splash Screen
 - Deployable Application
+- Privacy Lock
+- Weekly Starter

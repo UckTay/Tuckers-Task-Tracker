@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
@@ -124,6 +125,12 @@ public class JournalController implements Controller {
   @FXML
   private VBox taskPanel;
 
+  @FXML
+  private MenuItem openTemplateButton;
+
+  @FXML
+  private MenuItem settingsMenuBar;
+
   private final EventHandler<CustomGUIEvent> updateGUIHandler = updateEvent -> updateGUI();
 
   /**
@@ -154,9 +161,14 @@ public class JournalController implements Controller {
     newTaskButton.setOnAction(handleNewTask);
     saveButton.setOnAction(event -> saveBujo());
     openButton.setOnAction(event -> loadBujo());
+    openTemplateButton.setOnAction(event -> loadBujoAsTemplate());
     newWeekButton.setOnAction(event -> newBujo());
     newEventView.setOnAction(handleNewEvent);
     newTaskView.setOnAction(handleNewTask);
+    settingsMenuBar.setOnAction(event -> {
+      view.showSettingsPrompt(config);
+      updateGUI();
+    });
     settingsButton.setOnAction(event -> {
       view.showSettingsPrompt(config);
       updateGUI();
