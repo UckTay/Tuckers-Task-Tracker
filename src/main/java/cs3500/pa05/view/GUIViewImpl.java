@@ -73,8 +73,11 @@ public class GUIViewImpl implements GUIView {
   }
 
   @Override
-  public void showTaskPanel() {
-
+  public void showTaskPanel(VBox vBox, List<Task> tasks) {
+    vBox.getChildren().clear();
+    for (Task task : tasks) {
+      vBox.getChildren().add(new EntryGUIElement(task).getVBox());
+    }
   }
 
 
@@ -88,7 +91,7 @@ public class GUIViewImpl implements GUIView {
     this.updateGUI = updateGUI;
     try {
       FXMLLoader loader = new FXMLLoader();
-      loader.setLocation(getClass().getClassLoader().getResource("test.fxml"));
+      loader.setLocation(getClass().getClassLoader().getResource("view.fxml"));
       loader.setController(controller);
       return loader.load();
     } catch (IOException exc) {

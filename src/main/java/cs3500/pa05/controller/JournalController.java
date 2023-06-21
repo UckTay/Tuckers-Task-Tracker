@@ -19,10 +19,15 @@ import java.util.Timer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -45,6 +50,10 @@ public class JournalController implements Controller {
   JournalModel model;
   Config config;
 
+  boolean isTaskPanelVisible = false;
+
+  @FXML
+  private Scene scene;
   @FXML
   private MenuItem newEventButton;
 
@@ -71,10 +80,6 @@ public class JournalController implements Controller {
 
   @FXML
   private VBox day6;
-
-  @FXML
-  private AnchorPane mainPane;
-
   private Window fileWindow;
 
   @FXML
@@ -108,10 +113,16 @@ public class JournalController implements Controller {
   private Button settingsButton;
 
   @FXML
+  private Button taskPanelButton;
+
+  @FXML
   private MediaView intro;
 
   @FXML
   private Pane pane;
+
+  @FXML
+  private VBox taskPanel;
 
   private final EventHandler<CustomGUIEvent> updateGUIHandler = updateEvent -> updateGUI();
 
@@ -148,6 +159,10 @@ public class JournalController implements Controller {
     newTaskView.setOnAction(handleNewTask);
     settingsButton.setOnAction(event -> {
       view.showSettingsPrompt(config);
+      updateGUI();
+    });
+    taskPanelButton.setOnAction(event -> {
+      isTaskPanelVisible = !isTaskPanelVisible;
       updateGUI();
     });
     weekName.setOnMouseClicked(event -> {
@@ -193,16 +208,9 @@ public class JournalController implements Controller {
         entry -> {
           model.moveUp(entry);
         },
-        entry -> {
-          model.moveDown(entry);
-        },
-        (oldEntry, newEntry) -> {
-          model.mindChange(oldEntry, newEntry);
-        },
-        entry -> {
-          model.takesieBacksie(entry);
-        }
-    );
+        entry -> model.moveDown(entry),
+        (oldEntry, newEntry) -> model.mindChange(oldEntry, newEntry),
+        entry -> model.takesieBacksie(entry));
     for (Day day : Day.values()) {
       Label label = ((Label) dayToVBox(day).getChildren().get(0));
       label.setText(day.toString());
@@ -214,9 +222,16 @@ public class JournalController implements Controller {
       view.showEvents(dayToVBox(day), model.getDaysEvent(day), factory);
       view.showTasks(dayToVBox(day), model.getDaysTasks(day), factory);
     }
-    System.out.println(config.getName());
+    if (isTaskPanelVisible) {
+      taskPanel.setVisible(true);
+      taskPanel.setManaged(true);
+      view.showTaskPanel(taskPanel, model.getAllTasks());
+    } else {
+      taskPanel.setVisible(false);
+      taskPanel.setManaged(false);
+    }
     updateWeeklyOverview();
-    if(config.getName() != null) {
+    if (config.getName() != null) {
       weekName.setText(config.getName());
     } else {
       weekName.setText("Click To Enter Name");
@@ -257,7 +272,20 @@ public class JournalController implements Controller {
     fileChooser.setTitle("Open Resource File");
     File selectedFile = fileChooser.showOpenDialog(fileWindow);
     model.loadBujo(selectedFile.toPath());
-    config = model.getConfig();
+    config = model.getConfig(); // TODO: add pssword to config
+//    TextInputDialog dialog = new TextInputDialog("password");
+//    dialog.getDialogPane().getStylesheets()
+//        .add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
+//    Button button = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
+//    button.setOnAction(event -> {
+//      //TODO: compare config to result
+//      dialog.getResult(); // // TODO: confirm password
+//      event.consume(); // TODO: do this to stay inside dialog
+//
+//    });
+//    dialog.showAndWait().ifPresent(password -> {
+//      // TODO: if  succeded
+//    });
     updateGUI();
   }
 
@@ -306,7 +334,7 @@ public class JournalController implements Controller {
    */
   private void runAfterSplashScene() {
     setupButtons();
-    mainPane.addEventHandler(CustomGUIEvent.UPDATE_GUI_EVENT, updateGUIHandler);
+    scene.addEventHandler(CustomGUIEvent.UPDATE_GUI_EVENT, updateGUIHandler);
     updateGUI();
   }
 
