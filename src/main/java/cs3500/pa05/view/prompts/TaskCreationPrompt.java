@@ -38,7 +38,13 @@ public class TaskCreationPrompt extends EntryCreationPrompt {
   protected void setDoneButton(Button doneButton, Consumer<Entry> addEntryToModel,
                                Runnable updateGUI, Function<Day, Boolean> isUnderLimit) {
     doneButton.setOnAction(event -> {
-      Day day = Day.valueOf(dayOptions.getValue().toUpperCase());
+      Day day;
+      try {
+       day = Day.valueOf(dayOptions.getValue().toUpperCase());
+      } catch (IllegalArgumentException e) {
+        return;
+      }
+
       if (!nameField.getText().equals("") && Arrays.stream(Day.values()).toList()
           .contains(day) && isUnderLimit.apply(day)) {
         ((Stage) doneButton.getScene().getWindow()).close();
