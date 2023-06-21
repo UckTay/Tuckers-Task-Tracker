@@ -3,6 +3,7 @@ package cs3500.pa05.model;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,9 +12,9 @@ import java.util.Map;
  */
 public class JournalModel {
 
-  private final Map<Class<? extends Entry>, Map<Day, List<?>>> classMap = new HashMap<>();
-  private Map<Day, List<Task>> taskMap = new HashMap<>();
-  private Map<Day, List<Event>> eventMap = new HashMap<>();
+  private final Map<Class<? extends Entry>, Map<Day, List<?>>> classMap = new LinkedHashMap<>();
+  private Map<Day, List<Task>> taskMap = new LinkedHashMap<>();
+  private Map<Day, List<Event>> eventMap = new LinkedHashMap<>();
   private Config config = new Config();
 
   /**

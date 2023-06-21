@@ -1,0 +1,1 @@
+{"config":{"name":"Week Name","maxEvents":10,"maxTasks":5,"startDay":"SUNDAY"},"taskList":[{"day":"MONDAY","name":"test","description":"test","taskStatus":"INCOMPLETE"}],"eventList":[{"day":"WEDNESDAY","name":"test","description":"test","startTime":"14:15","duration":"PT10H10M"}]}

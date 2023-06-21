@@ -2,10 +2,13 @@ package cs3500.pa05.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,10 +33,61 @@ class JournalModelTest {
 
   @Test
   void loadBujo() {
+    testModel.loadBujo(Path.of("src/test/resources/loadBujoTest.bujo"));
+    assertEquals(testModel.getAllTasks().get(0).toJson(),
+        new Task(Day.MONDAY, "test", "test", TaskStatus.INCOMPLETE).toJson());
+    assertEquals(testModel.getAllEvents().get(0).toJson(),
+        new Event(Day.WEDNESDAY, "test", "test", LocalTime.parse("14:15"),
+            Duration.parse("PT10H10M")).toJson());
+    assertEquals(testModel.getConfig().getMaxEvents(), 10);
+    assertEquals(testModel.getConfig().getMaxTasks(), 5);
+    assertEquals(testModel.getConfig().getName(), "Week Name");
+  }
+
+  @Test
+  void isBelowTaskLimit() {
+    testModel.getConfig().setMaxTasks(1);
+    assertTrue(testModel.isBelowTaskLimit(Day.MONDAY));
+    testModel.addTask(new Task(Day.MONDAY, "testName", "testDesc",
+        TaskStatus.INCOMPLETE));
+    testModel.addTask(new Task(Day.MONDAY, "testName", "testDesc",
+        TaskStatus.INCOMPLETE));
+    assertFalse(testModel.isBelowTaskLimit(Day.MONDAY));
+  }
+
+  @Test
+  void isBelowEventLimit() {
+    testModel.getConfig().setMaxEvents(-1);
+    assertTrue(testModel.isBelowEventLimit(Day.WEDNESDAY));
+    testModel.getConfig().setMaxEvents(1);
+    assertTrue(testModel.isBelowEventLimit(Day.WEDNESDAY));
+    testModel.addEvent(new Event(Day.WEDNESDAY, "test", "test", LocalTime.parse("14:15"),
+        Duration.parse("PT10H10M")));
+    testModel.addEvent(new Event(Day.WEDNESDAY, "test", "test", LocalTime.parse("14:15"),
+        Duration.parse("PT10H10M")));
+    assertFalse(testModel.isBelowEventLimit(Day.WEDNESDAY));
   }
 
   @Test
   void saveBujo() {
+    testModel.addTask(new Task(Day.MONDAY, "test", "test", TaskStatus.INCOMPLETE));
+    testModel.addEvent(new Event(Day.WEDNESDAY, "test", "test",
+        LocalTime.parse("14:15"), Duration.parse("PT10H10M")));
+    testModel.getConfig().setMaxTasks(5);
+    testModel.getConfig().setMaxEvents(10);
+    testModel.getConfig().setName("Week Name");
+    testModel.saveBujo(Path.of("src/test/resources/saveBujoTestOutput.bujo"));
+    String output = null;
+    String expected = null;
+    try {
+      Scanner scanner = new Scanner(Path.of("src/test/resources/saveBujoTestOutput.bujo"));
+      output = scanner.nextLine();
+      scanner = new Scanner(Path.of("src/test/resources/saveBujoTest.bujo"));
+      expected = scanner.nextLine();
+    } catch (IOException e) {
+      fail();
+    }
+    assertEquals(output, expected);
   }
 
   @Test
@@ -62,8 +116,8 @@ class JournalModelTest {
         TaskStatus.INCOMPLETE);
     testModel.addTask(testTask1);
     testModel.addTask(testTask2);
-    assertEquals(testModel.getAllTasks().get(0).toJson(), testTask1.toJson());
-    assertEquals(testModel.getAllTasks().get(1).toJson(), testTask2.toJson());
+    assertEquals(testModel.getAllTasks().get(0).toJson(), testTask2.toJson());
+    assertEquals(testModel.getAllTasks().get(1).toJson(), testTask1.toJson());
   }
 
   @Test
@@ -74,8 +128,8 @@ class JournalModelTest {
         Duration.ZERO);
     testModel.addEvent(testEvent1);
     testModel.addEvent(testEvent2);
-    assertEquals(testModel.getAllEvents().get(0).toJson(), testEvent1.toJson());
-    assertEquals(testModel.getAllEvents().get(1).toJson(), testEvent2.toJson());
+    assertEquals(testModel.getAllEvents().get(1).toJson(), testEvent1.toJson());
+    assertEquals(testModel.getAllEvents().get(0).toJson(), testEvent2.toJson());
   }
 
   @Test
