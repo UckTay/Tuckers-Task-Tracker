@@ -79,9 +79,12 @@ public interface GUIView {
   void showSettingsPrompt(Config config);
 
   /**
-   * todo.
+   * Shows the task panel.
+   *
+   * @param vBox the vbox to add tasks to
+   * @param tasks the list of tasks
    */
-  void showTaskPanel();
+  void showTaskPanel(VBox vBox, List<Task> tasks);
 
   /**
    * Sets the gui updater.
