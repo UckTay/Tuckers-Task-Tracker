@@ -2,7 +2,6 @@ package cs3500.pa05.view.prompts;
 
 import cs3500.pa05.model.Config;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -10,16 +9,24 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+/**
+ * The prompt for the week name.
+ */
 public class WeekNamePrompt {
 
   private VBox resultBox = new VBox();
 
-  private Dialog<String> dialog = new Dialog<>();
+  private final Dialog<String> dialog = new Dialog<>();
 
-  private TextField weekNameField;
+  private final TextField weekNameField;
 
-  private Config config;
+  private final Config config;
 
+  /**
+   * Constructs the prompt for Week Name.
+   *
+   * @param config the configuration containing the week name
+   */
   public WeekNamePrompt(Config config) {
     this.config = config;
     dialog.setTitle("Set Week Name");
@@ -41,6 +48,11 @@ public class WeekNamePrompt {
 
   }
 
+  /**
+   * Sets the done button.
+   *
+   * @param doneButton the done button
+   */
   private void setDoneButton(Button doneButton) {
     doneButton.setOnAction(event -> {
       if(weekNameField.getText() != null) {

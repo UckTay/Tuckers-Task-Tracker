@@ -301,21 +301,27 @@ public class JournalController implements Controller {
     runAfterSplashScene();
   }
 
+  /**
+   * Runs the code after the splash screen
+   */
   private void runAfterSplashScene() {
     setupButtons();
     mainPane.addEventHandler(CustomGUIEvent.UPDATE_GUI_EVENT, updateGUIHandler);
     updateGUI();
   }
 
+  /**
+   * Plays the splash screen.
+   */
   private void playSplashScene() {
     intro.setVisible(true);
-//    intro.setFitHeight(Double.MAX_VALUE);
-//    intro.setFitWidth(Double.MAX_VALUE);
+    intro.setFitHeight(Double.MAX_VALUE);
+    intro.setFitWidth(Double.MAX_VALUE);
     Media media = new Media(Path.of("src/main/resources/JournalAnimation3.mp4").toUri().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(media);
     intro.setMediaPlayer(mediaPlayer);
     mediaPlayer.setAutoPlay(true);
-//    mediaPlayer.play();
+    mediaPlayer.play();
     mediaPlayer.setOnEndOfMedia(() -> {
       intro.setVisible(false);
       runAfterSplashScene();
