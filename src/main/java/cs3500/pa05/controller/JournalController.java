@@ -41,10 +41,8 @@ import javafx.stage.Window;
  */
 public class JournalController implements Controller {
   JournalModel javaJournal;
-
   GUIView view;
   JournalModel model;
-
   Config config;
 
   @FXML
@@ -76,6 +74,7 @@ public class JournalController implements Controller {
 
   @FXML
   private AnchorPane mainPane;
+
   private Window fileWindow;
 
   @FXML
@@ -114,9 +113,7 @@ public class JournalController implements Controller {
   @FXML
   private Pane pane;
 
-  private final EventHandler<CustomGUIEvent> updateGUIHandler = updateEvent -> {
-    updateGUI();
-  };
+  private final EventHandler<CustomGUIEvent> updateGUIHandler = updateEvent -> updateGUI();
 
   /**
    * Construsts and instance of the controller.
@@ -151,6 +148,10 @@ public class JournalController implements Controller {
     newTaskView.setOnAction(handleNewTask);
     settingsButton.setOnAction(event -> {
       view.showSettingsPrompt(config);
+      updateGUI();
+    });
+    weekName.setOnMouseClicked(event -> {
+      view.showWeekNamePrompt(config);
       updateGUI();
     });
 
@@ -213,7 +214,13 @@ public class JournalController implements Controller {
       view.showEvents(dayToVBox(day), model.getDaysEvent(day), factory);
       view.showTasks(dayToVBox(day), model.getDaysTasks(day), factory);
     }
+    System.out.println(config.getName());
     updateWeeklyOverview();
+    if(config.getName() != null) {
+      weekName.setText(config.getName());
+    } else {
+      weekName.setText("Click To Enter Name");
+    }
   }
 
   /**
@@ -238,6 +245,7 @@ public class JournalController implements Controller {
    */
   private void newBujo() {
     model.newWeek();
+    config = model.getConfig();
     updateGUI();
   }
 
@@ -249,6 +257,7 @@ public class JournalController implements Controller {
     fileChooser.setTitle("Open Resource File");
     File selectedFile = fileChooser.showOpenDialog(fileWindow);
     model.loadBujo(selectedFile.toPath());
+    config = model.getConfig();
     updateGUI();
   }
 
@@ -287,7 +296,8 @@ public class JournalController implements Controller {
   @Override
   public void run() {
     playSplashScene();
-//    pane.setVisible(false);
+
+    //pane.setVisible(false);
     runAfterSplashScene();
   }
 

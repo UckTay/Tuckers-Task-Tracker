@@ -35,6 +35,7 @@ public class BujoReader {
     BujoJson entryGetter = MAPPER.convertValue(fileContents, BujoJson.class);
     entryList.addAll(entryGetter.generateTasks());
     entryList.addAll(entryGetter.generateEvents());
+    //System.out.println(config.getName());
     return config;
   }
 

@@ -7,6 +7,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class WeekNamePrompt {
@@ -24,9 +25,8 @@ public class WeekNamePrompt {
     dialog.setTitle("Set Week Name");
 
     Label weekNameLbl = new Label("Enter Week Name:");
-    weekNameField = config.getWeekNameString() == null ? new TextField() :
-        new TextField(config.getWeekNameString());
-    resultBox.getChildren().addAll(weekNameLbl, weekNameField);
+    weekNameField = config.getName() == null ? new TextField() :
+        new TextField(config.getName());
     Window window = dialog.getDialogPane().getScene().getWindow();
     window.setOnCloseRequest(event -> dialog.close());
     Button doneButton = new Button("Done!");
@@ -36,6 +36,9 @@ public class WeekNamePrompt {
     dialog.getDialogPane().setContent(resultBox);
     dialog.getDialogPane().getStylesheets()
         .add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
+    resultBox.getChildren().addAll(weekNameLbl, weekNameField, doneButton);
+    dialog.showAndWait();
+
   }
 
   private void setDoneButton(Button doneButton) {
@@ -43,6 +46,7 @@ public class WeekNamePrompt {
       if(weekNameField.getText() != null) {
         config.setName(weekNameField.getText());
       }
+      ((Stage) doneButton.getScene().getWindow()).close();
     });
   }
 

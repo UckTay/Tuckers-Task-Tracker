@@ -9,6 +9,7 @@ import cs3500.pa05.model.Task;
 import cs3500.pa05.view.prompts.EventCreationPrompt;
 import cs3500.pa05.view.prompts.SettingsPrompt;
 import cs3500.pa05.view.prompts.TaskCreationPrompt;
+import cs3500.pa05.view.prompts.WeekNamePrompt;
 import java.io.IOException;
 import java.util.List;
 import java.util.function.Consumer;
@@ -23,7 +24,6 @@ import javafx.scene.layout.VBox;
 public class GUIViewImpl implements GUIView {
 
   private Runnable updateGUI;
-
   @Override
   public void showTasks(VBox vBox, List<Task> tasks, EntryGUIContainerFactory factory) {
     VBox box = (VBox) vBox.getChildren().get(1);
@@ -94,5 +94,10 @@ public class GUIViewImpl implements GUIView {
     } catch (IOException exc) {
       throw new IllegalStateException("Unable to load layout.");
     }
+  }
+
+  @Override
+  public void showWeekNamePrompt(Config config) {
+    new WeekNamePrompt(config);
   }
 }

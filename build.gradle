@@ -82,6 +82,7 @@ jlinkZip {
     group = 'distribution'
 }
 
+
 task fatJar(type: Jar) {
     destinationDirectory.set(file("$buildDir/fatJar"))
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE

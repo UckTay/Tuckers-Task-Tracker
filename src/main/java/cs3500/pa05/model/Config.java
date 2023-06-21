@@ -6,12 +6,11 @@ import cs3500.pa05.model.json.ConfigJson;
  * Represents the configuration of the week
  */
 public class Config {
-  private String name;
+  private String name = null;
   private int maxEvents = -1;
   private int maxTasks = -1;
   private Day startingDay = Day.SUNDAY;
 
-  private String weekNameString = null;
 
   /**
    * Gets the starting day of the week.
@@ -83,22 +82,6 @@ public class Config {
    */
   public void setMaxTasks(int maxTasks) {
     this.maxTasks = maxTasks;
-  }
-
-  /**
-   * Gets the name of the week.
-   *
-   * @return the name of the week.
-   */
-  public String getWeekNameString() {
-    return weekNameString;
-  }
-
-  /**
-   * Sets the name of the week.
-   */
-  public void setWeekNameString(String weekNameString) {
-    this.weekNameString = weekNameString;
   }
 
   /**

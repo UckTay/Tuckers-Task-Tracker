@@ -98,4 +98,5 @@ public interface GUIView {
    */
   Scene load(Controller controller);
 
+  void showWeekNamePrompt(Config config);
 }

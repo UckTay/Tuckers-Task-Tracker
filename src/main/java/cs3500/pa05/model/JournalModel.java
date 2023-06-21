@@ -36,6 +36,7 @@ public class JournalModel {
       taskMap.put(day, new ArrayList<>());
       eventMap.put(day, new ArrayList<>());
     }
+    this.config = new Config();
   }
 
   /**
@@ -45,8 +46,8 @@ public class JournalModel {
    */
   public void loadBujo(Path path) {
     BujoReader reader = new BujoReader();
-    config = reader.readBujo(path);
     newWeek();
+    config = reader.readBujo(path);
     List<Task> tasks = reader.getEntry(Task.class);
     for(Task task : tasks) {
       taskMap.get(task.getDayOfTheWeek()).add(task);
