@@ -23,8 +23,10 @@ import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
@@ -131,6 +133,9 @@ public class JournalController implements Controller {
   @FXML
   private MenuItem settingsMenuBar;
 
+  @FXML
+  private CheckMenuItem taskPanelMenuButton;
+
   private final EventHandler<CustomGUIEvent> updateGUIHandler = updateEvent -> updateGUI();
 
   /**
@@ -165,6 +170,7 @@ public class JournalController implements Controller {
     newWeekButton.setOnAction(event -> newBujo());
     newEventView.setOnAction(handleNewEvent);
     newTaskView.setOnAction(handleNewTask);
+    taskPanelMenuButton.setOnAction(event -> taskQueueHandler());
     settingsMenuBar.setOnAction(event -> {
       view.showSettingsPrompt(config);
       updateGUI();
@@ -173,15 +179,7 @@ public class JournalController implements Controller {
       view.showSettingsPrompt(config);
       updateGUI();
     });
-    taskPanelButton.setOnAction(event -> {
-      isTaskPanelVisible = !isTaskPanelVisible;
-      if (isTaskPanelVisible) {
-        taskPanelButton.setText("Close Task Queue");
-      } else {
-        taskPanelButton.setText("Open Task Queue");
-      }
-      updateGUI();
-    });
+    taskPanelButton.setOnAction(event -> taskQueueHandler());
     weekName.setOnMouseClicked(event -> {
       view.showWeekNamePrompt(config);
       updateGUI();
@@ -253,6 +251,21 @@ public class JournalController implements Controller {
     } else {
       weekName.setText("Click To Enter Name");
     }
+  }
+
+  /**
+   * Handles the Task Queue menu.
+   */
+  private void taskQueueHandler() {
+    isTaskPanelVisible = !isTaskPanelVisible;
+    if (isTaskPanelVisible) {
+      taskPanelButton.setText("Close Task Queue");
+      taskPanelMenuButton.setSelected(true);
+    } else {
+      taskPanelButton.setText("Open Task Queue");
+      taskPanelMenuButton.setSelected(false);
+    }
+    updateGUI();
   }
 
   /**
