@@ -24,8 +24,13 @@
       <children>
          <VBox alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-               <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="28.0" prefWidth="1500.0" useSystemMenuBar="false">
+               <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="28.0" prefWidth="1500.0">
                   <menus>
+                     <Menu fx:id="settingsMenuBar" mnemonicParsing="false" text="Preferences">
+                        <accelerator>
+                           <KeyCodeCombination alt="UP" code="COMMA" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                        </accelerator>
+                     </Menu>
                      <Menu mnemonicParsing="false" text="File">
                         <items>
                            <Menu mnemonicParsing="false" text="Create">
@@ -55,6 +60,11 @@
                            <MenuItem fx:id="newWeekButton" mnemonicParsing="false" text="New Week">
                               <accelerator>
                                  <KeyCodeCombination alt="UP" code="N" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                              </accelerator>
+                           </MenuItem>
+                           <MenuItem fx:id="openTemplateButton" mnemonicParsing="false" text="Open">
+                              <accelerator>
+                                 <KeyCodeCombination alt="UP" code="O" control="UP" meta="DOWN" shift="DOWN" shortcut="UP" />
                               </accelerator>
                            </MenuItem>
                         </items>
