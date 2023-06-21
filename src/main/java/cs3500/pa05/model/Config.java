@@ -89,6 +89,6 @@ public class Config {
    * @return the new ConfigJson
    */
   public ConfigJson toJson() {
-    return new ConfigJson(name, maxEvents, maxTasks);
+    return new ConfigJson(startingDay, name, maxEvents, maxTasks);
   }
 }
