@@ -20,7 +20,7 @@
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<Scene fx:id="scene" stylesheets="@NetflixTheme.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Scene fx:id="scene" fill="BLACK" stylesheets="@NetflixTheme.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <root>
       <AnchorPane fx:id="mainPane" prefHeight="900.0" prefWidth="1500.0" stylesheets="@blackPane.css">
          <children>

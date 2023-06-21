@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Window;
+import org.controlsfx.control.PropertySheet;
 
 public abstract class EntryCreationPrompt {
 
@@ -27,7 +28,8 @@ public abstract class EntryCreationPrompt {
   protected TextField descriptionField = new TextField();
   protected ChoiceBox<String> dayOptions = new ChoiceBox<>();
 
-  public EntryCreationPrompt(Entry entry, Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
+  public EntryCreationPrompt(Entry entry, Consumer<Entry> addEntryToModel,
+                             Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
     createPrompt(entry);
     Button doneButton = new Button("Done!");
     doneButton.prefWidthProperty().bind(resultBox.widthProperty());
@@ -35,10 +37,15 @@ public abstract class EntryCreationPrompt {
     resultBox.setSpacing(10);
     setDoneButton(doneButton, addEntryToModel, updateGUI, isUnderLimit);
     dialog.getDialogPane().setContent(resultBox);
+    dialog.getDialogPane().getScene().getStylesheets()
+        .add(getClass().getResource("/NetflixTheme.css").toExternalForm());
+    dayOptions.getStylesheets().add(getClass().getResource("/NetflixTheme.css").toExternalForm());
+    resultBox.getStylesheets().add(getClass().getResource("/NetflixTheme.css").toExternalForm());
     dialog.showAndWait();
   }
 
-  public EntryCreationPrompt(Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
+  public EntryCreationPrompt(Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit,
+                             Runnable updateGUI) {
     this(null, addEntryToModel, isUnderLimit, updateGUI);
   }
 
@@ -71,6 +78,7 @@ public abstract class EntryCreationPrompt {
     dayBox.getChildren().addAll(dayField, dayOptions);
     dayBox.setAlignment(Pos.CENTER_LEFT);
     dayBox.setSpacing(10);
+    dayBox.getStylesheets().add(getClass().getResource("/NetflixTheme.css").toExternalForm());
     resultBox.getChildren().add(dayBox);
     Window window = dialog.getDialogPane().getScene().getWindow();
     window.setOnCloseRequest(event -> dialog.close());

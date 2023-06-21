@@ -66,6 +66,7 @@ public class EntryGUIContainerFactory {
       throw new IllegalStateException();
     }
     resultBox.setBorder(Border.stroke(Color.BLACK));
+    resultBox.getStyleClass().add("containerBorder");
     return resultBox;
   }
 

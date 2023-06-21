@@ -64,11 +64,13 @@ public class EventCreationPrompt extends EntryCreationPrompt {
       minutes.add((i < 10) ? "0" + i : String.valueOf(i));
     }
     hoursOptions = new ChoiceBox<>();
+    hoursOptions.setStyle(".dropdown");
     hoursOptions.setItems(FXCollections.observableArrayList(hours));
     if (event != null) {
       hoursOptions.setValue(String.valueOf(event.getStartTime().getHour()));
     }
     minutesOptions = new ChoiceBox<>();
+    hoursOptions.setStyle(".dropdown");
     minutesOptions.setItems(FXCollections.observableArrayList(minutes));
     if (event != null) {
       minutesOptions.setValue(String.valueOf(event.getStartTime().getMinute()));

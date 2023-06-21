@@ -287,6 +287,8 @@ public class JournalController implements Controller {
   @Override
   public void run() {
     playSplashScene();
+//    pane.setVisible(false);
+    runAfterSplashScene();
   }
 
   private void runAfterSplashScene() {

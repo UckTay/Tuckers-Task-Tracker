@@ -36,7 +36,6 @@ public class Driver extends Application {
     GUIView view = new GUIViewImpl();
     Controller controller = new JournalController(view, model);
     Scene scene = view.load(controller);
-
     primaryStage.setScene(scene);
     primaryStage.show();
     controller.run();

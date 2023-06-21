@@ -9,6 +9,7 @@ Scene {
 .button {
     -fx-background-color: #E50914;
     -fx-text-fill-color: #F5F5F1;
+    -fx-text-fill: white;
 }
 
 .label {
@@ -23,6 +24,24 @@ VBox {
     -fx-background-color: #221F1F;
 }
 
-. hBox {
+.check-box .box{
+    -fx-background-color: #E50914;
+}
 
+.sub-checkbox {
+    -fx-background-color: white;
+}
+
+.containerBorder {
+    -fx-border-color: white;
+}
+
+.dropdown {
+    -fx-background-color: #221F1F;
+    -fx-text-fill: green;
+}
+
+.list-cell {
+    -fx-background-color: green;
+    -fx-text-fill: blue;
 }
