@@ -60,6 +60,17 @@ public class JournalModel {
   }
 
   /**
+   * Loads and opens a given bujo file.
+   *
+   * @param path the path to the bujo file
+   */
+  public void loadBujoTemplate(Path path) {
+    BujoReader reader = new BujoReader();
+    newWeek();
+    config = reader.readBujo(path);
+  }
+
+  /**
    * Saves the contents of the journal to a bujo file.
    *
    * @param path the location of the new bujo file
@@ -134,14 +145,34 @@ public class JournalModel {
       eventMap.get(event.getDayOfTheWeek()).add(event);
   }
 
+  /**
+   * Checks to see if the day's task is below the limit.
+   *
+   * @param day the day
+   * @return true if it is under the limit, false otherwise
+   */
   public boolean isBelowTaskLimit(Day day) {
     return genericIsUnderLimit(config.getMaxTasks(), taskMap.get(day));
   }
 
+  /**
+   * Checks to see if the day's events is below the limit.
+   *
+   * @param day the day
+   * @return true if it is under the limit, false otherwise
+   */
   public boolean isBelowEventLimit(Day day) {
     return genericIsUnderLimit(config.getMaxEvents(), eventMap.get(day));
   }
 
+  /**
+   * Checks to see if something is under the given limit.
+   *
+   * @param limit the limit
+   * @param list the list of items
+   * @return if it is under the limit
+   * @param <T> the type of entry
+   */
   private <T> boolean genericIsUnderLimit(int limit, List<T> list) {
     return limit < 0 || list.size() < limit;
   }

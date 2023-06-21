@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cs3500.pa05.model.json.BujoJson;
 import cs3500.pa05.model.json.ConfigJson;
-import cs3500.pa05.model.json.TaskJson;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ public class BujoReader {
     BujoJson entryGetter = MAPPER.convertValue(fileContents, BujoJson.class);
     entryList.addAll(entryGetter.generateTasks());
     entryList.addAll(entryGetter.generateEvents());
-    //System.out.println(config.getName());
     return config;
   }
 

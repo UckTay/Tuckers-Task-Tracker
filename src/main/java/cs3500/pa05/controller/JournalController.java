@@ -295,6 +295,19 @@ public class JournalController implements Controller {
   }
 
   /**
+   * Loads a Bujo File as a Template.
+   */
+  private void loadBujoAsTemplate() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Resource File");
+    File selectedFile = fileChooser.showOpenDialog(fileWindow);
+    model.loadBujoTemplate(selectedFile.toPath());
+    config = model.getConfig();
+    view.showWeekNamePrompt(config);
+    updateGUI();
+  }
+
+  /**
    * Saves the week to a bujo file.
    */
   private void saveBujo() {
