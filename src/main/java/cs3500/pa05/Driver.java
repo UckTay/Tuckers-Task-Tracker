@@ -2,7 +2,6 @@ package cs3500.pa05;
 
 import cs3500.pa05.controller.Controller;
 import cs3500.pa05.controller.JournalController;
-import cs3500.pa05.model.BujoWriter;
 import cs3500.pa05.model.JournalModel;
 import cs3500.pa05.view.GUIView;
 import cs3500.pa05.view.GUIViewImpl;
@@ -36,10 +35,9 @@ public class Driver extends Application {
    *                     the application scene can be set.
    *                     Applications may create other stages, if needed, but they will not be
    *                     primary stages.
-   * @throws Exception if something goes wrong
    */
   @Override
-  public void start(Stage primaryStage) throws Exception {
+  public void start(Stage primaryStage) {
     JournalModel model = new JournalModel();
     GUIView view = new GUIViewImpl();
     Controller controller = new JournalController(view, model);
@@ -48,7 +46,5 @@ public class Driver extends Application {
     primaryStage.setScene(scene);
     primaryStage.show();
     controller.run();
-
-
   }
 }

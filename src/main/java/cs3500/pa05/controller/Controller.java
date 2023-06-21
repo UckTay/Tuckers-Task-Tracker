@@ -7,5 +7,5 @@ public interface Controller {
   /**
    * Starts the program.
    */
-  public void run();
+  void run();
 }

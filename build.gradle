@@ -82,14 +82,20 @@ jlinkZip {
     group = 'distribution'
 }
 
-//jar {
-//    manifest {
-//        attributes 'Main-Class': 'cs3500.pa05.JarDriver'
-//    }
-//    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-//    from {
-//        configurations.runtimeClasspath.collect { it.isDirectory() ? It : zipTree(it) }
-//    } {
-//        exclude "module-info.class"
-//    }
-//}
+task fatJar(type: Jar) {
+    destinationDirectory.set(file("$buildDir/fatJar"))
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': 'cs3500.pa05.JarDriver'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "module-info.class"
+    }
+    with jar
+}
+
+tasks.named("build") {
+    finalizedBy("fatJar")
+}
