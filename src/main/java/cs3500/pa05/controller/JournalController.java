@@ -163,6 +163,11 @@ public class JournalController implements Controller {
     });
     taskPanelButton.setOnAction(event -> {
       isTaskPanelVisible = !isTaskPanelVisible;
+      if (isTaskPanelVisible) {
+        taskPanelButton.setText("Close Task Queue");
+      } else {
+        taskPanelButton.setText("Open Task Queue");
+      }
       updateGUI();
     });
     weekName.setOnMouseClicked(event -> {
@@ -324,9 +329,6 @@ public class JournalController implements Controller {
   @Override
   public void run() {
     playSplashScene();
-
-    //pane.setVisible(false);
-    runAfterSplashScene();
   }
 
   /**
@@ -343,22 +345,16 @@ public class JournalController implements Controller {
    */
   private void playSplashScene() {
     intro.setVisible(true);
-    intro.setFitHeight(Double.MAX_VALUE);
-    intro.setFitWidth(Double.MAX_VALUE);
+    pane.setVisible(true);
     Media media = new Media(Path.of("src/main/resources/JournalAnimation3.mp4").toUri().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(media);
     intro.setMediaPlayer(mediaPlayer);
     mediaPlayer.setAutoPlay(true);
-    mediaPlayer.play();
     mediaPlayer.setOnEndOfMedia(() -> {
       intro.setVisible(false);
-      runAfterSplashScene();
       pane.setVisible(false);
-
+      runAfterSplashScene();
     });
-
-
   }
-
 }
 

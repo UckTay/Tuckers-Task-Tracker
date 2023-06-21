@@ -41,7 +41,6 @@ VBox {
     -fx-text-fill: green;
 }
 
-.list-cell {
-    -fx-background-color: green;
-    -fx-text-fill: blue;
-}
+.choice-box .menu-item > .label { -fx-text-fill: black;}
+.choice-box {-fx-background-color: white;}
+.choice-box > .label { -fx-text-fill: black; }

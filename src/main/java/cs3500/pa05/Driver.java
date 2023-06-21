@@ -7,6 +7,7 @@ import cs3500.pa05.view.GUIView;
 import cs3500.pa05.view.GUIViewImpl;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -42,7 +43,6 @@ public class Driver extends Application {
     GUIView view = new GUIViewImpl();
     Controller controller = new JournalController(view, model);
     Scene scene = view.load(controller);
-
     primaryStage.setScene(scene);
     primaryStage.show();
     controller.run();
