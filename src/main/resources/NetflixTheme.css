@@ -36,11 +36,21 @@ VBox {
     -fx-border-color: white;
 }
 
-.dropdown {
-    -fx-background-color: #221F1F;
-    -fx-text-fill: green;
-}
-
-.choice-box .menu-item > .label { -fx-text-fill: black;}
+.choice-box .menu-item > .label { -fx-text-fill: white;}
 .choice-box {-fx-background-color: white;}
 .choice-box > .label { -fx-text-fill: black; }
+
+
+.menu-bar {
+    -fx-background-color: #000000;
+    -fx-border-width: 2.0;
+    -fx-border-color: white;
+}
+
+.menu-item:hover, .menu-button:hover, .menu-button:showing {
+    -fx-background-color:#E50914;
+}
+
+.menu-item {
+    -fx-background-color: #221F1F;
+}
