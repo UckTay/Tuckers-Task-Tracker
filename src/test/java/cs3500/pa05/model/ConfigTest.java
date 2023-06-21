@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * Tests the config class
  */
 class ConfigTest {
-  private Config config = new Config();
+  private final Config config = new Config();
 
   /**
    * Tests startingDay functions
@@ -29,19 +29,27 @@ class ConfigTest {
     assertEquals(config.getName(), "test");
   }
 
+  /**
+   * Tests max event functions.
+   */
   @Test
   void maxEventsTest() {
     config.setMaxEvents(10);
     assertEquals(config.getMaxEvents(), 10);
   }
 
+  /**
+   * Tests max task functions.
+   */
   @Test
   void maxTasksTest() {
     config.setMaxTasks(10);
     assertEquals(config.getMaxTasks(), 10);
   }
 
-
+  /**
+   * tests the toJson method.
+   */
   @Test
   void toJson() {
     config.setStartingDay(Day.MONDAY);
@@ -49,7 +57,6 @@ class ConfigTest {
     config.setMaxEvents(10);
     config.setMaxTasks(10);
     ConfigJson testJson = config.toJson();
-    assertEquals(testJson.toString(),
-        new ConfigJson(Day.MONDAY, "test", 10, 10).toString());
+    assertEquals(testJson, new ConfigJson(Day.MONDAY, "test", 10, 10));
   }
 }
