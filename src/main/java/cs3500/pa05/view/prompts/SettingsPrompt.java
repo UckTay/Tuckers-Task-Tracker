@@ -42,7 +42,7 @@ public class SettingsPrompt {
     }
     dayOptions.setItems(FXCollections.observableArrayList(optionsList));
     dayOptions.setValue(config.getStartingDay().toString());
-    Label dayField = new Label("Day:");
+    Label dayField = new Label("Start Day:");
     HBox dayBox = new HBox();
     dayBox.prefWidthProperty().bind(resultBox.widthProperty());
     dayBox.getChildren().addAll(dayField, dayOptions);
