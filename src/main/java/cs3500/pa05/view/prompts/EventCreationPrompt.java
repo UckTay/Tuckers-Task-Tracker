@@ -20,8 +20,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+/**
+ * Creates the Event prompt.
+ */
 public class EventCreationPrompt extends EntryCreationPrompt {
-
   private ChoiceBox<String> minutesOptions;
   private ChoiceBox<String> hoursOptions;
   private TextField hoursField;
@@ -31,10 +33,25 @@ public class EventCreationPrompt extends EntryCreationPrompt {
   private int startMinutes;
   private int startHours;
 
+  /**
+   * Constucts an instance of the Event Prompt.
+   *
+   * @param addEntryToModel the function that adds the entry to the model
+   * @param isUnderLimit The function that checks if adding the event goes over the limit
+   * @param updateGUI the GUI updater
+   */
   public EventCreationPrompt(Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
     super(addEntryToModel, isUnderLimit, updateGUI);
   }
 
+  /**
+   * Constucts an instance of the Event Prompt.
+   *
+   * @param event the old event
+   * @param addEntryToModel the function that adds the entry to the model
+   * @param isUnderLimit The function that checks if adding the event goes over the limit
+   * @param updateGUI the GUI updater
+   */
   public EventCreationPrompt(Event event, Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
     super(event, addEntryToModel, isUnderLimit, updateGUI);
   }
@@ -46,6 +63,11 @@ public class EventCreationPrompt extends EntryCreationPrompt {
     addTimeElements((Event) event);
   }
 
+  /**
+   * Adds the time element to the event
+   *
+   * @param event the event
+   */
   private void addTimeElements(Event event) {
     HBox durationBox = new HBox();
 
@@ -117,6 +139,12 @@ public class EventCreationPrompt extends EntryCreationPrompt {
     });
   }
 
+  /**
+   * Adds the new entry.
+   *
+   * @param addEntryToModel the function to add the entry to the model
+   * @param updateGUI the GUI Updater
+   */
   @Override
   protected void addEntry(Consumer<Entry> addEntryToModel, Runnable updateGUI) {
     Event event = new Event(Day.valueOf(dayOptions.getValue().toUpperCase()), nameField.getText(),

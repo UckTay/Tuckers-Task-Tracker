@@ -81,3 +81,15 @@ jlink {
 jlinkZip {
     group = 'distribution'
 }
+
+//jar {
+//    manifest {
+//        attributes 'Main-Class': 'cs3500.pa05.JarDriver'
+//    }
+//    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+//    from {
+//        configurations.runtimeClasspath.collect { it.isDirectory() ? It : zipTree(it) }
+//    } {
+//        exclude "module-info.class"
+//    }
+//}

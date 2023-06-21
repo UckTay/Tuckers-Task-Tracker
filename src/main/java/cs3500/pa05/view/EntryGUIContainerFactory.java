@@ -13,17 +13,29 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+/**
+ * An Entry GUI Factory.
+ */
 public class EntryGUIContainerFactory {
+  private final Consumer<Entry> moveUp;
+  private final Consumer<Entry> moveDown;
+  private final Consumer<Entry> takesieBacksie;
+  private final Consumer<Event> createEventPrompt;
+  private final Consumer<Task> createTaskPrompt;
+  private final BiConsumer<Entry, Entry> editElement;
+  private final Runnable updateGUI;
 
-  Consumer<Entry> moveUp, moveDown, takesieBacksie;
-
-  Consumer<Event> createEventPrompt;
-
-  Consumer<Task> createTaskPrompt;
-  BiConsumer<Entry, Entry> editElement;
-
-  Runnable updateGUI;
-
+  /**
+   * Constructs an Entry GUI Factory.
+   *
+   * @param updateGUI the GUI Updater
+   * @param createEventPrompt the function to create an event prompt
+   * @param createTaskPrompt the function to create a task prompt
+   * @param moveUp the function to move an entry up the display
+   * @param moveDown the function to move an entry down the display
+   * @param editElement the function that allows the user to edit an element
+   * @param takesieBacksie the function that allows the user to remove an entry
+   */
   public EntryGUIContainerFactory(Runnable updateGUI, Consumer<Event> createEventPrompt, Consumer<Task> createTaskPrompt, Consumer<Entry> moveUp,
                                   Consumer<Entry> moveDown, BiConsumer<Entry, Entry> editElement,
                                   Consumer<Entry> takesieBacksie) {
@@ -36,14 +48,33 @@ public class EntryGUIContainerFactory {
     this.updateGUI = updateGUI;
   }
 
+  /**
+   * Creates a container for a task.
+   *
+   * @param task the given task
+   * @return the container for the task
+   */
   public VBox createContainer(Task task) {
     return createContainerHelper(task);
   }
 
+  /**
+   * Creates a container for an event.
+   *
+   * @param event the given event
+   * @return the container for the event
+   */
   public VBox createContainer(Event event) {
     return createContainerHelper(event);
   }
 
+  /**
+   * Creates a container of an entry.
+   *
+   * @param entry the given entry
+   * @return the container for the entry
+   * @param <T> entry type
+   */
   private <T extends Entry> VBox createContainerHelper(T entry) {
     VBox resultBox = new VBox();
     HBox buttonBox = createButtons(entry);
@@ -70,6 +101,12 @@ public class EntryGUIContainerFactory {
     return resultBox;
   }
 
+  /**
+   * creates the buttons for an entry.
+   *
+   * @param entry the given entry
+   * @return the HBox containing the buttons
+   */
   private HBox createButtons(Entry entry) {
     HBox resultBox = new HBox();
     Button up = new Button("⬆\uFE0F");
@@ -99,6 +136,4 @@ public class EntryGUIContainerFactory {
     resultBox.setSpacing(10);
     return resultBox;
   }
-
-
 }

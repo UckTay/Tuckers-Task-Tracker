@@ -10,7 +10,15 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * The driver of the program.
+ */
 public class Driver extends Application {
+  /**
+   * The entry point of the program.
+   *
+   * @param args program arguments
+   */
   public static void main(String[] args) {
     launch();
   }
@@ -36,6 +44,7 @@ public class Driver extends Application {
     GUIView view = new GUIViewImpl();
     Controller controller = new JournalController(view, model);
     Scene scene = view.load(controller);
+
     primaryStage.setScene(scene);
     primaryStage.show();
     controller.run();

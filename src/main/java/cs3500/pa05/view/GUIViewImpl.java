@@ -17,6 +17,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
+/**
+ * Implementation of the GUIView Interface.
+ */
 public class GUIViewImpl implements GUIView {
 
   private Runnable updateGUI;

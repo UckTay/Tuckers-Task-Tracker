@@ -11,19 +11,17 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Represents the visual display of an entry.
+ */
 public class EntryGUIElement {
   VBox resultBox = new VBox();
 
-  private void addBasicInfo(Entry e) {
-    resultBox.getChildren().add(new Label(e.getName()));
-    if (e.getDescription() != null && !e.getDescription().equals("")) {
-      Label description = new Label(e.getDescription());
-      description.setWrapText(true);
-      description.prefWidthProperty().bind(resultBox.widthProperty());
-      resultBox.getChildren().add(description);
-    }
-  }
-
+  /**
+   * Constructs an instance of EntryGUIElement.
+   *
+   * @param task the task to display
+   */
   public EntryGUIElement(Task task) {
     addBasicInfo(task);
     CheckBox status = new CheckBox();
@@ -42,12 +40,37 @@ public class EntryGUIElement {
     resultBox.getChildren().add(statusBox);
   }
 
+  /**
+   * Constructs an instance of EntryGUIElement.
+   *
+   * @param event the task to display
+   */
   public EntryGUIElement(Event event) {
     addBasicInfo(event);
     resultBox.getChildren().add(new Label(event.getStartTime().toString()));
     resultBox.getChildren().add(new Label(event.getDuration().toString()));
   }
 
+  /**
+   * Adds the info of the Entry to the view.
+   *
+   * @param e the entry being added
+   */
+  private void addBasicInfo(Entry e) {
+    resultBox.getChildren().add(new Label(e.getName()));
+    if (e.getDescription() != null && !e.getDescription().equals("")) {
+      Label description = new Label(e.getDescription());
+      description.setWrapText(true);
+      description.prefWidthProperty().bind(resultBox.widthProperty());
+      resultBox.getChildren().add(description);
+    }
+  }
+
+  /**
+   * Gets the VBox that contains the elements.
+   *
+   * @return the info container
+   */
   public VBox getVBox() {
     return resultBox;
   }

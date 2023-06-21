@@ -17,6 +17,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+/**
+ * Creates a Setting Prompt
+ */
 public class SettingsPrompt {
 
   private VBox resultBox = new VBox();
@@ -31,6 +34,11 @@ public class SettingsPrompt {
   private Config config;
 
 
+  /**
+   * Constructs an instance of the Settings Prompt.
+   *
+   * @param config the old configuration
+   */
   public SettingsPrompt(Config config) {
     this.config = config;
     dialog.setTitle("Settings");
@@ -71,6 +79,12 @@ public class SettingsPrompt {
     dialog.showAndWait();
   }
 
+
+  /**
+   * Sets the done button action.
+   *
+   * @param doneButton the done button
+   */
   private void setDoneButton(Button doneButton) {
     doneButton.setOnAction(event -> {
       Day day = Day.valueOf(dayOptions.getValue().toUpperCase());
@@ -92,7 +106,5 @@ public class SettingsPrompt {
       System.out.println("tasks:" + config.getMaxTasks());
       System.out.println("events:" + config.getMaxEvents());
     });
-
-
   }
 }
