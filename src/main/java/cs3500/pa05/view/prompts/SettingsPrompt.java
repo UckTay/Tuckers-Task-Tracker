@@ -34,9 +34,9 @@ public class SettingsPrompt {
   public SettingsPrompt(Config config) {
     this.config = config;
     dialog.setTitle("Settings");
-    dayOptions.setValue("");
+
     List<String> optionsList = new ArrayList<>();
-    optionsList.add("");
+
     for (Day day : Day.values()) {
       optionsList.add(day.toString());
     }
