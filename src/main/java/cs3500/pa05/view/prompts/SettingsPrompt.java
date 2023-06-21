@@ -50,10 +50,12 @@ public class SettingsPrompt {
     dayBox.setSpacing(10);
     resultBox.getChildren().add(dayBox);
     Label maxEventsLbl = new Label("Maximum number of Events per day:");
-    maxEventsField = config.getMaxEvents() == -1 ? new TextField() : new TextField(String.valueOf(config.getMaxEvents()));
+    maxEventsField = config.getMaxEvents() == -1 ? new TextField() :
+        new TextField(String.valueOf(config.getMaxEvents()));
     maxEventsField.setPrefWidth(30);
     Label maxTasksLbl = new Label("Maximum number of Tasks per day:");
-    maxTasksField = config.getMaxTasks() == -1 ? new TextField() : new TextField(String.valueOf(config.getMaxTasks()));
+    maxTasksField = config.getMaxTasks() == -1 ? new TextField() :
+        new TextField(String.valueOf(config.getMaxTasks()));
     maxTasksField.setPrefWidth(30);
     resultBox.getChildren().addAll(maxEventsLbl, maxEventsField, maxTasksLbl, maxTasksField);
     Window window = dialog.getDialogPane().getScene().getWindow();
@@ -64,8 +66,11 @@ public class SettingsPrompt {
     resultBox.setSpacing(10);
     setDoneButton(doneButton);
     dialog.getDialogPane().setContent(resultBox);
+    dialog.getDialogPane().getStylesheets()
+        .add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
     dialog.showAndWait();
   }
+
   private void setDoneButton(Button doneButton) {
     doneButton.setOnAction(event -> {
       Day day = Day.valueOf(dayOptions.getValue().toUpperCase());
