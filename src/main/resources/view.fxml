@@ -75,7 +75,7 @@
                      </Menu>
                      <Menu mnemonicParsing="false" text="View">
                         <items>
-                           <CheckMenuItem mnemonicParsing="false" text="Always Show Task Queue">
+                           <CheckMenuItem fx:id="taskPanelMenuButton" mnemonicParsing="false" text="Always Show Task Queue">
                               <accelerator>
                                  <KeyCodeCombination alt="UP" code="F" control="UP" meta="DOWN" shift="DOWN" shortcut="UP" />
                               </accelerator>
