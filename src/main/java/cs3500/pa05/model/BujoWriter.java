@@ -35,10 +35,8 @@ public class BujoWriter {
     for(Entry entry : entries) {
       if(entry.getClass() == Task.class) {
         tasks.add(((Task) entry).toJson());
-      } else if (entry.getClass() == Event.class){
-        events.add(((Event) entry).toJson());
       } else {
-        throw new IllegalArgumentException("invalid Entry");
+        events.add(((Event) entry).toJson());
       }
     }
     try {
@@ -50,7 +48,7 @@ public class BujoWriter {
       BujoJson output = new BujoJson(config.toJson(), tasks, events);
       MAPPER.writeValue(newFile, MAPPER.convertValue(output, JsonNode.class));
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new IllegalArgumentException();
     }
   }
 }

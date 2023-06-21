@@ -11,7 +11,7 @@
 ## Section 3: Power Ups
 - Taksies backsies
 - Custom Ordering
-- Weekly overview
+- Weekly Overview
   
 ## Section 4: Quality of Life
 - Week Start

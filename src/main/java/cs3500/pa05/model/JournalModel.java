@@ -154,7 +154,7 @@ public class JournalModel {
   public void moveUp(Entry entry) {
     if (entry instanceof Task) {
       moveElement((Task) entry, taskMap.get(entry.getDayOfTheWeek()), -1);
-    } else if (entry instanceof Event) {
+    } else {
       moveElement((Event) entry, eventMap.get(entry.getDayOfTheWeek()), -1);
     }
   }
@@ -167,7 +167,7 @@ public class JournalModel {
   public void moveDown(Entry entry) {
     if (entry instanceof Task) {
       moveElement((Task) entry, taskMap.get(entry.getDayOfTheWeek()), 1);
-    } else if (entry instanceof Event) {
+    } else {
       moveElement((Event) entry, eventMap.get(entry.getDayOfTheWeek()), 1);
     }
   }
@@ -180,7 +180,7 @@ public class JournalModel {
   public void takesieBacksie(Entry entry) {
     if (entry instanceof Event) {
       eventMap.get(entry.getDayOfTheWeek()).remove(entry);
-    } else if (entry instanceof Task) {
+    } else {
       taskMap.get(entry.getDayOfTheWeek()).remove(entry);
     }
   }

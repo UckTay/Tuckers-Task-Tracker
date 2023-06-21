@@ -12,14 +12,23 @@ import java.util.Scanner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests the JournalModel class.
+ */
 class JournalModelTest {
   private JournalModel testModel;
 
+  /**
+   * Sets up tests for Journal Model.
+   */
   @BeforeEach
   void setUp() {
     testModel = new JournalModel();
   }
 
+  /**
+   * Tests the newWeek function.
+   */
   @Test
   void newWeekTest() {
     testModel.addEvent(new Event(Day.WEDNESDAY, "testName", "testDesc",
@@ -31,8 +40,11 @@ class JournalModelTest {
     assertEquals(testModel.getAllTasks().size(), 0);
   }
 
+  /**
+   * Tests the loadBujo function.
+   */
   @Test
-  void loadBujo() {
+  void loadBujoTest() {
     testModel.loadBujo(Path.of("src/test/resources/loadBujoTest.bujo"));
     assertEquals(testModel.getAllTasks().get(0).toJson(),
         new Task(Day.MONDAY, "test", "test", TaskStatus.INCOMPLETE).toJson());
@@ -44,8 +56,11 @@ class JournalModelTest {
     assertEquals(testModel.getConfig().getName(), "Week Name");
   }
 
+  /**
+   * Tests the isBelowTaskLimit function.
+   */
   @Test
-  void isBelowTaskLimit() {
+  void isBelowTaskLimitTest() {
     testModel.getConfig().setMaxTasks(1);
     assertTrue(testModel.isBelowTaskLimit(Day.MONDAY));
     testModel.addTask(new Task(Day.MONDAY, "testName", "testDesc",
@@ -55,8 +70,11 @@ class JournalModelTest {
     assertFalse(testModel.isBelowTaskLimit(Day.MONDAY));
   }
 
+  /**
+   * Tests the isBelowEventLimit function.
+   */
   @Test
-  void isBelowEventLimit() {
+  void isBelowEventLimitTest() {
     testModel.getConfig().setMaxEvents(-1);
     assertTrue(testModel.isBelowEventLimit(Day.WEDNESDAY));
     testModel.getConfig().setMaxEvents(1);
@@ -68,8 +86,11 @@ class JournalModelTest {
     assertFalse(testModel.isBelowEventLimit(Day.WEDNESDAY));
   }
 
+  /**
+   * Tests the saveBujo function.
+   */
   @Test
-  void saveBujo() {
+  void saveBujoTest() {
     testModel.addTask(new Task(Day.MONDAY, "test", "test", TaskStatus.INCOMPLETE));
     testModel.addEvent(new Event(Day.WEDNESDAY, "test", "test",
         LocalTime.parse("14:15"), Duration.parse("PT10H10M")));
@@ -90,8 +111,11 @@ class JournalModelTest {
     assertEquals(output, expected);
   }
 
+  /**
+   * Tests the getDaysTasks function.
+   */
   @Test
-  void getDaysTasks() {
+  void getDaysTasksTest() {
     Task testTask = new Task(Day.TUESDAY, "testName", "testDesc",
         TaskStatus.INCOMPLETE);
     testModel.addTask(testTask);
@@ -99,8 +123,11 @@ class JournalModelTest {
     assertTrue(testModel.getDaysTasks(Day.WEDNESDAY).isEmpty());
   }
 
+  /**
+   * Tests the getDayEvents function.
+   */
   @Test
-  void getDaysEvent() {
+  void getDaysEventTest() {
     Event testEvent = new Event(Day.TUESDAY, "testName", "testDesc",
         LocalTime.MAX, Duration.ZERO);
     testModel.addEvent(testEvent);
@@ -108,8 +135,11 @@ class JournalModelTest {
     assertTrue(testModel.getDaysEvent(Day.WEDNESDAY).isEmpty());
   }
 
+  /**
+   * Tests the getAllTasks function.
+   */
   @Test
-  void getAllTasks() {
+  void getAllTasksTest() {
     Task testTask1 = new Task(Day.TUESDAY, "testName", "testDesc",
         TaskStatus.INCOMPLETE);
     Task testTask2 = new Task(Day.MONDAY, "testName", "testDesc",
@@ -120,8 +150,11 @@ class JournalModelTest {
     assertEquals(testModel.getAllTasks().get(1).toJson(), testTask1.toJson());
   }
 
+  /**
+   * Tests the getAllEvents function.
+   */
   @Test
-  void getAllEvents() {
+  void getAllEventsTest() {
     Event testEvent1 = new Event(Day.TUESDAY, "testName", "testDesc", LocalTime.MAX,
         Duration.ZERO);
     Event testEvent2 = new Event(Day.MONDAY, "testName", "testDesc", LocalTime.MAX,
@@ -132,8 +165,11 @@ class JournalModelTest {
     assertEquals(testModel.getAllEvents().get(0).toJson(), testEvent2.toJson());
   }
 
+  /**
+   * Tests the moveUp function.
+   */
   @Test
-  void moveUp() {
+  void moveUpTest() {
     Task testTask1 = new Task(Day.TUESDAY, "testName", "testDesc",
         TaskStatus.INCOMPLETE);
     Task testTask2 = new Task(Day.TUESDAY, "testName", "testDesc2",
@@ -153,13 +189,17 @@ class JournalModelTest {
     assertEquals(testModel.getAllEvents().get(0), testList.get(0));
     List<Task> testList2 = new ArrayList<>();
     testModel.moveUp(testTask2);
+    testModel.moveUp(testTask2);
     testList2.add(testTask2);
     testList2.add(testTask1);
     assertEquals(testModel.getAllTasks().get(0), testList2.get(0));
   }
 
+  /**
+   * Tests the moveDown function.
+   */
   @Test
-  void moveDown() {
+  void moveDownTest() {
     Task testTask1 = new Task(Day.TUESDAY, "testName", "testDesc",
         TaskStatus.INCOMPLETE);
     Task testTask2 = new Task(Day.TUESDAY, "testName", "testDesc2",
@@ -179,13 +219,17 @@ class JournalModelTest {
     assertEquals(testModel.getAllEvents().get(0), testList.get(0));
     List<Task> testList2 = new ArrayList<>();
     testModel.moveDown(testTask1);
+    testModel.moveDown(testTask1);
     testList2.add(testTask2);
     testList2.add(testTask1);
     assertEquals(testModel.getAllTasks().get(0), testList2.get(0));
   }
 
+  /**
+   * Tests the TakesiesBacksies method.
+   */
   @Test
-  void takesieBacksie() {
+  void takesieBacksieTest() {
     Event testEvent = new Event(Day.WEDNESDAY, "testName", "testDesc",
         LocalTime.MAX, Duration.ZERO);
     Task testTask = new Task(Day.TUESDAY, "testName", "testDesc",
@@ -198,19 +242,47 @@ class JournalModelTest {
     assertEquals(testModel.getAllTasks().size(), 0);
   }
 
+  /**
+   * Tests the getConfig method.
+   */
   @Test
-  void getConfig() {
+  void getConfigTest() {
     assertEquals(testModel.getConfig().toJson(), new Config().toJson());
   }
 
+  /**
+   * Tests the mindChange method for tasks.
+   */
   @Test
-  void mindChange() {
+  void mindChangeTaskTest() {
     Task testTask = new Task(Day.TUESDAY, "testName", "testDesc",
         TaskStatus.INCOMPLETE);
-    Task testTask2 = new Task(Day.TUESDAY, "testName", "testDesc2",
+    Task testTask2 = new Task(Day.WEDNESDAY, "testName", "testDesc2",
+        TaskStatus.INCOMPLETE);
+    Task testTask3 = new Task(Day.WEDNESDAY, "testName", "testDesc3",
         TaskStatus.INCOMPLETE);
     testModel.addTask(testTask);
     testModel.mindChange(testTask, testTask2);
     assertEquals(testModel.getAllTasks().get(0), testTask2);
+    testModel.mindChange(testTask2, testTask3);
+    assertEquals(testModel.getAllTasks().get(0), testTask3);
+  }
+
+  /**
+   * Tests the mindChange method for events.
+   */
+  @Test
+  void mindChangeEventTest() {
+    Event testEvent = new Event(Day.TUESDAY, "testName", "testDesc",
+        LocalTime.MAX, Duration.ZERO);
+    Event testEvent2 = new Event(Day.WEDNESDAY, "testName", "testDesc2",
+        LocalTime.MIN, Duration.ZERO);
+    Event testEvent3 = new Event(Day.WEDNESDAY, "testName", "testDesc3",
+        LocalTime.MIN, Duration.ZERO);
+    testModel.addEvent(testEvent);
+    testModel.mindChange(testEvent, testEvent2);
+    assertEquals(testModel.getAllEvents().get(0), testEvent2);
+    testModel.mindChange(testEvent2, testEvent3);
+    assertEquals(testModel.getAllEvents().get(0), testEvent3);
   }
 }
