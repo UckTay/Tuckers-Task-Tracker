@@ -82,3 +82,4 @@ To run the JAR: [built JAR](build/fatJar/$pa05-jay-s-java-journal).jar
 ## Screenshot
 [Opening View](opening_view.png)
 [TaskQueue and Menu Bar Visible](Feature_Showcase.png)
+[Splash Screen](Splash_Screen.png)
