@@ -26,7 +26,7 @@ public class BujoWriter {
   private static final ObjectMapper MAPPER = new ObjectMapper();
 
   /**
-   * Writes to a bujo file
+   * Writes to a bujo file. If a password is present in the config encrypts the file as well.
    *
    * @param config  the configurations of the week
    * @param entries the entries in a week
@@ -49,6 +49,7 @@ public class BujoWriter {
       }
       BujoJson output = new BujoJson(config.toJson(), tasks, events);
       if (config.getPassword() != null) {
+        //Randomly generate a salt and use it with the password to make a key
         byte[] salt = new byte[16];
         new SecureRandom().nextBytes(salt);
         SecretKey key = new SecretKeySpec(SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256")
@@ -62,12 +63,12 @@ public class BujoWriter {
           fileOut.flush();
           fileOut.write(salt);
           fileOut.write(iv);
+          //Puts the salt and iv at the start of the encrypted file
           MAPPER.writeValue(cipherOut, MAPPER.convertValue(output, JsonNode.class));
         }
       } else {
         MAPPER.writeValue(newFile, MAPPER.convertValue(output, JsonNode.class));
       }
-
     } catch (Exception e) {
       System.out.println("error writing bujo file");
     }

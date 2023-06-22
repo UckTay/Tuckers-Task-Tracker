@@ -275,6 +275,7 @@ public class JournalController implements Controller {
     fileChooser.setTitle("Open Resource File");
     File selectedFile = fileChooser.showOpenDialog(fileWindow);
     try (Reader reader = Files.newBufferedReader(selectedFile.toPath())) {
+      //If the reader throws an exception trying to read the file, it is encrypted
       reader.read();
       model.loadBujo(selectedFile.toPath());
       config = model.getConfig();

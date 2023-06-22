@@ -126,8 +126,6 @@ public class SettingsPrompt {
         config.setMaxTasks(-1);
       }
       ((Stage) doneButton.getScene().getWindow()).close();
-      System.out.println("tasks:" + config.getMaxTasks());
-      System.out.println("events:" + config.getMaxEvents());
     });
   }
 }

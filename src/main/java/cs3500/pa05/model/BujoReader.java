@@ -59,6 +59,7 @@ public class BujoReader {
       fileIn.read(salt);
       byte[] iv = new byte[16];
       fileIn.read(iv);
+      //Gets the key salt and iv from the start of the encrypted file
       SecretKey key = new SecretKeySpec(SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256")
           .generateSecret(new PBEKeySpec(password.toCharArray(), salt,
               65536, 256)).getEncoded(), "AES");
