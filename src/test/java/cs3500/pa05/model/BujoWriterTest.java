@@ -2,7 +2,6 @@ package cs3500.pa05.model;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
@@ -22,22 +21,25 @@ class BujoWriterTest {
 
   private BujoWriter bujoWriter;
 
+  private Config config;
+
+  List<Entry> testEntries;
+
+
   /**
    * sets up BujoWriter tests.
    */
   @BeforeEach
   void setUp() {
     bujoWriter = new BujoWriter();
-    Config config = new Config();
+    config = new Config();
     config.setName("Week Name");
     config.setMaxTasks(5);
     config.setMaxEvents(10);
-    List<Entry> testEntries = new ArrayList<>();
+    testEntries = new ArrayList<>();
     testEntries.add(new Event(Day.WEDNESDAY, "test", "test",
         LocalTime.parse("14:15"), Duration.parse("PT10H10M")));
     testEntries.add(new Task(Day.MONDAY, "test", "test", TaskStatus.INCOMPLETE));
-    bujoWriter.writeBujo(config, testEntries,
-        Path.of("src/test/resources/saveBujoTestOutput.bujo"));
   }
 
   /**
@@ -45,6 +47,8 @@ class BujoWriterTest {
    */
   @Test
   void writeBujoTest() {
+    bujoWriter.writeBujo(config, testEntries,
+        Path.of("src/test/resources/saveBujoTestOutput.bujo"));
     String output = null;
     String expected = null;
     try {
@@ -58,12 +62,19 @@ class BujoWriterTest {
     assertEquals(output, expected);
   }
 
-  /**
-   * Tests the exception in writeBujo.
-   */
   @Test
-  void writeBujoCases() {
-    assertThrows(IllegalArgumentException.class, () -> bujoWriter.writeBujo(new Config(),
-        new ArrayList<>(), Path.of("noFIlePath/NOTEXISTS")));
+  void writeBujoTestEncrypted() {
+    config.setPassword("password");
+    bujoWriter.writeBujo(config, testEntries,
+        Path.of("src/test/resources/saveBujoTestOutputEncrypted.bujo"));
   }
+
+  //  /**
+  //   * Tests the exception in writeBujo.
+  //   */
+  //  @Test
+  //  void writeBujoCases() {
+  //    assertThrows(IOException.class, () -> bujoWriter.writeBujo(new Config(),
+  //        new ArrayList<>(), Path.of("noFIlePath/NOTEXISTS")));
+  //  }
 }

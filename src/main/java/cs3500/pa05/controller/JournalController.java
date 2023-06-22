@@ -14,33 +14,26 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
-import java.io.File;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Timer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
@@ -160,15 +153,20 @@ public class JournalController implements Controller {
    * Sets up the buttons for use.
    */
   private void setupButtons() {
-    EventHandler<ActionEvent> handleNewEvent = event -> {
-      view.newEventPrompt(newEvent -> model.addEvent(
-          (Event) newEvent), day -> model.isBelowEventLimit(day));
-    };
+    EventHandler<ActionEvent> handleNewEvent =
+        event -> view.newEventPrompt(newEvent -> model.addEvent(
+            (Event) newEvent), day -> model.isBelowEventLimit(day));
     EventHandler<ActionEvent> handleNewTask =
         event -> view.newTaskPrompt(newTask -> model.addTask((Task) newTask),
             day -> model.isBelowTaskLimit(day));
+    EventHandler<ActionEvent> showSettingsPrompt = event -> {
+      view.showSettingsPrompt(config);
+      updateGui();
+    };
     newEventButton.setOnAction(handleNewEvent);
     newTaskButton.setOnAction(handleNewTask);
+    settingsMenuBar.setOnAction(showSettingsPrompt);
+    settingsButton.setOnAction(showSettingsPrompt);
     saveButton.setOnAction(event -> saveBujo());
     openButton.setOnAction(event -> loadBujo());
     openTemplateButton.setOnAction(event -> loadBujoAsTemplate());
@@ -176,41 +174,12 @@ public class JournalController implements Controller {
     newEventView.setOnAction(handleNewEvent);
     newTaskView.setOnAction(handleNewTask);
     taskPanelMenuButton.setOnAction(event -> taskQueueHandler());
-    settingsMenuBar.setOnAction(event -> {
-      view.showSettingsPrompt(config);
-      updateGui();
-    });
-    settingsButton.setOnAction(event -> {
-      view.showSettingsPrompt(config);
-      updateGui();
-    });
     taskPanelButton.setOnAction(event -> taskQueueHandler());
     weekName.setOnMouseClicked(event -> {
       view.showWeekNamePrompt(config);
       updateGui();
     });
 
-  }
-
-  /**
-   * Constructs a day from a string.
-   *
-   * @param d the string
-   * @return the new day
-   * @throws IllegalArgumentException the string isn't a day
-   */
-  private Day constructDayFromString(String d) throws IllegalArgumentException {
-    return Day.valueOf(d);
-  }
-
-  /**
-   * Constructs a duration from a string.
-   *
-   * @param d the duration as a string
-   * @return the new duration
-   */
-  private Duration constructDurationFromString(String d) {
-    return null;
   }
 
   /**
@@ -221,13 +190,9 @@ public class JournalController implements Controller {
         this::updateGui,
         event -> view.newEventPrompt(event, newEvent -> model.mindChange(event,
             (Event) newEvent), day -> model.isBelowTaskLimit(day)),
-        task -> {
-          view.newTaskPrompt(task, newTask -> model.mindChange(task, (Task) newTask),
-              day -> model.isBelowTaskLimit(day));
-        },
-        entry -> {
-          model.moveUp(entry);
-        },
+        task -> view.newTaskPrompt(task, newTask -> model.mindChange(task, (Task) newTask),
+            day -> model.isBelowTaskLimit(day)),
+        entry -> model.moveUp(entry),
         entry -> model.moveDown(entry),
         (oldEntry, newEntry) -> model.mindChange(oldEntry, newEntry),
         entry -> model.takesieBacksie(entry));
@@ -307,7 +272,7 @@ public class JournalController implements Controller {
     fileChooser.setTitle("Open Resource File");
     File selectedFile = fileChooser.showOpenDialog(fileWindow);
     try (Reader reader = Files.newBufferedReader(selectedFile.toPath())) {
-      int r = reader.read();
+      reader.read();
       model.loadBujo(selectedFile.toPath());
       config = model.getConfig();
     } catch (IOException ex) {

@@ -9,6 +9,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import javafx.collections.FXCollections;
@@ -38,8 +39,8 @@ public class EventCreationPrompt extends EntryCreationPrompt {
    * Constucts an instance of the Event Prompt.
    *
    * @param addEntryToModel the function that adds the entry to the model
-   * @param isUnderLimit The function that checks if adding the event goes over the limit
-   * @param updategui the GUI updater
+   * @param isUnderLimit    The function that checks if adding the event goes over the limit
+   * @param updategui       the GUI updater
    */
   public EventCreationPrompt(Consumer<Entry> addEntryToModel,
                              Function<Day, Boolean> isUnderLimit, Runnable updategui) {
@@ -49,10 +50,10 @@ public class EventCreationPrompt extends EntryCreationPrompt {
   /**
    * Constucts an instance of the Event Prompt.
    *
-   * @param event the old event
+   * @param event           the old event
    * @param addEntryToModel the function that adds the entry to the model
-   * @param isUnderLimit The function that checks if adding the event goes over the limit
-   * @param updategui the GUI updater
+   * @param isUnderLimit    The function that checks if adding the event goes over the limit
+   * @param updategui       the GUI updater
    */
   public EventCreationPrompt(Event event, Consumer<Entry> addEntryToModel,
                              Function<Day, Boolean> isUnderLimit, Runnable updategui) {
@@ -137,7 +138,9 @@ public class EventCreationPrompt extends EntryCreationPrompt {
       if (!isUnderLimit.apply(day)) {
         System.out.println("Error");
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.getDialogPane().getStylesheets().add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
+        alert.getDialogPane().getStylesheets()
+            .add(Objects.requireNonNull(this.getClass().getResource("/NetflixTheme.css"))
+                .toExternalForm());
         alert.setTitle("Error");
         alert.setContentText("Too Many Events For The Day");
         alert.showAndWait();
@@ -158,7 +161,7 @@ public class EventCreationPrompt extends EntryCreationPrompt {
    * Adds the new entry.
    *
    * @param addEntryToModel the function to add the entry to the model
-   * @param updategui the GUI Updater
+   * @param updategui       the GUI Updater
    */
   @Override
   protected void addEntry(Consumer<Entry> addEntryToModel, Runnable updategui) {

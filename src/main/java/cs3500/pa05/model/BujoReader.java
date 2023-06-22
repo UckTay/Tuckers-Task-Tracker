@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cs3500.pa05.model.json.BujoJson;
 import cs3500.pa05.model.json.ConfigJson;
-import cs3500.pa05.model.json.TaskJson;
-import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
@@ -16,10 +13,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.NoSuchPaddingException;
@@ -43,21 +37,21 @@ public class BujoReader {
    * @return the configurations of the week
    */
   public Config readBujo(Path path) {
-      JsonNode fileContents;
-      try {
-        fileContents = MAPPER.readTree(path.toFile());
-      } catch (IOException e) {
-        throw new IllegalArgumentException("Invalid file path");
-      }
-      return mapBujo(fileContents);
+    JsonNode fileContents;
+    try {
+      fileContents = MAPPER.readTree(path.toFile());
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Invalid file path");
+    }
+    return mapBujo(fileContents);
   }
 
   /**
    * Reads a given encrypted bujo file.
    *
-   * @param path the path to the bujo file
+   * @param path     the path to the bujo file
    * @param password the password for decryption
-   * @return
+   * @return the config for the bujo file
    */
   public Config readBujo(Path path, String password) {
     try (FileInputStream fileIn = new FileInputStream(path.toFile())) {
@@ -74,8 +68,12 @@ public class BujoReader {
       InputStreamReader inputReader = new InputStreamReader(cipherIn);
       JsonNode fileContents = MAPPER.readTree(inputReader);
       return mapBujo(fileContents);
-    } catch (IOException | NoSuchAlgorithmException | InvalidKeySpecException |
-             NoSuchPaddingException | InvalidAlgorithmParameterException | InvalidKeyException ex) {
+    } catch (IOException
+             | NoSuchAlgorithmException
+             | InvalidKeySpecException
+             | NoSuchPaddingException
+             | InvalidAlgorithmParameterException
+             | InvalidKeyException ex) {
       System.out.println("error decrypting file");
       ex.printStackTrace();
     }
@@ -95,7 +93,7 @@ public class BujoReader {
    * Gets the entries in a given bujo file.
    *
    * @param entryType the kind of entry
-   * @param <T> the type of entry
+   * @param <T>       the type of entry
    * @return a list of that entry type
    */
   public <T> List<T> getEntry(Class<T> entryType) {

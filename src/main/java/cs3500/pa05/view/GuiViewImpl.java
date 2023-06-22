@@ -12,6 +12,7 @@ import cs3500.pa05.view.prompts.TaskCreationPrompt;
 import cs3500.pa05.view.prompts.WeekNamePrompt;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import javafx.fxml.FXMLLoader;
@@ -78,12 +79,13 @@ public class GuiViewImpl implements GuiView {
 
   @Override
   public void showTaskPanel(VBox vbox, List<Task> tasks) {
-
+    vbox.getChildren().clear();
     for (Task task : tasks) {
       vbox.getChildren().add(new EntryGuiElement(task).getVbox());
     }
     vbox.setBorder(Border.stroke(Color.BLACK));
-    vbox.getStylesheets().add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
+    vbox.getStylesheets().add(
+        Objects.requireNonNull(this.getClass().getResource("/NetflixTheme.css")).toExternalForm());
     vbox.getStyleClass().add("containerBorder");
     vbox.setSpacing(15);
 

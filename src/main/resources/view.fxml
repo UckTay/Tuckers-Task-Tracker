@@ -73,7 +73,7 @@
                            <KeyCodeCombination alt="UP" code="COMMA" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
                         </accelerator>
                         <items>
-                           <MenuItem fx:id="editSettingMenuButton" mnemonicParsing="false" text="Edit Settings" />
+                           <MenuItem fx:id="settingsMenuBar" mnemonicParsing="false" text="Edit Settings" />
                         </items>
                      </Menu>
                      <Menu mnemonicParsing="false" text="View">

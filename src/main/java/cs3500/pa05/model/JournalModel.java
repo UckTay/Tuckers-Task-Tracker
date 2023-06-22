@@ -60,7 +60,7 @@ public class JournalModel {
     newWeek();
     config = password == null ? reader.readBujo(path) : reader.readBujo(path, password);
     List<Task> tasks = reader.getEntry(Task.class);
-    for(Task task : tasks) {
+    for (Task task : tasks) {
       taskMap.get(task.getDayOfTheWeek()).add(task);
     }
     List<Event> events = reader.getEntry(Event.class);
@@ -221,7 +221,7 @@ public class JournalModel {
   public void takesieBacksie(Entry entry) {
     if (entry instanceof Event) {
       eventMap.get(entry.getDayOfTheWeek()).remove(entry);
-    } else {
+    } else if (entry instanceof Task) {
       taskMap.get(entry.getDayOfTheWeek()).remove(entry);
     }
   }

@@ -69,7 +69,8 @@ public class SettingsPrompt {
     setDoneButton(doneButton);
     dialog.getDialogPane().setContent(resultBox);
     dialog.getDialogPane().getStylesheets()
-        .add(Objects.requireNonNull(this.getClass().getResource("/NetflixTheme.css")).toExternalForm());
+        .add(Objects.requireNonNull(this.getClass().getResource("/NetflixTheme.css"))
+            .toExternalForm());
     dialog.showAndWait();
   }
 

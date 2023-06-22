@@ -19,10 +19,10 @@ public class TaskCreationPrompt extends EntryCreationPrompt {
   /**
    * constructs an instance of Task Creation Prompt.
    *
-   * @param entry the old entry
+   * @param entry           the old entry
    * @param addEntryToModel the function that adds the entry to the model
-   * @param isUnderLimit the function that checks if adding the task will go over the limit
-   * @param updategui updates the GUI
+   * @param isUnderLimit    the function that checks if adding the task will go over the limit
+   * @param updategui       updates the GUI
    */
   public TaskCreationPrompt(Entry entry, Consumer<Entry> addEntryToModel,
                             Function<Day, Boolean> isUnderLimit, Runnable updategui) {
@@ -33,8 +33,8 @@ public class TaskCreationPrompt extends EntryCreationPrompt {
    * constructs an instance of Task Creation Prompt.
    *
    * @param addEntryToModel the function that adds the entry to the model
-   * @param isUnderLimit the function that checks if adding the task will go over the limit
-   * @param updategui updates the GUI
+   * @param isUnderLimit    the function that checks if adding the task will go over the limit
+   * @param updategui       updates the GUI
    */
   public TaskCreationPrompt(Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit,
                             Runnable updategui) {
@@ -59,10 +59,10 @@ public class TaskCreationPrompt extends EntryCreationPrompt {
   /**
    * Sets the functionality of the done button.
    *
-   * @param doneButton the done button
+   * @param doneButton      the done button
    * @param addEntryToModel the function that adds the entry to the model
-   * @param updategui updates the GUI
-   * @param isUnderLimit the function that checks if adding the task won't go over the limit
+   * @param updategui       updates the GUI
+   * @param isUnderLimit    the function that checks if adding the task won't go over the limit
    */
   protected void setDoneButton(Button doneButton, Consumer<Entry> addEntryToModel,
                                Runnable updategui, Function<Day, Boolean> isUnderLimit) {
@@ -77,7 +77,8 @@ public class TaskCreationPrompt extends EntryCreationPrompt {
       if (!isUnderLimit.apply(day)) {
         System.out.println("Error");
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.getDialogPane().getStylesheets().add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
+        alert.getDialogPane().getStylesheets()
+            .add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
         alert.setTitle("Error");
         alert.setContentText("Too Many Tasks For The Day");
         alert.showAndWait();

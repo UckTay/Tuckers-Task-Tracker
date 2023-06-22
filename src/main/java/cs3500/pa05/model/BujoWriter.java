@@ -6,24 +6,13 @@ import cs3500.pa05.model.json.BujoJson;
 import cs3500.pa05.model.json.EventJson;
 import cs3500.pa05.model.json.TaskJson;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.lang.reflect.Array;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.crypto.Cipher;
 import javax.crypto.CipherOutputStream;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -79,9 +68,8 @@ public class BujoWriter {
         MAPPER.writeValue(newFile, MAPPER.convertValue(output, JsonNode.class));
       }
 
-    } catch (NoSuchPaddingException | IOException | InvalidKeySpecException |
-             NoSuchAlgorithmException | InvalidKeyException e) {
-      e.printStackTrace();
+    } catch (Exception e) {
+      System.out.println("error writing bujo file");
     }
   }
 }

@@ -19,16 +19,30 @@ class BujoReaderTest {
    * Sets up bujo reader tests.
    */
   @BeforeEach
-  void setUp() {
+  public void setUp() {
     reader = new BujoReader();
-    reader.readBujo(Path.of("src/test/resources/loadBujoTest.bujo"));
   }
 
   /**
    * tests the readBujo function.
    */
   @Test
-  void readBujoTest() {
+  public void readBujoTest() {
+    reader.readBujo(Path.of("src/test/resources/loadBujoTest.bujo"));
+    assertEquals(reader.getEntry(Task.class).get(0).toJson(), new Task(Day.MONDAY, "test",
+        "test", TaskStatus.INCOMPLETE).toJson());
+    assertEquals(reader.getEntry(Task.class).get(0).getDayOfTheWeek().toString(), "Monday");
+    assertEquals(reader.getEntry(Event.class).get(0).toJson(), new Event(Day.WEDNESDAY,
+        "test", "test", LocalTime.parse("14:15"),
+        Duration.parse("PT10H10M")).toJson());
+  }
+
+  /**
+   * Tests reading an encrypted bujo file.
+   */
+  @Test
+  public void readBujoTestEncrypted() {
+    reader.readBujo(Path.of("src/test/resources/loadBujoTestEncrypted.bujo"), "password");
     assertEquals(reader.getEntry(Task.class).get(0).toJson(), new Task(Day.MONDAY, "test",
         "test", TaskStatus.INCOMPLETE).toJson());
     assertEquals(reader.getEntry(Task.class).get(0).getDayOfTheWeek().toString(), "Monday");
