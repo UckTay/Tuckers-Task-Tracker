@@ -54,3 +54,19 @@ VBox {
 .menu-item {
     -fx-background-color: #221F1F;
 }
+
+.alert-message {
+    -fx-border-color: #221F1F;
+}
+
+.alert-container {
+    -fx-border-color: #221F1F;
+}
+
+.dialog-pane{
+    -fx-border-color: #221F1F;
+}
+
+.header-panel{
+    -fx-background-color: #221F1F;
+}

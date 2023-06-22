@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -132,10 +133,21 @@ public class EventCreationPrompt extends EntryCreationPrompt {
       } catch (Exception e) {
         return;
       }
+
+      if (!isUnderLimit.apply(day)) {
+        System.out.println("Error");
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.getDialogPane().getStylesheets().add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
+        alert.setTitle("Error");
+        alert.setContentText("Too Many Events For The Day");
+        alert.showAndWait();
+        return;
+      }
+
       if (!nameField.getText().equals("")
           && Arrays.stream(Day.values()).toList()
           .contains(day) && durationMinutes >= 0
-          && durationHours >= 0 && isUnderLimit.apply(day)) {
+          && durationHours >= 0) {
         ((Stage) doneButton.getScene().getWindow()).close();
         addEntry(addEntryToModel, updategui);
       }

@@ -7,6 +7,7 @@ import cs3500.pa05.model.TaskStatus;
 import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -73,8 +74,17 @@ public class TaskCreationPrompt extends EntryCreationPrompt {
         return;
       }
 
+      if (!isUnderLimit.apply(day)) {
+        System.out.println("Error");
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.getDialogPane().getStylesheets().add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
+        alert.setTitle("Error");
+        alert.setContentText("Too Many Tasks For The Day");
+        alert.showAndWait();
+        return;
+      }
       if (!nameField.getText().equals("") && Arrays.stream(Day.values()).toList()
-          .contains(day) && isUnderLimit.apply(day)) {
+          .contains(day)) {
         ((Stage) doneButton.getScene().getWindow()).close();
         addEntry(addEntryToModel, updategui);
       }
