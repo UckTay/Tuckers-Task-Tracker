@@ -282,6 +282,8 @@ public class JournalController implements Controller {
         try {
           if (!firstTime) {
             Alert a = new Alert(Alert.AlertType.ERROR);
+            a.getDialogPane().getStylesheets()
+                .add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
             a.setContentText("Error Decrypting File");
             a.showAndWait();
           }
