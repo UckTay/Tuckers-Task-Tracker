@@ -22,6 +22,7 @@ import java.util.Objects;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -218,6 +219,8 @@ public class JournalController implements Controller {
     updateWeeklyOverview();
     if (config.getName() != null) {
       weekName.setText(config.getName());
+      weekName.setPrefWidth(500);
+      weekName.setAlignment(Pos.CENTER);
     } else {
       weekName.setText("Click To Enter Name");
     }
@@ -358,7 +361,8 @@ public class JournalController implements Controller {
     double percentTasksDouble = 100 * ((tasks.size() == 0) ? 1 : count / tasks.size());
     totalEvents.setText(String.valueOf(totalEventsInt));
     totalTasks.setText(String.valueOf(totalTasksInt));
-    totalComplete.setText(percentTasksDouble + "%");
+    String percentTasksString = String.format("%3.2f%%",percentTasksDouble);
+    totalComplete.setText(percentTasksString);
   }
 
   @Override
