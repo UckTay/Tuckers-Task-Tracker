@@ -33,17 +33,17 @@
                               <items>
                                  <MenuItem fx:id="newEventButton" mnemonicParsing="false" text="Event">
                                     <accelerator>
-                                       <KeyCodeCombination alt="UP" code="E" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                                       <KeyCodeCombination alt="UP" code="E" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                                     </accelerator>
                                  </MenuItem>
                                  <MenuItem fx:id="newTaskButton" mnemonicParsing="false" text="Task">
                                     <accelerator>
-                                       <KeyCodeCombination alt="UP" code="T" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                                       <KeyCodeCombination alt="UP" code="T" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                                     </accelerator>
                                  </MenuItem>
                                  <MenuItem fx:id="newWeekButton" mnemonicParsing="false" text="Week">
                                     <accelerator>
-                                       <KeyCodeCombination alt="UP" code="N" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                                       <KeyCodeCombination alt="UP" code="N" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                                     </accelerator>
                                  </MenuItem>
                               </items>
@@ -52,19 +52,19 @@
                              <items>
                                  <MenuItem fx:id="openButton" mnemonicParsing="false" text="Open File">
                                     <accelerator>
-                                       <KeyCodeCombination alt="UP" code="O" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                                       <KeyCodeCombination alt="UP" code="O" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                                     </accelerator>
                                  </MenuItem>
                                  <MenuItem fx:id="openTemplateButton" mnemonicParsing="false" text="Open Template">
                                     <accelerator>
-                                       <KeyCodeCombination alt="UP" code="O" control="UP" meta="DOWN" shift="DOWN" shortcut="UP" />
+                                       <KeyCodeCombination alt="UP" code="O" control="UP" meta="UP" shift="DOWN" shortcut="DOWN" />
                                     </accelerator>
                                  </MenuItem>
                              </items>
                            </Menu>
                            <MenuItem fx:id="saveButton" mnemonicParsing="false" text="Save">
                               <accelerator>
-                                 <KeyCodeCombination alt="UP" code="S" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                                 <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                               </accelerator>
                            </MenuItem>
                         </items>
@@ -81,7 +81,7 @@
                         <items>
                            <CheckMenuItem fx:id="taskPanelMenuButton" mnemonicParsing="false" text="Always Show Task Queue">
                               <accelerator>
-                                 <KeyCodeCombination alt="UP" code="F" control="UP" meta="DOWN" shift="DOWN" shortcut="UP" />
+                                 <KeyCodeCombination alt="UP" code="F" control="UP" meta="UP" shift="DOWN" shortcut="DOWN" />
                               </accelerator>
                            </CheckMenuItem>
                         </items>
@@ -340,7 +340,7 @@
                </HBox>
             </children>
          </VBox>
-         <Pane fx:id="pane" prefHeight="900.0" prefWidth="1500.0" stylesheets="@blackPane.css" visible="false" />
+         <Pane fx:id="pane" prefHeight="900.0" prefWidth="1500.0" stylesheets="@blackPane.css" visible="true" />
          <MediaView fx:id="intro" fitHeight="900.0" fitWidth="1500.0" />
       </children></AnchorPane>
 </Scene>

@@ -68,13 +68,4 @@ class BujoWriterTest {
     bujoWriter.writeBujo(config, testEntries,
         Path.of("src/test/resources/saveBujoTestOutputEncrypted.bujo"));
   }
-
-  //  /**
-  //   * Tests the exception in writeBujo.
-  //   */
-  //  @Test
-  //  void writeBujoCases() {
-  //    assertThrows(IOException.class, () -> bujoWriter.writeBujo(new Config(),
-  //        new ArrayList<>(), Path.of("noFIlePath/NOTEXISTS")));
-  //  }
 }

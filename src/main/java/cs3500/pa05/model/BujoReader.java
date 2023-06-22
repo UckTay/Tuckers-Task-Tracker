@@ -75,7 +75,6 @@ public class BujoReader {
              | InvalidAlgorithmParameterException
              | InvalidKeyException ex) {
       System.out.println("error decrypting file");
-      ex.printStackTrace();
     }
     return null;
   }
