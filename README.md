@@ -12,7 +12,7 @@ allowing you to set obtainable goals and keeping track of what you need to do!
 Features:
 - An easy-to-understand display that is sorted by week for user clarity. 
 
-- Multiple different types of Entries for you to add to your week. These entries are easy to change, delete, and can be
+- Multiple different types of Entries for you to add to your week. These entries are easy to edit, delete, and can be
 put in a custom order by the user
 
 - An easy way to save your weeks to keep better track of your weeks.
@@ -20,11 +20,19 @@ put in a custom order by the user
 - Customizable settings that allow you to name your week, set limits in the amount of entries you want, set the start 
 day of a week and the ability to show Tasks on your sidebar if you desire.
 
+- A menu bar and hotkeys for convenience
+
+- Military grade encryption using 256 bit AES to ensure that your journal stays private
+
+- A weekly overview to see how you're doing at a glance
+
+- The ability to open a week as a template
+
 - The ability to run the application in multiple different ways, Including Jar Files!
 
 ## SOLID Principle Explanation
 - Single Responsibility Principle
-An instance of Single Responsibility Principle can be found within model with BujoReader and BujoWriter classes. these
+An instance of Single Responsibility Principle can be found within the model, with BujoReader and BujoWriter classes. these
 classes are designed to do a single purpose only. For example, When the BujoReader is instantiated, it is used for a 
 singular purpose, to read a given bujo file and reads the information to a source. The BujoWriter is also a good example 
 because its only job is to create a new bujo using the given information. These two classes fulfill their function and 
@@ -51,10 +59,10 @@ and gives the user a perfect outline of what they would need for the journal. Th
 Segregation Principle.
 
 - Dependency Inversion Principle
-A good example of Dependency Inversion Principle are the two abstract classes, Entry and CreationPrompt. Both of the 
-subclasses have similar identical code so instead of having them under a singular interface, we have an abstract class.
-This allows us to not duplicate code and helps decouple our code. This shows proper use of the Dependency Inversion 
-Principle.
+The main way that we use the Dependency Inversion Principle is with the use of the Command design pattern. GUI elements
+take in commands that do certain things like add to the model. By passing in commands the program is able to rely on abtractions
+instead of specific implementations. For instance the creation prompts can either add a new element to the model or edit an existing one,
+depending on what command is passed in. 
 
 ## Program Extension Description
 There are many ways to expand upon our implementation. The main way you could expand upon our implementation is by

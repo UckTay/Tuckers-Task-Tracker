@@ -81,8 +81,7 @@ public class TaskCreationPrompt extends EntryCreationPrompt {
             .add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
         alert.setTitle("Error");
         alert.setContentText("Too Many Tasks For The Day");
-        alert.showAndWait();
-        return;
+        alert.show();
       }
       if (!nameField.getText().equals("") && Arrays.stream(Day.values()).toList()
           .contains(day)) {

@@ -17,6 +17,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -33,6 +34,9 @@ public class GuiViewImpl implements GuiView {
     VBox box = (VBox) vbox.getChildren().get(1);
     box.prefWidthProperty().bind(vbox.widthProperty());
     box.getChildren().clear();
+    if (tasks.size() > 0) {
+      box.getChildren().add(new Label("Tasks:"));
+    }
     for (Task task : tasks) {
       box.getChildren().add(factory.createContainer(task));
     }
@@ -43,6 +47,9 @@ public class GuiViewImpl implements GuiView {
     VBox box = (VBox) vbox.getChildren().get(2);
     box.prefWidthProperty().bind(vbox.widthProperty());
     box.getChildren().clear();
+    if (events.size() > 0) {
+      box.getChildren().add(new Label("Events:"));
+    }
     for (Event event : events) {
       box.getChildren().add(factory.createContainer(event));
     }

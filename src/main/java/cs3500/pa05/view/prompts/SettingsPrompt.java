@@ -99,7 +99,9 @@ public class SettingsPrompt {
    */
   private void setDoneButton(Button doneButton) {
     doneButton.setOnAction(event -> {
-      if (!passwordField.getText().equals("")) {
+      if (passwordField.getText().equals("")) {
+        config.setPassword(null);
+      } else {
         config.setPassword(passwordField.getText());
       }
       Day day = Day.valueOf(dayOptions.getValue().toUpperCase());
@@ -108,14 +110,20 @@ public class SettingsPrompt {
         config.setStartingDay(day);
       }
       try {
-        config.setMaxEvents(Integer.parseInt(maxEventsField.getText()));
+        int max = Integer.parseInt(maxEventsField.getText());
+        if (max > 0) {
+          config.setMaxEvents(max);
+        }
       } catch (Exception ignored) {
-        //Intentionally ignored
+        config.setMaxEvents(-1);
       }
       try {
-        config.setMaxTasks(Integer.parseInt(maxTasksField.getText()));
+        int max = Integer.parseInt(maxTasksField.getText());
+        if (max > 0) {
+          config.setMaxTasks(max);
+        }
       } catch (Exception ignored) {
-        //Intentionally ignored
+        config.setMaxTasks(-1);
       }
       ((Stage) doneButton.getScene().getWindow()).close();
       System.out.println("tasks:" + config.getMaxTasks());

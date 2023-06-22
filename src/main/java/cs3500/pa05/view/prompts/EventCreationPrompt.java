@@ -143,8 +143,7 @@ public class EventCreationPrompt extends EntryCreationPrompt {
                 .toExternalForm());
         alert.setTitle("Error");
         alert.setContentText("Too Many Events For The Day");
-        alert.showAndWait();
-        return;
+        alert.show();
       }
 
       if (!nameField.getText().equals("")

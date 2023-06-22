@@ -5,6 +5,8 @@ import cs3500.pa05.model.Entry;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Task;
 import cs3500.pa05.model.TaskStatus;
+import java.time.Duration;
+import java.time.LocalTime;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -47,8 +49,10 @@ public class EntryGuiElement {
    */
   public EntryGuiElement(Event event) {
     addBasicInfo(event);
-    resultBox.getChildren().add(new Label(event.getStartTime().toString()));
-    resultBox.getChildren().add(new Label(event.getDuration().toString()));
+    resultBox.getChildren().add(new Label("Start Time: " + event.getStartTime().toString()));
+    String s = event.getDuration().toString();
+    resultBox.getChildren().add(new Label("Duration: " + s.substring(2, s.indexOf('H')) + " Hours " +
+        s.substring(s.indexOf('H') + 1, s.indexOf('M')) + " Minutes"));
   }
 
   /**
@@ -57,7 +61,9 @@ public class EntryGuiElement {
    * @param e the entry being added
    */
   private void addBasicInfo(Entry e) {
-    resultBox.getChildren().add(new Label(e.getName()));
+    Label nameLabel = new Label(e.getName());
+    nameLabel.setUnderline(true);
+    resultBox.getChildren().add(nameLabel);
     if (e.getDescription() != null && !e.getDescription().equals("")) {
       Label description = new Label(e.getDescription());
       description.setWrapText(true);
