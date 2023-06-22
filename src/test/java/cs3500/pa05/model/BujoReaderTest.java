@@ -1,6 +1,7 @@
 package cs3500.pa05.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
 import java.time.Duration;
@@ -31,7 +32,8 @@ class BujoReaderTest {
     assertEquals(reader.getEntry(Task.class).get(0).toJson(), new Task(Day.MONDAY, "test",
         "test", TaskStatus.INCOMPLETE).toJson());
     assertEquals(reader.getEntry(Task.class).get(0).getDayOfTheWeek().toString(), "Monday");
-    assertEquals(reader.getEntry(Event.class).get(0).toJson(), new Event(Day.WEDNESDAY, "test", "test",
-        LocalTime.parse("14:15"), Duration.parse("PT10H10M")).toJson());
+    assertEquals(reader.getEntry(Event.class).get(0).toJson(), new Event(Day.WEDNESDAY,
+        "test", "test", LocalTime.parse("14:15"),
+        Duration.parse("PT10H10M")).toJson());
   }
 }

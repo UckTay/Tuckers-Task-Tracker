@@ -46,6 +46,7 @@ public class Task extends Entry {
    * @return the new TaskJson
    */
   public TaskJson toJson() {
-    return new TaskJson(super.getDayOfTheWeek(), super.getName(), super.getDescription(), taskStatus);
+    return new TaskJson(super.getDayOfTheWeek(), super.getName(), super.getDescription(),
+        taskStatus);
   }
 }

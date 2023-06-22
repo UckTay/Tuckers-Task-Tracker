@@ -1,6 +1,9 @@
 package cs3500.pa05.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -60,7 +63,7 @@ class BujoWriterTest {
    */
   @Test
   void writeBujoCases() {
-    assertThrows(IllegalArgumentException.class, () -> bujoWriter.writeBujo(new Config(), new ArrayList<>(),
-        Path.of("noFIlePath/NOTEXISTS")));
+    assertThrows(IllegalArgumentException.class, () -> bujoWriter.writeBujo(new Config(),
+        new ArrayList<>(), Path.of("noFIlePath/NOTEXISTS")));
   }
 }

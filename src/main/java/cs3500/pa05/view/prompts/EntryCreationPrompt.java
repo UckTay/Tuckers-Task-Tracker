@@ -17,6 +17,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Window;
 
+/**
+ * Represents an Entry Creation Prompt
+ */
 public abstract class EntryCreationPrompt {
 
   protected VBox resultBox = new VBox();
@@ -33,15 +36,16 @@ public abstract class EntryCreationPrompt {
    * @param entry the old entry
    * @param addEntryToModel the function that adds the entry to the model
    * @param isUnderLimit the function that checks to see if adding the entry will go over the limit
-   * @param updateGUI the GUI Updater
+   * @param updategui the GUI Updater
    */
-  public EntryCreationPrompt(Entry entry, Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
+  public EntryCreationPrompt(Entry entry, Consumer<Entry> addEntryToModel,
+                             Function<Day, Boolean> isUnderLimit, Runnable updategui) {
     createPrompt(entry);
     Button doneButton = new Button("Done!");
     doneButton.prefWidthProperty().bind(resultBox.widthProperty());
     resultBox.getChildren().add(doneButton);
     resultBox.setSpacing(10);
-    setDoneButton(doneButton, addEntryToModel, updateGUI, isUnderLimit);
+    setDoneButton(doneButton, addEntryToModel, updategui, isUnderLimit);
     dialog.getDialogPane().setContent(resultBox);
     dialog.getDialogPane().getScene().getStylesheets()
         .add(getClass().getResource("/NetflixTheme.css").toExternalForm());
@@ -55,10 +59,11 @@ public abstract class EntryCreationPrompt {
    *
    * @param addEntryToModel the function that adds the entry to the model
    * @param isUnderLimit the function that checks to see if adding the entry will go over the limit
-   * @param updateGUI the GUI Updater
+   * @param updategui the GUI Updater
    */
-  public EntryCreationPrompt(Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
-    this(null, addEntryToModel, isUnderLimit, updateGUI);
+  public EntryCreationPrompt(Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit,
+                             Runnable updategui) {
+    this(null, addEntryToModel, isUnderLimit, updategui);
   }
 
   /**
@@ -106,18 +111,18 @@ public abstract class EntryCreationPrompt {
    *
    * @param doneButton the done button
    * @param addEntryToModel the function that adds the entry to the model
-   * @param updateGUI updates the GUI
+   * @param updategui updates the GUI
    * @param isUnderLimit the function that checks if adding the task won't go over the limit
    */
   protected abstract void setDoneButton(Button doneButton, Consumer<Entry> addEntryToModel,
-                                        Runnable updateGUI, Function<Day, Boolean> isUnderLimit);
+                                        Runnable updategui, Function<Day, Boolean> isUnderLimit);
 
   /**
    * Adds the new entry.
    *
    * @param addEntryToModel the function to add the entry to the model
-   * @param updateGUI the GUI Updater
+   * @param updategui the GUI Updater
    */
-  protected abstract void addEntry(Consumer<Entry> addEntryToModel, Runnable updateGUI);
+  protected abstract void addEntry(Consumer<Entry> addEntryToModel, Runnable updategui);
 
 }

@@ -6,39 +6,31 @@ import cs3500.pa05.model.Event;
 import cs3500.pa05.model.JournalModel;
 import cs3500.pa05.model.Task;
 import cs3500.pa05.model.TaskStatus;
-import cs3500.pa05.view.EntryGUIContainerFactory;
-import cs3500.pa05.view.GUIView;
+import cs3500.pa05.view.EntryGuiContainerFactory;
+import cs3500.pa05.view.GuiView;
+import java.io.File;
 import java.nio.file.Path;
 import java.time.Duration;
-import java.io.File;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+
 
 //TODO: rename days in gui when order is changed
 //TODO: limit creation according to the limit
@@ -49,7 +41,7 @@ import javafx.stage.Window;
  */
 public class JournalController implements Controller {
   JournalModel javaJournal;
-  GUIView view;
+  GuiView view;
   JournalModel model;
   Config config;
 
@@ -136,19 +128,19 @@ public class JournalController implements Controller {
   @FXML
   private CheckMenuItem taskPanelMenuButton;
 
-  private final EventHandler<CustomGUIEvent> updateGUIHandler = updateEvent -> updateGUI();
+  private final EventHandler<CustomGuiEvent> updateGuiHandler = updateEvent -> updateGui();
 
   /**
    * Construsts and instance of the controller.
    *
-   * @param GUIViewImpl the GUI
+   * @param guiViewImpl the GUI
    * @param model       the model
    */
-  public JournalController(GUIView GUIViewImpl, JournalModel model) {
-    this.view = GUIViewImpl;
+  public JournalController(GuiView guiViewImpl, JournalModel model) {
+    this.view = guiViewImpl;
     this.model = model;
     this.config = model.getConfig();
-    view.setGUIUpdater(this::updateGUI);
+    view.setGuiUpdater(this::updateGui);
   }
 
   /**
@@ -173,16 +165,16 @@ public class JournalController implements Controller {
     taskPanelMenuButton.setOnAction(event -> taskQueueHandler());
     settingsMenuBar.setOnAction(event -> {
       view.showSettingsPrompt(config);
-      updateGUI();
+      updateGui();
     });
     settingsButton.setOnAction(event -> {
       view.showSettingsPrompt(config);
-      updateGUI();
+      updateGui();
     });
     taskPanelButton.setOnAction(event -> taskQueueHandler());
     weekName.setOnMouseClicked(event -> {
       view.showWeekNamePrompt(config);
-      updateGUI();
+      updateGui();
     });
 
   }
@@ -211,9 +203,9 @@ public class JournalController implements Controller {
   /**
    * Updates the GUI.
    */
-  private void updateGUI() {
-    EntryGUIContainerFactory factory = new EntryGUIContainerFactory(
-        this::updateGUI,
+  private void updateGui() {
+    EntryGuiContainerFactory factory = new EntryGuiContainerFactory(
+        this::updateGui,
         event -> view.newEventPrompt(event, newEvent -> model.mindChange(event,
             (Event) newEvent), day -> model.isBelowTaskLimit(day)),
         task -> {
@@ -227,15 +219,15 @@ public class JournalController implements Controller {
         (oldEntry, newEntry) -> model.mindChange(oldEntry, newEntry),
         entry -> model.takesieBacksie(entry));
     for (Day day : Day.values()) {
-      Label label = ((Label) dayToVBox(day).getChildren().get(0));
+      Label label = ((Label) dayToVbox(day).getChildren().get(0));
       label.setText(day.toString());
       if (LocalDate.now().get(ChronoField.DAY_OF_WEEK) == day.ordinal()) {
         label.setUnderline(true);
       } else {
         label.setUnderline(false);
       }
-      view.showEvents(dayToVBox(day), model.getDaysEvent(day), factory);
-      view.showTasks(dayToVBox(day), model.getDaysTasks(day), factory);
+      view.showEvents(dayToVbox(day), model.getDaysEvent(day), factory);
+      view.showTasks(dayToVbox(day), model.getDaysTasks(day), factory);
     }
     if (isTaskPanelVisible) {
       taskPanel.setVisible(true);
@@ -265,7 +257,7 @@ public class JournalController implements Controller {
       taskPanelButton.setText("Open Task Queue");
       taskPanelMenuButton.setSelected(false);
     }
-    updateGUI();
+    updateGui();
   }
 
   /**
@@ -274,7 +266,7 @@ public class JournalController implements Controller {
    * @param day the given day
    * @return the VBox
    */
-  private VBox dayToVBox(Day day) {
+  private VBox dayToVbox(Day day) {
     List<Day> unorderedList = List.of(Day.values());
     List<Day> orderedList = new ArrayList<>();
     int startingIndex = unorderedList.indexOf(config.getStartingDay());
@@ -291,7 +283,7 @@ public class JournalController implements Controller {
   private void newBujo() {
     model.newWeek();
     config = model.getConfig();
-    updateGUI();
+    updateGui();
   }
 
   /**
@@ -316,7 +308,7 @@ public class JournalController implements Controller {
 //    dialog.showAndWait().ifPresent(password -> {
 //      // TODO: if  succeded
 //    });
-    updateGUI();
+    updateGui();
   }
 
   /**
@@ -329,7 +321,7 @@ public class JournalController implements Controller {
     model.loadBujoTemplate(selectedFile.toPath());
     config = model.getConfig();
     view.showWeekNamePrompt(config);
-    updateGUI();
+    updateGui();
   }
 
   /**
@@ -374,8 +366,8 @@ public class JournalController implements Controller {
    */
   private void runAfterSplashScene() {
     setupButtons();
-    scene.addEventHandler(CustomGUIEvent.UPDATE_GUI_EVENT, updateGUIHandler);
-    updateGUI();
+    scene.addEventHandler(CustomGuiEvent.UPDATE_GUI_EVENT, updateGuiHandler);
+    updateGui();
   }
 
   /**

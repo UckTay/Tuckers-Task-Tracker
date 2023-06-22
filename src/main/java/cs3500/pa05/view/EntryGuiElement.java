@@ -1,6 +1,6 @@
 package cs3500.pa05.view;
 
-import cs3500.pa05.controller.CustomGUIEvent;
+import cs3500.pa05.controller.CustomGuiEvent;
 import cs3500.pa05.model.Entry;
 import cs3500.pa05.model.Event;
 import cs3500.pa05.model.Task;
@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 /**
  * Represents the visual display of an entry.
  */
-public class EntryGUIElement {
+public class EntryGuiElement {
   VBox resultBox = new VBox();
 
   /**
@@ -22,7 +22,7 @@ public class EntryGUIElement {
    *
    * @param task the task to display
    */
-  public EntryGUIElement(Task task) {
+  public EntryGuiElement(Task task) {
     addBasicInfo(task);
     CheckBox status = new CheckBox();
     boolean isComplete = task.getTaskStatus().equals(TaskStatus.COMPLETE);
@@ -30,7 +30,7 @@ public class EntryGUIElement {
     status.setOnAction((event) -> {
       task.markTask(
           status.isSelected() ? TaskStatus.COMPLETE : TaskStatus.INCOMPLETE);
-      status.fireEvent(new CustomGUIEvent());
+      status.fireEvent(new CustomGuiEvent());
     });
     HBox statusBox = new HBox();
     statusBox.getChildren().add(new Label("Status:"));
@@ -45,7 +45,7 @@ public class EntryGUIElement {
    *
    * @param event the task to display
    */
-  public EntryGUIElement(Event event) {
+  public EntryGuiElement(Event event) {
     addBasicInfo(event);
     resultBox.getChildren().add(new Label(event.getStartTime().toString()));
     resultBox.getChildren().add(new Label(event.getDuration().toString()));
@@ -71,7 +71,7 @@ public class EntryGUIElement {
    *
    * @return the info container
    */
-  public VBox getVBox() {
+  public VBox getVbox() {
     return resultBox;
   }
 }

@@ -1,6 +1,10 @@
 package cs3500.pa05.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -259,11 +263,11 @@ class JournalModelTest {
         TaskStatus.INCOMPLETE);
     Task testTask2 = new Task(Day.WEDNESDAY, "testName", "testDesc2",
         TaskStatus.INCOMPLETE);
-    Task testTask3 = new Task(Day.WEDNESDAY, "testName", "testDesc3",
-        TaskStatus.INCOMPLETE);
     testModel.addTask(testTask);
     testModel.mindChange(testTask, testTask2);
     assertEquals(testModel.getAllTasks().get(0), testTask2);
+    Task testTask3 = new Task(Day.WEDNESDAY, "testName", "testDesc3",
+        TaskStatus.INCOMPLETE);
     testModel.mindChange(testTask2, testTask3);
     assertEquals(testModel.getAllTasks().get(0), testTask3);
   }
@@ -277,11 +281,11 @@ class JournalModelTest {
         LocalTime.MAX, Duration.ZERO);
     Event testEvent2 = new Event(Day.WEDNESDAY, "testName", "testDesc2",
         LocalTime.MIN, Duration.ZERO);
-    Event testEvent3 = new Event(Day.WEDNESDAY, "testName", "testDesc3",
-        LocalTime.MIN, Duration.ZERO);
     testModel.addEvent(testEvent);
     testModel.mindChange(testEvent, testEvent2);
     assertEquals(testModel.getAllEvents().get(0), testEvent2);
+    Event testEvent3 = new Event(Day.WEDNESDAY, "testName", "testDesc3",
+        LocalTime.MIN, Duration.ZERO);
     testModel.mindChange(testEvent2, testEvent3);
     assertEquals(testModel.getAllEvents().get(0), testEvent3);
   }

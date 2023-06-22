@@ -1,4 +1,4 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/x6ckGcN8)
+[[Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/x6ckGcN8)
 
 [PA Write Up](https://markefontenot.notion.site/PA-05-8263d28a81a7473d8372c6579abd6481)
 # 3500 PA05 Project Repo
@@ -76,17 +76,23 @@ the Driver. Alongside the GUIView interface, uses would be able to use our model
 own vision of the Java Journal if they desired.
 
 ## Jar File Explanation
-- To run the program: Run Gradle Build
-- To run the JAR: [built JAR](build/fatJar/pa05-template-1.0-SNAPSHOT.jar)
+To run the program: Run the Driver
+To run the JAR: [built JAR](build/fatJar/$pa05-jay-s-java-journal).jar
 
 ## Screenshot
-- ![Opening View](opening_view.png) 
-- ![TaskQueue and Menu Bar Visible](Feature_Showcase.png)
-- ![Splash Screen](Splash_Screen.png)
+[Opening View](opening_view.png)
+[TaskQueue and Menu Bar Visible](Feature_Showcase.png)
+[Splash Screen](Splash_Screen.png)
 
-## Attributions
-- Trash Image "https://em-content.zobj.net/thumbs/120/apple/354/wastebasket_1f5d1-fe0f.png"
-- Up Arrow "https://em-content.zobj.net/thumbs/120/apple/354/up-arrow_2b06-fe0f.png"
-- Down Arrow "https://em-content.zobj.net/thumbs/120/apple/354/down-arrow_2b07-fe0f.png"
-- Pencil "https://em-content.zobj.net/thumbs/120/apple/354/pencil_270f-fe0f.png"
+## Attributes
+- [Trash Image](src/main/resources/trash.png)
+https://em-content.zobj.net/thumbs/120/apple/354/wastebasket_1f5d1-fe0f.png
 
+- [Up Arrow](src/main/resources/up.png)
+https://em-content.zobj.net/thumbs/120/apple/354/up-arrow_2b06-fe0f.png
+
+- [Down Arrow](src/main/resources/down.png)
+https://em-content.zobj.net/thumbs/120/apple/354/down-arrow_2b07-fe0f.png
+
+- [Pencil](src/main/resources/pencil.png)
+https://em-content.zobj.net/thumbs/120/apple/354/pencil_270f-fe0f.png

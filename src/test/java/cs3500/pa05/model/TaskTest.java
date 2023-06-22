@@ -1,9 +1,8 @@
 package cs3500.pa05.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import cs3500.pa05.model.json.TaskJson;
-
 import org.junit.jupiter.api.Test;
 
 /**

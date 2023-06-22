@@ -23,16 +23,16 @@ public record EventJson(
     @JsonProperty("description") String description,
     @JsonProperty("startTime") String startTime,
     @JsonProperty("duration") String duration
-    ) {
+) {
 
-    /**
-     * Converts the EventJson to an event.
-     *
-     * @return the new event
-     */
-    public Event toEvent() {
-        return new Event(day, name, description, LocalTime.parse(startTime),
-            Duration.parse(duration));
-    }
+  /**
+   * Converts the EventJson to an event.
+   *
+   * @return the new event
+   */
+  public Event toEvent() {
+    return new Event(day, name, description, LocalTime.parse(startTime),
+        Duration.parse(duration));
+  }
 
 }

@@ -41,8 +41,8 @@ public class BujoReader {
    * Gets the entries in a given bujo file.
    *
    * @param entryType the kind of entry
-   * @return a list of that entry type
    * @param <T> the type of entry
+   * @return a list of that entry type
    */
   public <T> List<T> getEntry(Class<T> entryType) {
     List<T> list = new ArrayList<>();

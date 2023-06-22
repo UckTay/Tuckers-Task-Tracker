@@ -22,16 +22,16 @@ import javafx.stage.Window;
  */
 public class SettingsPrompt {
 
-  private VBox resultBox = new VBox();
+  private final VBox resultBox = new VBox();
 
-  private Dialog<String> dialog = new Dialog<>();
+  private final Dialog<String> dialog = new Dialog<>();
 
-  private ChoiceBox<String> dayOptions = new ChoiceBox<>();
+  private final ChoiceBox<String> dayOptions = new ChoiceBox<>();
 
-  private TextField maxEventsField;
-  private TextField maxTasksField;
+  private final TextField maxEventsField;
+  private final TextField maxTasksField;
 
-  private Config config;
+  private final Config config;
 
 
   /**
@@ -57,7 +57,6 @@ public class SettingsPrompt {
     dayBox.setAlignment(Pos.CENTER_LEFT);
     dayBox.setSpacing(10);
     resultBox.getChildren().add(dayBox);
-    Label maxEventsLbl = new Label("Maximum number of Events per day:");
     maxEventsField = config.getMaxEvents() == -1 ? new TextField() :
         new TextField(String.valueOf(config.getMaxEvents()));
     maxEventsField.setPrefWidth(30);
@@ -65,6 +64,7 @@ public class SettingsPrompt {
     maxTasksField = config.getMaxTasks() == -1 ? new TextField() :
         new TextField(String.valueOf(config.getMaxTasks()));
     maxTasksField.setPrefWidth(30);
+    Label maxEventsLbl = new Label("Maximum number of Events per day:");
     resultBox.getChildren().addAll(maxEventsLbl, maxEventsField, maxTasksLbl, maxTasksField);
     Window window = dialog.getDialogPane().getScene().getWindow();
     window.setOnCloseRequest(event -> dialog.close());

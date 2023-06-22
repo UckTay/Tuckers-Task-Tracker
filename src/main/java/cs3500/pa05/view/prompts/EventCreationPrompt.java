@@ -38,10 +38,11 @@ public class EventCreationPrompt extends EntryCreationPrompt {
    *
    * @param addEntryToModel the function that adds the entry to the model
    * @param isUnderLimit The function that checks if adding the event goes over the limit
-   * @param updateGUI the GUI updater
+   * @param updategui the GUI updater
    */
-  public EventCreationPrompt(Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
-    super(addEntryToModel, isUnderLimit, updateGUI);
+  public EventCreationPrompt(Consumer<Entry> addEntryToModel,
+                             Function<Day, Boolean> isUnderLimit, Runnable updategui) {
+    super(addEntryToModel, isUnderLimit, updategui);
   }
 
   /**
@@ -50,10 +51,11 @@ public class EventCreationPrompt extends EntryCreationPrompt {
    * @param event the old event
    * @param addEntryToModel the function that adds the entry to the model
    * @param isUnderLimit The function that checks if adding the event goes over the limit
-   * @param updateGUI the GUI updater
+   * @param updategui the GUI updater
    */
-  public EventCreationPrompt(Event event, Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
-    super(event, addEntryToModel, isUnderLimit, updateGUI);
+  public EventCreationPrompt(Event event, Consumer<Entry> addEntryToModel,
+                             Function<Day, Boolean> isUnderLimit, Runnable updategui) {
+    super(event, addEntryToModel, isUnderLimit, updategui);
   }
 
   @Override
@@ -69,11 +71,7 @@ public class EventCreationPrompt extends EntryCreationPrompt {
    * @param event the event
    */
   private void addTimeElements(Event event) {
-    HBox durationBox = new HBox();
-
     Label startTimeLbl = new Label("Start Time:");
-    Label colon = new Label(":");
-    HBox startTimeBox = new HBox();
     resultBox.getChildren().add(startTimeLbl);
     List<String> hours = new ArrayList<>();
     hours.add("");
@@ -97,17 +95,22 @@ public class EventCreationPrompt extends EntryCreationPrompt {
     if (event != null) {
       minutesOptions.setValue(String.valueOf(event.getStartTime().getMinute()));
     }
+    HBox startTimeBox = new HBox();
+    Label colon = new Label(":");
     startTimeBox.getChildren().addAll(hoursOptions, colon, minutesOptions);
     startTimeBox.setSpacing(10);
     resultBox.getChildren().add(startTimeBox);
+    hoursField = event == null ? new TextField() :
+        new TextField(String.valueOf(event.getDuration().toHours()));
+    hoursField.setPrefWidth(30);
+    minutesField = event == null ? new TextField() :
+        new TextField(String.valueOf(event.getDuration().toMinutes() % 60));
+    minutesField.setPrefWidth(30);
     Label durationLbl = new Label("Duration:");
     Label hoursLbl = new Label("Hours:");
     Label minutesLbl = new Label("Minutes:");
-    hoursField = event == null ? new TextField() : new TextField(String.valueOf(event.getDuration().toHours()));
-    hoursField.setPrefWidth(30);
-    minutesField = event == null ? new TextField() : new TextField(String.valueOf(event.getDuration().toMinutes() % 60));
-    minutesField.setPrefWidth(30);
     resultBox.getChildren().add(durationLbl);
+    HBox durationBox = new HBox();
     durationBox.getChildren().addAll(hoursLbl, hoursField, minutesLbl, minutesField);
     durationBox.setAlignment(Pos.CENTER_LEFT);
     durationBox.setSpacing(10);
@@ -117,7 +120,7 @@ public class EventCreationPrompt extends EntryCreationPrompt {
 
   @Override
   protected void setDoneButton(Button doneButton, Consumer<Entry> addEntryToModel,
-                               Runnable updateGUI, Function<Day, Boolean> isUnderLimit) {
+                               Runnable updategui, Function<Day, Boolean> isUnderLimit) {
     doneButton.setOnAction(event -> {
 
       Day day = Day.valueOf(dayOptions.getValue().toUpperCase());
@@ -131,10 +134,10 @@ public class EventCreationPrompt extends EntryCreationPrompt {
       }
       if (!nameField.getText().equals("")
           && Arrays.stream(Day.values()).toList()
-          .contains(day) && durationMinutes >= 0 &&
-          durationHours >= 0 && isUnderLimit.apply(day)) {
+          .contains(day) && durationMinutes >= 0
+          && durationHours >= 0 && isUnderLimit.apply(day)) {
         ((Stage) doneButton.getScene().getWindow()).close();
-        addEntry(addEntryToModel, updateGUI);
+        addEntry(addEntryToModel, updategui);
       }
     });
   }
@@ -143,15 +146,15 @@ public class EventCreationPrompt extends EntryCreationPrompt {
    * Adds the new entry.
    *
    * @param addEntryToModel the function to add the entry to the model
-   * @param updateGUI the GUI Updater
+   * @param updategui the GUI Updater
    */
   @Override
-  protected void addEntry(Consumer<Entry> addEntryToModel, Runnable updateGUI) {
+  protected void addEntry(Consumer<Entry> addEntryToModel, Runnable updategui) {
     Event event = new Event(Day.valueOf(dayOptions.getValue().toUpperCase()), nameField.getText(),
         descriptionField.getText(),
         LocalTime.of(startHours, startMinutes), Duration.of(durationHours, ChronoUnit.HOURS)
         .plus(Duration.of(durationMinutes, ChronoUnit.MINUTES)));
     addEntryToModel.accept(event);
-    updateGUI.run();
+    updategui.run();
   }
 }

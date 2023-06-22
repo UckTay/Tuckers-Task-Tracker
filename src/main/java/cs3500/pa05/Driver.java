@@ -3,11 +3,10 @@ package cs3500.pa05;
 import cs3500.pa05.controller.Controller;
 import cs3500.pa05.controller.JournalController;
 import cs3500.pa05.model.JournalModel;
-import cs3500.pa05.view.GUIView;
-import cs3500.pa05.view.GUIViewImpl;
+import cs3500.pa05.view.GuiView;
+import cs3500.pa05.view.GuiViewImpl;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -40,7 +39,7 @@ public class Driver extends Application {
   @Override
   public void start(Stage primaryStage) {
     JournalModel model = new JournalModel();
-    GUIView view = new GUIViewImpl();
+    GuiView view = new GuiViewImpl();
     Controller controller = new JournalController(view, model);
     Scene scene = view.load(controller);
     primaryStage.setScene(scene);

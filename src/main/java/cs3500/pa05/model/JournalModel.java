@@ -50,11 +50,11 @@ public class JournalModel {
     newWeek();
     config = reader.readBujo(path);
     List<Task> tasks = reader.getEntry(Task.class);
-    for(Task task : tasks) {
+    for (Task task : tasks) {
       taskMap.get(task.getDayOfTheWeek()).add(task);
     }
     List<Event> events = reader.getEntry(Event.class);
-    for(Event event : events) {
+    for (Event event : events) {
       eventMap.get(event.getDayOfTheWeek()).add(event);
     }
   }
@@ -78,7 +78,7 @@ public class JournalModel {
   public void saveBujo(Path path) {
     BujoWriter writer = new BujoWriter();
     List<Entry> entries = new ArrayList<>();
-    for(Day key : Day.values()) {
+    for (Day key : Day.values()) {
       entries.addAll(taskMap.get(key));
       entries.addAll(eventMap.get(key));
     }
@@ -123,7 +123,7 @@ public class JournalModel {
    */
   public List<Event> getAllEvents() {
     List<Event> events = new ArrayList<>();
-    eventMap.keySet().forEach(day-> events.addAll(eventMap.get(day)));
+    eventMap.keySet().forEach(day -> events.addAll(eventMap.get(day)));
     return events;
   }
 
@@ -142,7 +142,7 @@ public class JournalModel {
    * @param event the new event.
    */
   public void addEvent(Event event) {
-      eventMap.get(event.getDayOfTheWeek()).add(event);
+    eventMap.get(event.getDayOfTheWeek()).add(event);
   }
 
   /**
@@ -170,8 +170,8 @@ public class JournalModel {
    *
    * @param limit the limit
    * @param list the list of items
-   * @return if it is under the limit
    * @param <T> the type of entry
+   * @return if it is under the limit
    */
   private <T> boolean genericIsUnderLimit(int limit, List<T> list) {
     return limit < 0 || list.size() < limit;
@@ -236,14 +236,14 @@ public class JournalModel {
       List<Event> list = eventMap.get(newEvent.getDayOfTheWeek());
       int index = list.indexOf((Event) oldEntry);
       if (!list.contains(oldEntry)) {
-          addEvent(newEvent);
-          takesieBacksie(oldEntry);
-        } else {
-          list.set(index, newEvent);
-        }
+        addEvent(newEvent);
+        takesieBacksie(oldEntry);
+      } else {
+        list.set(index, newEvent);
+      }
     } else if (newEntry instanceof Task newTask) {
       List<Task> list = taskMap.get(newTask.getDayOfTheWeek());
-            int index = list.indexOf((Task) oldEntry);
+      int index = list.indexOf((Task) oldEntry);
       if (!list.contains(oldEntry)) {
         addTask(newTask);
         takesieBacksie(oldEntry);

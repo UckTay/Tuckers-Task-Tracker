@@ -3,7 +3,6 @@ package cs3500.pa05.model;
 import cs3500.pa05.model.json.EventJson;
 import java.time.Duration;
 import java.time.LocalTime;
-import java.util.ArrayList;
 
 /**
  * Represents an Event
@@ -22,7 +21,8 @@ public class Event extends Entry {
    * @param startTime the time the event starts
    * @param duration how long the event is
    */
-  public Event(Day dayOfTheWeek, String name, String description, LocalTime startTime, Duration duration) {
+  public Event(Day dayOfTheWeek, String name, String description,
+               LocalTime startTime, Duration duration) {
     super(dayOfTheWeek, name, description);
     this.startTime = startTime;
     this.duration = duration;
@@ -52,8 +52,8 @@ public class Event extends Entry {
    * @return the new Json
    */
   public EventJson toJson() {
-    return new EventJson(super.getDayOfTheWeek(), super.getName(), super.getDescription(), startTime.toString(),
-        duration.toString());
+    return new EventJson(super.getDayOfTheWeek(), super.getName(), super.getDescription(),
+        startTime.toString(), duration.toString());
   }
 
 }

@@ -21,10 +21,11 @@ public class TaskCreationPrompt extends EntryCreationPrompt {
    * @param entry the old entry
    * @param addEntryToModel the function that adds the entry to the model
    * @param isUnderLimit the function that checks if adding the task will go over the limit
-   * @param updateGUI updates the GUI
+   * @param updategui updates the GUI
    */
-  public TaskCreationPrompt(Entry entry, Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
-    super(entry, addEntryToModel, isUnderLimit, updateGUI);
+  public TaskCreationPrompt(Entry entry, Consumer<Entry> addEntryToModel,
+                            Function<Day, Boolean> isUnderLimit, Runnable updategui) {
+    super(entry, addEntryToModel, isUnderLimit, updategui);
   }
 
   /**
@@ -32,18 +33,20 @@ public class TaskCreationPrompt extends EntryCreationPrompt {
    *
    * @param addEntryToModel the function that adds the entry to the model
    * @param isUnderLimit the function that checks if adding the task will go over the limit
-   * @param updateGUI updates the GUI
+   * @param updategui updates the GUI
    */
-  public TaskCreationPrompt(Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit, Runnable updateGUI) {
-    this(null, addEntryToModel, isUnderLimit, updateGUI);
+  public TaskCreationPrompt(Consumer<Entry> addEntryToModel, Function<Day, Boolean> isUnderLimit,
+                            Runnable updategui) {
+    this(null, addEntryToModel, isUnderLimit, updategui);
   }
 
   @Override
-  protected void addEntry(Consumer<Entry> addEntryToModel, Runnable updateGUI) {
-    addEntryToModel.accept(new Task(Day.valueOf(dayOptions.getValue().toUpperCase()), nameField.getText(),
+  protected void addEntry(Consumer<Entry> addEntryToModel, Runnable updategui) {
+    addEntryToModel.accept(new Task(Day.valueOf(dayOptions.getValue().toUpperCase()),
+        nameField.getText(),
         descriptionField.getText(),
         TaskStatus.INCOMPLETE));
-    updateGUI.run();
+    updategui.run();
   }
 
   @Override
@@ -57,15 +60,15 @@ public class TaskCreationPrompt extends EntryCreationPrompt {
    *
    * @param doneButton the done button
    * @param addEntryToModel the function that adds the entry to the model
-   * @param updateGUI updates the GUI
+   * @param updategui updates the GUI
    * @param isUnderLimit the function that checks if adding the task won't go over the limit
    */
   protected void setDoneButton(Button doneButton, Consumer<Entry> addEntryToModel,
-                               Runnable updateGUI, Function<Day, Boolean> isUnderLimit) {
+                               Runnable updategui, Function<Day, Boolean> isUnderLimit) {
     doneButton.setOnAction(event -> {
       Day day;
       try {
-       day = Day.valueOf(dayOptions.getValue().toUpperCase());
+        day = Day.valueOf(dayOptions.getValue().toUpperCase());
       } catch (IllegalArgumentException e) {
         return;
       }
@@ -73,7 +76,7 @@ public class TaskCreationPrompt extends EntryCreationPrompt {
       if (!nameField.getText().equals("") && Arrays.stream(Day.values()).toList()
           .contains(day) && isUnderLimit.apply(day)) {
         ((Stage) doneButton.getScene().getWindow()).close();
-        addEntry(addEntryToModel, updateGUI);
+        addEntry(addEntryToModel, updategui);
       }
     });
   }

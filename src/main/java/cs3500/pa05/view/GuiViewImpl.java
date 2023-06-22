@@ -15,25 +15,22 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
  * Implementation of the GUIView Interface.
  */
-public class GUIViewImpl implements GUIView {
+public class GuiViewImpl implements GuiView {
 
-  private Runnable updateGUI;
+  private Runnable updategui;
 
   @Override
-  public void showTasks(VBox vBox, List<Task> tasks, EntryGUIContainerFactory factory) {
-    VBox box = (VBox) vBox.getChildren().get(1);
-    box.prefWidthProperty().bind(vBox.widthProperty());
+  public void showTasks(VBox vbox, List<Task> tasks, EntryGuiContainerFactory factory) {
+    VBox box = (VBox) vbox.getChildren().get(1);
+    box.prefWidthProperty().bind(vbox.widthProperty());
     box.getChildren().clear();
     for (Task task : tasks) {
       box.getChildren().add(factory.createContainer(task));
@@ -41,9 +38,9 @@ public class GUIViewImpl implements GUIView {
   }
 
   @Override
-  public void showEvents(VBox vBox, List<Event> events, EntryGUIContainerFactory factory) {
-    VBox box = (VBox) vBox.getChildren().get(2);
-    box.prefWidthProperty().bind(vBox.widthProperty());
+  public void showEvents(VBox vbox, List<Event> events, EntryGuiContainerFactory factory) {
+    VBox box = (VBox) vbox.getChildren().get(2);
+    box.prefWidthProperty().bind(vbox.widthProperty());
     box.getChildren().clear();
     for (Event event : events) {
       box.getChildren().add(factory.createContainer(event));
@@ -53,25 +50,25 @@ public class GUIViewImpl implements GUIView {
 
   @Override
   public void newTaskPrompt(Consumer<Entry> taskAdder, Function<Day, Boolean> taskLimitChecker) {
-    new TaskCreationPrompt(taskAdder, taskLimitChecker, updateGUI);
+    new TaskCreationPrompt(taskAdder, taskLimitChecker, updategui);
   }
 
   @Override
   public void newTaskPrompt(Task task, Consumer<Entry> taskAdder,
                             Function<Day, Boolean> taskLimitChecker) {
-    new TaskCreationPrompt(task, taskAdder, taskLimitChecker, updateGUI);
+    new TaskCreationPrompt(task, taskAdder, taskLimitChecker, updategui);
 
   }
 
   @Override
   public void newEventPrompt(Event event, Consumer<Entry> eventAdder,
                              Function<Day, Boolean> limitChecker) {
-    new EventCreationPrompt(event, eventAdder, limitChecker, updateGUI);
+    new EventCreationPrompt(event, eventAdder, limitChecker, updategui);
   }
 
   @Override
   public void newEventPrompt(Consumer<Entry> eventAdder, Function<Day, Boolean> eventLimitChecker) {
-    new EventCreationPrompt(eventAdder, eventLimitChecker, updateGUI);
+    new EventCreationPrompt(eventAdder, eventLimitChecker, updategui);
   }
 
   @Override
@@ -80,27 +77,25 @@ public class GUIViewImpl implements GUIView {
   }
 
   @Override
-  public void showTaskPanel(VBox vBox, List<Task> tasks) {
+  public void showTaskPanel(VBox vbox, List<Task> tasks) {
 
     for (Task task : tasks) {
-      vBox.getChildren().add(new EntryGUIElement(task).getVBox());
+      vbox.getChildren().add(new EntryGuiElement(task).getVbox());
     }
-    vBox.setBorder(Border.stroke(Color.BLACK));
-    vBox.getStylesheets().add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
-    vBox.getStyleClass().add("containerBorder");
-    vBox.setSpacing(15);
+    vbox.setBorder(Border.stroke(Color.BLACK));
+    vbox.getStylesheets().add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
+    vbox.getStyleClass().add("containerBorder");
+    vbox.setSpacing(15);
 
   }
 
-
   @Override
-  public void setGUIUpdater(Runnable updater) {
-    this.updateGUI = updater;
+  public void setGuiUpdater(Runnable updater) {
+    this.updategui = updater;
   }
 
   @Override
   public Scene load(Controller controller) {
-    this.updateGUI = updateGUI;
     try {
       FXMLLoader loader = new FXMLLoader();
       loader.setLocation(getClass().getClassLoader().getResource("view.fxml"));

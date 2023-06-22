@@ -20,15 +20,14 @@ public record TaskJson(
     @JsonProperty("name") String name,
     @JsonProperty("description") String description,
     @JsonProperty("taskStatus")TaskStatus status
-    ) {
+) {
 
-    /**
-     * Converts the JsonTask to a Task
-     *
-     * @return the new task
-     */
-    public Task toTask() {
-        return new Task(day, name, description, status);
-    }
-
+  /**
+   * Converts the JsonTask to a Task
+   *
+   * @return the new task
+   */
+  public Task toTask() {
+    return new Task(day, name, description, status);
+  }
 }

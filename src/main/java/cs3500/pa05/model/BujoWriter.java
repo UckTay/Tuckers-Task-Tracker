@@ -7,12 +7,8 @@ import cs3500.pa05.model.json.EventJson;
 import cs3500.pa05.model.json.TaskJson;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,8 +28,8 @@ public class BujoWriter {
   public void writeBujo(Config config, List<Entry> entries, Path path) {
     List<TaskJson> tasks = new ArrayList<>();
     List<EventJson> events = new ArrayList<>();
-    for(Entry entry : entries) {
-      if(entry.getClass() == Task.class) {
+    for (Entry entry : entries) {
+      if (entry.getClass() == Task.class) {
         tasks.add(((Task) entry).toJson());
       } else {
         events.add(((Event) entry).toJson());
