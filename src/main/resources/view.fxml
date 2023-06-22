@@ -26,11 +26,6 @@
             <children>
                <MenuBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="28.0" prefWidth="1500.0">
                   <menus>
-                     <Menu fx:id="settingsMenuBar" mnemonicParsing="false" text="Preferences">
-                        <accelerator>
-                           <KeyCodeCombination alt="UP" code="COMMA" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
-                        </accelerator>
-                     </Menu>
                      <Menu mnemonicParsing="false" text="File">
                         <items>
                            <Menu mnemonicParsing="false" text="New">
@@ -73,6 +68,14 @@
                            </MenuItem>
                         </items>
                      </Menu>
+                     <Menu mnemonicParsing="false" text="Preferences">
+                        <accelerator>
+                           <KeyCodeCombination alt="UP" code="COMMA" control="UP" meta="DOWN" shift="UP" shortcut="UP" />
+                        </accelerator>
+                        <items>
+                           <MenuItem fx:id="editSettingMenuButton" mnemonicParsing="false" text="Edit Settings" />
+                        </items>
+                     </Menu>
                      <Menu mnemonicParsing="false" text="View">
                         <items>
                            <CheckMenuItem fx:id="taskPanelMenuButton" mnemonicParsing="false" text="Always Show Task Queue">
@@ -80,11 +83,6 @@
                                  <KeyCodeCombination alt="UP" code="F" control="UP" meta="DOWN" shift="DOWN" shortcut="UP" />
                               </accelerator>
                            </CheckMenuItem>
-                        </items>
-                     </Menu>
-                     <Menu mnemonicParsing="false" text="Help">
-                        <items>
-                           <MenuItem mnemonicParsing="false" text="About" />
                         </items>
                      </Menu>
                   </menus>

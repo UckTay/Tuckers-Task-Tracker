@@ -9,7 +9,7 @@
 - Menu Bar & Shortcuts
 
 ## Section 3: Power Ups
-- Taksies backsies
+- Taksies Backsies
 - Custom Ordering
 - Weekly Overview
   
