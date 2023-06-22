@@ -9,26 +9,38 @@ import cs3500.pa05.model.TaskStatus;
 import cs3500.pa05.view.EntryGuiContainerFactory;
 import cs3500.pa05.view.GuiView;
 import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Timer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
@@ -294,21 +306,37 @@ public class JournalController implements Controller {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
     File selectedFile = fileChooser.showOpenDialog(fileWindow);
-    model.loadBujo(selectedFile.toPath());
-    config = model.getConfig(); // TODO: add pssword to config
-//    TextInputDialog dialog = new TextInputDialog("password");
-//    dialog.getDialogPane().getStylesheets()
-//        .add(this.getClass().getResource("/NetflixTheme.css").toExternalForm());
-//    Button button = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
-//    button.setOnAction(event -> {
-//      //TODO: compare config to result
-//      dialog.getResult(); // // TODO: confirm password
-//      event.consume(); // TODO: do this to stay inside dialog
-//
-//    });
-//    dialog.showAndWait().ifPresent(password -> {
-//      // TODO: if  succeded
-//    });
+    try (Reader reader = Files.newBufferedReader(selectedFile.toPath())) {
+      int r = reader.read();
+      model.loadBujo(selectedFile.toPath());
+      config = model.getConfig();
+    } catch (IOException ex) {
+      boolean firstTime = true;
+      String password = "";
+      do {
+        try {
+          if (!firstTime) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setContentText("Error Decrypting File");
+            a.showAndWait();
+          }
+          firstTime = false;
+          TextInputDialog dialog = new TextInputDialog();
+          dialog.setTitle("Password Prompt");
+          dialog.setContentText("Enter Password:");
+          dialog.getDialogPane().getStylesheets()
+              .add(Objects.requireNonNull(this.getClass().getResource("/NetflixTheme.css"))
+                  .toExternalForm());
+          dialog.showAndWait();
+          password = dialog.getResult();
+          model.loadBujo(selectedFile.toPath(), password);
+        } catch (Exception ignored) {
+          //Exception intentionally ignored
+        }
+      } while (model.getConfig() == null);
+      config = model.getConfig();
+      config.setPassword(password);
+    }
     updateGui();
   }
 
@@ -319,9 +347,16 @@ public class JournalController implements Controller {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
     File selectedFile = fileChooser.showOpenDialog(fileWindow);
-    model.loadBujoTemplate(selectedFile.toPath());
-    config = model.getConfig();
-    view.showWeekNamePrompt(config);
+    try {
+      model.loadBujoTemplate(selectedFile.toPath());
+      config = model.getConfig();
+      view.showWeekNamePrompt(config);
+    } catch (Exception e) {
+      Alert a = new Alert(Alert.AlertType.ERROR);
+      a.setContentText("Error Reading File");
+      a.showAndWait();
+    }
+
     updateGui();
   }
 

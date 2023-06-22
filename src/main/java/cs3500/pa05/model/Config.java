@@ -11,6 +11,8 @@ public class Config {
   private int maxTasks = -1;
   private Day startingDay = Day.SUNDAY;
 
+  private String password = null;
+
 
   /**
    * Gets the starting day of the week.
@@ -91,5 +93,23 @@ public class Config {
    */
   public ConfigJson toJson() {
     return new ConfigJson(startingDay, name, maxEvents, maxTasks);
+  }
+
+  /**
+   * Gets the password for the bujo file.
+   *
+   * @return the password before it is turned into an encryption key
+   */
+  public String getPassword() {
+    return password;
+  }
+
+  /**
+   * Sets the password for the bujo file.
+   *
+   * @param password the password before it is turned into an encryption key
+   */
+  public void setPassword(String password) {
+    this.password = password;
   }
 }

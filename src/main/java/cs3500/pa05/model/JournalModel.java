@@ -46,11 +46,21 @@ public class JournalModel {
    * @param path the path to the bujo file
    */
   public void loadBujo(Path path) {
+    loadBujo(path, null);
+  }
+
+  /**
+   * Loads and opens an encrypted bujo file.
+   *
+   * @param path the path to the bujo file
+   * @param password the password for the bujo file
+   */
+  public void loadBujo(Path path, String password) {
     BujoReader reader = new BujoReader();
     newWeek();
-    config = reader.readBujo(path);
+    config = password == null ? reader.readBujo(path) : reader.readBujo(path, password);
     List<Task> tasks = reader.getEntry(Task.class);
-    for (Task task : tasks) {
+    for(Task task : tasks) {
       taskMap.get(task.getDayOfTheWeek()).add(task);
     }
     List<Event> events = reader.getEntry(Event.class);
