@@ -76,10 +76,17 @@ the Driver. Alongside the GUIView interface, uses would be able to use our model
 own vision of the Java Journal if they desired.
 
 ## Jar File Explanation
-To run the program: Run the Driver
-To run the JAR: [built JAR](build/fatJar/$pa05-jay-s-java-journal).jar
+- To run the program: Run Gradle Build
+- To run the JAR: [built JAR](build/fatJar/pa05-template-1.0-SNAPSHOT.jar)
 
 ## Screenshot
-[Opening View](opening_view.png)
-[TaskQueue and Menu Bar Visible](Feature_Showcase.png)
-[Splash Screen](Splash_Screen.png)
+- ![Opening View](opening_view.png) 
+- ![TaskQueue and Menu Bar Visible](Feature_Showcase.png)
+- ![Splash Screen](Splash_Screen.png)
+
+## Attributions
+- Trash Image "https://em-content.zobj.net/thumbs/120/apple/354/wastebasket_1f5d1-fe0f.png"
+- Up Arrow "https://em-content.zobj.net/thumbs/120/apple/354/up-arrow_2b06-fe0f.png"
+- Down Arrow "https://em-content.zobj.net/thumbs/120/apple/354/down-arrow_2b07-fe0f.png"
+- Pencil "https://em-content.zobj.net/thumbs/120/apple/354/pencil_270f-fe0f.png"
+
