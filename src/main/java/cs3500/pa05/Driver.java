@@ -43,6 +43,7 @@ public class Driver extends Application {
     Controller controller = new JournalController(view, model);
     Scene scene = view.load(controller);
     primaryStage.setScene(scene);
+    primaryStage.setFullScreen(false);
     primaryStage.show();
     controller.run();
   }

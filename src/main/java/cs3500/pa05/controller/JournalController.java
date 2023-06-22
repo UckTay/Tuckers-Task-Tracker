@@ -361,7 +361,7 @@ public class JournalController implements Controller {
     double percentTasksDouble = 100 * ((tasks.size() == 0) ? 1 : count / tasks.size());
     totalEvents.setText(String.valueOf(totalEventsInt));
     totalTasks.setText(String.valueOf(totalTasksInt));
-    String percentTasksString = String.format("%3.2f%%",percentTasksDouble);
+    String percentTasksString = String.format("%3.2f%%", percentTasksDouble);
     totalComplete.setText(percentTasksString);
   }
 
@@ -392,6 +392,11 @@ public class JournalController implements Controller {
     intro.setMediaPlayer(mediaPlayer);
     mediaPlayer.setAutoPlay(true);
     mediaPlayer.setOnEndOfMedia(() -> {
+      intro.setVisible(false);
+      pane.setVisible(false);
+      runAfterSplashScene();
+    });
+    mediaPlayer.setOnError(() -> {
       intro.setVisible(false);
       pane.setVisible(false);
       runAfterSplashScene();
