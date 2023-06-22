@@ -288,6 +288,8 @@ public class JournalController implements Controller {
           firstTime = false;
           TextInputDialog dialog = new TextInputDialog();
           dialog.setTitle("Password Prompt");
+          dialog.setGraphic(null);
+          dialog.setHeaderText(null);
           dialog.setContentText("Enter Password:");
           dialog.getDialogPane().getStylesheets()
               .add(Objects.requireNonNull(this.getClass().getResource("/NetflixTheme.css"))
@@ -377,7 +379,9 @@ public class JournalController implements Controller {
   private void playSplashScene() {
     intro.setVisible(true);
     pane.setVisible(true);
-    Media media = new Media(Path.of("src/main/resources/JournalAnimation3.mp4").toUri().toString());
+    Media media = new Media(
+        Objects.requireNonNull(getClass().getClassLoader().getResource("JournalAnimation3.mp4"))
+            .toString());
     MediaPlayer mediaPlayer = new MediaPlayer(media);
     intro.setMediaPlayer(mediaPlayer);
     mediaPlayer.setAutoPlay(true);

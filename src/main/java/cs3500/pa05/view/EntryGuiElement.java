@@ -51,8 +51,9 @@ public class EntryGuiElement {
     addBasicInfo(event);
     resultBox.getChildren().add(new Label("Start Time: " + event.getStartTime().toString()));
     String s = event.getDuration().toString();
-    resultBox.getChildren().add(new Label("Duration: " + s.substring(2, s.indexOf('H')) + " Hours " +
-        s.substring(s.indexOf('H') + 1, s.indexOf('M')) + " Minutes"));
+    resultBox.getChildren()
+        .add(new Label("Duration: " + s.substring(2, s.indexOf('H')) + " Hours "
+            + s.substring(s.indexOf('H') + 1, s.indexOf('M')) + " Minutes"));
   }
 
   /**
