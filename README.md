@@ -1,11 +1,5 @@
-[[Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/x6ckGcN8)
-
-[PA Write Up](https://markefontenot.notion.site/PA-05-8263d28a81a7473d8372c6579abd6481)
-# 3500 PA05 Project Repo
-## Program Pitch
-Jay's Java Journal is designed to help users keep track of their day with ease. It's an application that is designed
-to allow to user to have full control and optimization of weeks worth of planning in the palm of their hands. Jay's
-Java Journal is the go-to application for people who want a concise and easy way to plan out their week. Through this
+Tuck's Task Tracker is designed to help users keep track of their day with ease. It's an application that is designed
+to allow to user to have full control and optimization of weeks worth of planning in the palm of their hands. Tuck's Task Tracker is the go-to application for people who want a concise and easy way to plan out their week. Through this
 application, you will be able ot build great new habits and break old habits that may spawn from a lack of planning by
 allowing you to set obtainable goals and keeping track of what you need to do!
 
@@ -85,7 +79,7 @@ own vision of the Java Journal if they desired.
 
 ## Jar File Explanation
 To run the program: Run the Driver
-To run the JAR: [built JAR](build/fatJar/$pa05-jay-s-java-journal).jar
+To run the JAR: [built JAR](build/fatJar/$pa05-tucks-task-tracker).jar
 
 ## Screenshot
 [Week View](opening_view.png)
